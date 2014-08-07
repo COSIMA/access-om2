@@ -15,9 +15,7 @@ class ModelTestSetup(object):
     def __init__(self): 
 
         self.my_dir = os.path.dirname(os.path.realpath(__file__))
-        self.exp_dir = os.path.join(self.my_dir, '../', 'exp')
-        self.archive_dir = os.path.join(self.my_dir, '../data/archives')
-        self.work_dir = os.path.join(self.my_dir, '../', 'work')
+        self.lab_dir = os.path.join(self.my_dir, 'lab')
 
     def download_input_data(self, exp):
         """
