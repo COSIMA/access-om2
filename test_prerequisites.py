@@ -19,18 +19,26 @@ class TestPrerequisites():
 
         assert(os.path.exists('./payu-experiments'))
 
-    def test_laboratory_exist(self):
+    def test_ocean_ice_inputs(self):
         """
-        Test that all the necessary inputs exist. 
+        Test that all the necessary ocean and ice inputs exist. 
         """
         
-        inputs = ['cice', 'core2_nyf_matm', 'mom_om_1440x1080', 'um',
+        inputs = ['cice', 'core2_nyf_matm', 'mom_om_1440x1080',
                   'cice_cm_1440x1080', 'mom', 'oasis_cm', 'oasis_om',
                   'cice_om_1440x1080', 'mom_cm_1440x1080',
                   'oasis_cm_1440x1080', 'oasis_om_1440x1080']
 
         for i in inputs:
-            assert(os.path.exists(os.path.join('access/input', i)))
+            assert(os.path.exists(os.path.join('lab/input', i)))
+
+    def test_atm_inputs(self):
+        """
+        Test that the necessary atm inputs exists. 
+        """
+
+        assert(os.path.exists('lab/input/um'))
+
 
     def test_um_executable_exists(self):
         """
@@ -38,5 +46,5 @@ class TestPrerequisites():
         is here. 
         """
 
-        assert(os.path.exists('access/bin/um7.3x'))
+        assert(os.path.exists('lab/bin/um7.3x'))
 

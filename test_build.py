@@ -15,13 +15,12 @@ class TestBuild(ModelTestSetup):
         Build executables for ACCESS-OM_tiny experiment.
         """
 
-        os.chdir('payu-experiments/access-om_tiny')
-        cmd = 'payu init --laboratory {}'.format(self.lab_dir)
+        os.chdir('payu-experiments/access/access-om_tiny')
+        cmd = 'payu build --laboratory {}'.format(self.lab_dir)
         ret = sp.call(shlex.split(cmd))
         assert(ret == 0)
 
         os.chdir(self.my_dir)
-
 
     def test_ACCESS_CM_tiny(self):
         """
