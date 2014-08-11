@@ -14,7 +14,7 @@ class TestPrerequisites():
         git clone https://github.com/nicholash/payu-experiments.git
         """
 
-        assert(os.path.exists('./payu-experiments'))
+        assert(os.path.exists('./payu-experiments/.git'))
 
     def test_payu_exists(self):
         """
