@@ -12,25 +12,29 @@ class TestBuild(ModelTestSetup):
     def __init__(self):
         super(TestBuild, self).__init__()
 
+    def do_basic_build(self, exp):
+
+        exp_path = os.path.join('payu-experiments/access/', exp)
+        os.chdir(exp_path)
+        cmd = 'payu build --laboratory {}'.format(self.lab_path)
+        ret = sp.call(shlex.split(cmd))
+        assert(ret == 0)
+
+        os.chdir(self.my_path)
+
     def test_ACCESS_OM_tiny(self):
         """
         Build executables for ACCESS-OM_tiny experiment.
         """
 
-        os.chdir('payu-experiments/access/access-om_tiny')
-        cmd = 'payu build --laboratory {}'.format(self.lab_path)
-        print('Executing {}'.format(cmd))
-        ret = sp.call(shlex.split(cmd))
-        assert(ret == 0)
-
-        os.chdir(self.my_path)
+        self.do_basic_build('access-om_tiny')
 
     def test_ACCESS_CM_tiny(self):
         """
         Build executables for ACCESS-CM_tiny experiment.
         """
 
-        pass
+        self.do_basic_build('access-cm_tiny')
 
     def test_ACCESS_OM(self):
         """
@@ -39,7 +43,7 @@ class TestBuild(ModelTestSetup):
         These are the same as ACCESS-OM_tiny
         """
 
-        pass
+        self.do_basic_build('access-om')
 
 
     def test_ACCESS_CM(self):
@@ -49,18 +53,19 @@ class TestBuild(ModelTestSetup):
         These are the same as ACCESS-CM_tiny
         """
 
-        pass
+        self.do_basic_build('access-cm')
+
 
     def test_ACCESS_OM_1440x1080(self):
         """
         Build executables for ACCESS-OM_1440x1080 experiment.
         """
 
-        pass
+        self.do_basic_build('access-om_1440x1080')
 
     def test_ACCESS_CM_1440x1080(self):
         """
         Build executables for ACCESS-CM_1440x1080 experiment.
         """
 
-        pass
+        self.do_basic_build('access-cm_1440x1080')
