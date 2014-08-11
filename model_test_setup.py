@@ -40,8 +40,10 @@ class ModelTestSetup(object):
 
         os.chdir(expt_path)
         cmd = 'payu sweep --laboratory {}'.format(lab_path)
+        print('Executing {}'.format(cmd))
         sp.check_output(shlex.split(cmd))
         cmd = 'payu run -n 1 --laboratory {}'.format(lab_path)
+        print('Executing {}'.format(cmd))
         run_id = sp.check_output(shlex.split(cmd))
         run_id = run_id.strip()
 

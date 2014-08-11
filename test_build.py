@@ -1,4 +1,6 @@
 
+from __future__ import print_function
+
 from model_test_setup import ModelTestSetup
 
 import subprocess as sp
@@ -17,6 +19,7 @@ class TestBuild(ModelTestSetup):
 
         os.chdir('payu-experiments/access/access-om_tiny')
         cmd = 'payu build --laboratory {}'.format(self.lab_path)
+        print('Executing {}'.format(cmd))
         ret = sp.call(shlex.split(cmd))
         assert(ret == 0)
 
