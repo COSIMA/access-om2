@@ -2,6 +2,7 @@
 
 import sys
 import os, errno
+import shutil
 
 """
 Set up the payu lab and input directories before running tests. 
@@ -22,6 +23,7 @@ def main():
     mkdir_p('lab/codebase')
 
     os.symlink('/short/v45/nah599/access/input', 'lab/input')
+    shutil.copy('/short/v45/nah599/access/bin/um7.3x', 'lab/bin')
 
 if __name__ == '__main__':
     sys.exit(main())
