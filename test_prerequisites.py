@@ -1,27 +1,43 @@
 
 import subprocess as sp
 import os
+import shlex
 
 class TestPrerequisites():
-
-    def test_payu_exists(self):
-        """
-        Test that there is a payu installation.
-        """
-
-        ret = sp.call(['which', 'payu'])
-        assert(ret == 0)
 
     def test_experiments_exist(self):
         """
         Test that the payu experiment repo has been downloaded.
+
+        To get this test to pass: 
+
+        git clone https://github.com/nicholash/payu-experiments.git
         """
 
         assert(os.path.exists('./payu-experiments'))
 
+    def test_payu_exists(self):
+        """
+        Test that there is a payu installation.
+
+        To get this test to pass: 
+        install payu https://pypi.python.org/pypi/payu/0.1
+        """
+
+        cmd = 'which payu'
+        ret = sp.call(shlex.split(cmd))
+        assert(ret == 0)
+
+
     def test_ocean_ice_inputs(self):
         """
         Test that all the necessary ocean and ice inputs exist. 
+
+        To get this test to pass:
+
+        Type payu init --laboratory ./lab --model access
+        Then populate lab/input with the correct model inputs. 
+        You may find these at /short/v45/nah599/access/input 
         """
         
         inputs = ['cice', 'core2_nyf_matm', 'mom_om_1440x1080',
@@ -35,6 +51,10 @@ class TestPrerequisites():
     def test_atm_inputs(self):
         """
         Test that the necessary atm inputs exists. 
+
+        To get this test to pass:
+
+        See previous test. 
         """
 
         assert(os.path.exists('lab/input/um'))
@@ -44,6 +64,10 @@ class TestPrerequisites():
         """
         Since payu cannot build the UM, check that executable 
         is here. 
+
+        To get this test to pass:
+        Talk to Hailin.Yan@csiro.au about how to get a UM executable for 
+        ACCESS-CM.
         """
 
         assert(os.path.exists('lab/bin/um7.3x'))

@@ -16,11 +16,11 @@ class TestBuild(ModelTestSetup):
         """
 
         os.chdir('payu-experiments/access/access-om_tiny')
-        cmd = 'payu build --laboratory {}'.format(self.lab_dir)
+        cmd = 'payu build --laboratory {}'.format(self.lab_path)
         ret = sp.call(shlex.split(cmd))
         assert(ret == 0)
 
-        os.chdir(self.my_dir)
+        os.chdir(self.my_path)
 
     def test_ACCESS_CM_tiny(self):
         """
