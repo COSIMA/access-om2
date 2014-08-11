@@ -22,7 +22,8 @@ def main():
     mkdir_p('lab/bin')
     mkdir_p('lab/codebase')
 
-    os.symlink('/short/v45/nah599/access/input', 'lab/input')
+    if not os.path.exists('lab/input'):
+        os.symlink('/short/v45/nah599/access/input', 'lab/input')
     shutil.copy('/short/v45/nah599/access/bin/um7.3x', 'lab/bin')
 
 if __name__ == '__main__':
