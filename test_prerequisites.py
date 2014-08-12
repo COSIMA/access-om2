@@ -21,7 +21,8 @@ class TestPrerequisites():
         Test that there is a payu installation.
 
         To get this test to pass: 
-        install payu https://pypi.python.org/pypi/payu/0.1
+        git clone https://github.com/marshallward/payu.git
+        Then follow installation instructions.
         """
 
         cmd = 'which payu'

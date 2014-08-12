@@ -3,6 +3,7 @@ from __future__ import print_function
 
 import subprocess as sp
 import shlex
+import re
 import os
 import glob
 import time
@@ -50,11 +51,10 @@ class ModelTestSetup(object):
 
         # Read qsub output file and return to caller.
         stdout_filename = glob.glob('*.o{}'.format(run_id))
-        assert(len(stdout_filename) <= 1)
+        assert(len(stdout_filename) == 1)
         stdout = ''
-        if len(stdout_filename) == 1:
-            with open(stdout_filename[0], 'r') as f:
-                stdout = f.read()
+        with open(stdout_filename[0], 'r') as f:
+            stdout = f.read()
 
         stderr_filename = glob.glob('*.e{}'.format(run_id))
         assert(len(stderr_filename) <= 1)
@@ -62,6 +62,12 @@ class ModelTestSetup(object):
         if len(stderr_filename) == 1:
             with open(stderr_filename[0], 'r') as f:
                 stderr = f.read()
+
+        # Read the qsub id of the collate job from the output. 
+        m = re.search(r'\n(\d{7}.r-man2)\n', stdout)
+        assert(m is not None)
+        # Wait for the collate to complete. 
+        self.wait(m.group(1))
 
         # Files created by qsub.
         files = [os.path.abspath(f) for f in glob.glob('*.o[0-9]*')]
