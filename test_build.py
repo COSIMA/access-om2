@@ -18,10 +18,11 @@ class TestBuild(ModelTestSetup):
         os.chdir(exp_path)
         cmd = 'payu build --laboratory {}'.format(self.lab_path)
         ret = sp.call(shlex.split(cmd))
-        assert(ret == 0)
 
         os.chdir(self.my_path)
+        assert(ret == 0)
 
+    @attr('fast')
     def test_ACCESS_OM_tiny(self):
         """
         Build executables for ACCESS-OM_tiny experiment.
@@ -29,6 +30,7 @@ class TestBuild(ModelTestSetup):
 
         self.do_basic_build('access-om_tiny')
 
+    @attr('fast')
     def test_ACCESS_CM_tiny(self):
         """
         Build executables for ACCESS-CM_tiny experiment.
@@ -56,6 +58,7 @@ class TestBuild(ModelTestSetup):
         self.do_basic_build('access-cm')
 
 
+    @attr('slow')
     def test_ACCESS_OM_1440x1080(self):
         """
         Build executables for ACCESS-OM_1440x1080 experiment.
@@ -63,6 +66,7 @@ class TestBuild(ModelTestSetup):
 
         self.do_basic_build('access-om_1440x1080')
 
+    @attr('slow')
     def test_ACCESS_CM_1440x1080(self):
         """
         Build executables for ACCESS-CM_1440x1080 experiment.
