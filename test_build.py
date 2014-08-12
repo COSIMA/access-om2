@@ -1,8 +1,9 @@
 
 from __future__ import print_function
 
-from model_test_setup import ModelTestSetup
+from nose.plugins.attrib import attr
 
+from model_test_setup import ModelTestSetup
 import subprocess as sp
 import os
 import shlex
