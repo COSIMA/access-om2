@@ -66,6 +66,7 @@ class TestRun(ModelTestSetup):
         self.post_run_cleanup(paths, qsub_files)
 
 
+    @attr('fast')
     def test_ACCESS_OM_tiny(self):
         """
         Run the ACCESS-OM_tiny experiment.
@@ -74,6 +75,7 @@ class TestRun(ModelTestSetup):
         self.do_basic_run('access-om_tiny')
 
 
+    @attr('fast')
     def test_ACCESS_CM_tiny(self):
         """
         Run the ACCESS-CM_tiny experiment.
