@@ -13,7 +13,7 @@ class ModelTestSetup(object):
 
         self.my_path = os.path.dirname(os.path.realpath(__file__))
         self.lab_path = os.path.join(self.my_path, 'lab')
-
+        self.bin_path = os.path.join(self.lab_path, 'bin')
 
     def wait(self, run_id):
         """
