@@ -53,7 +53,8 @@ class TestRun(ModelTestSetup):
         paths = self.get_paths(exp)
         
         self.pre_run_checks(paths)
-        qsub_out, qsub_err, qsub_files = self.run(paths['exp'], self.lab_path)
+        ret, _, _, qsub_files = self.run(paths['exp'], self.lab_path)
+        assert(ret == 0)
         self.post_run_checks(paths)
 
         with open(paths['stdout'], 'r') as f:
@@ -69,7 +70,8 @@ class TestRun(ModelTestSetup):
         paths = self.get_paths(exp)
         
         self.pre_run_checks(paths)
-        qsub_out, qsub_err, qsub_files = self.run(paths['exp'], self.lab_path)
+        ret, _, _, qsub_files = self.run(paths['exp'], self.lab_path)
+        assert(ret == 0)
         self.post_run_checks(paths)
 
         with open(paths['stdout'], 'r') as f:
