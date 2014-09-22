@@ -16,6 +16,74 @@ class ModelTestSetup(object):
         self.lab_path = os.path.join(self.my_path, 'lab')
         self.bin_path = os.path.join(self.lab_path, 'bin')
 
+    def get_paths(self, exp_name):
+        paths = {} 
+        paths['exp'] = os.path.join('payu-experiments/access', exp_name)
+        paths['archive'] = os.path.join(self.lab_path, 'archive', exp_name)
+        paths['archive_link'] = os.path.join(paths['exp'], 'archive')
+        paths['output'] = os.path.join(paths['archive'], 'output000')
+        paths['restart'] = os.path.join(paths['archive'], 'restart000')
+        paths['stdout'] = os.path.join(paths['output'], 'access.out')
+        paths['stderr'] = os.path.join(paths['output'], 'access.err')
+
+        return paths
+
+    def pre_run_checks(self, paths):
+
+        # No model output should exist.
+        assert(not os.path.exists(paths['archive']))
+
+    def post_run_checks(self, paths):
+
+        # Model output should exist.
+        assert(os.path.exists(paths['output']))
+        assert(os.path.exists(paths['restart']))
+        assert(os.path.exists(paths['stdout']))
+        assert(os.path.exists(paths['stderr']))
+
+
+    def post_run_cleanup(self, paths, qsub_files):
+
+        # Do some clean-up
+        shutil.rmtree(paths['archive'])
+        os.remove(paths['archive_link'])
+        for f in qsub_files:
+            os.remove(f)
+
+
+    def do_basic_access_cm_run(self, exp):
+
+        paths = self.get_paths(exp)
+        
+        self.pre_run_checks(paths)
+        ret, _, _, qsub_files = self.run(paths['exp'], self.lab_path)
+        assert(ret == 0)
+        self.post_run_checks(paths)
+
+        with open(paths['stdout'], 'r') as f:
+            s = f.read()
+            assert('MOM4: --- completed ---' in s)
+
+        self.post_run_cleanup(paths, qsub_files)
+
+
+    def do_basic_access_om_run(self, exp):
+
+        paths = self.get_paths(exp)
+        
+        self.pre_run_checks(paths)
+        ret, _, _, qsub_files = self.run(paths['exp'], self.lab_path)
+        assert(ret == 0)
+        self.post_run_checks(paths)
+
+        with open(paths['stdout'], 'r') as f:
+            s = f.read()
+            assert('MOM4: --- completed ---' in s)
+            assert('********** End of MATM **********' in s)
+
+        self.post_run_cleanup(paths, qsub_files)
+
+
     def wait(self, run_id):
         """
         Wait for the qsub job to terminate. 

@@ -124,5 +124,5 @@ class TestBuild(ModelTestSetup):
         exes = [cice_exe, mom_exe]
 
         self.pre_build_cleanup(exes)
-        self.do_basic_build('access-cm_1440x1080')
+        self.do_basic_build('access-cm_1440x1080-0.2_2')
         self.post_build_checks(exes)
