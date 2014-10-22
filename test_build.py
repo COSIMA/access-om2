@@ -3,36 +3,15 @@ from __future__ import print_function
 
 from nose.plugins.attrib import attr
 
-from model_test_setup import ModelTestSetup
+from model_test_helper import ModelTestHelper
 import subprocess as sp
 import os
 import shlex
 
-class TestBuild(ModelTestSetup):
+class TestBuild(ModelTestHelper):
 
     def __init__(self):
         super(TestBuild, self).__init__()
-
-    def do_basic_build(self, exp):
-
-        exp_path = os.path.join('payu-experiments/access/', exp)
-        os.chdir(exp_path)
-        cmd = 'payu build --laboratory {}'.format(self.lab_path)
-        ret = sp.call(shlex.split(cmd))
-
-        os.chdir(self.my_path)
-        assert(ret == 0)
-
-    def pre_build_cleanup(self, exes):
-
-        for e in exes:
-            if os.path.exists(e):
-                os.remove(e)
-
-    def post_build_checks(self, exes):
-
-        for e in exes:
-            assert(os.path.exists(e))
 
     @attr('fast')
     def test_ACCESS_OM_tiny(self):

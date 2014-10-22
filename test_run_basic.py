@@ -3,12 +3,12 @@ from __future__ import print_function
 
 from nose.plugins.attrib import attr
 
-from model_test_setup import ModelTestSetup
+from model_test_helper import ModelTestHelper
 import subprocess as sp
 import shutil
 import os
 
-class TestRunBasic(ModelTestSetup):
+class TestRunBasic(ModelTestHelper):
     """
     Basic runs. Run and check return code. 
     """

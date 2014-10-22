@@ -3,12 +3,13 @@ from __future__ import print_function
 
 import subprocess as sp
 import shlex
+import shutil
 import re
 import os
 import glob
 import time
 
-class ModelTestSetup(object):
+class ModelTestHelper(object):
 
     def __init__(self): 
 
@@ -16,9 +17,9 @@ class ModelTestSetup(object):
         self.lab_path = os.path.join(self.my_path, 'lab')
         self.bin_path = os.path.join(self.lab_path, 'bin')
 
-    def get_paths(self, exp_name):
+    def make_paths(self, exp_name):
         paths = {} 
-        paths['exp'] = os.path.join('payu-experiments/access', exp_name)
+        paths['exp'] = os.path.join(self.my_path, 'payu-experiments/access', exp_name)
         paths['archive'] = os.path.join(self.lab_path, 'archive', exp_name)
         paths['archive_link'] = os.path.join(paths['exp'], 'archive')
         paths['output'] = os.path.join(paths['archive'], 'output000')
@@ -27,6 +28,26 @@ class ModelTestSetup(object):
         paths['stderr'] = os.path.join(paths['output'], 'access.err')
 
         return paths
+
+
+    def pre_build_cleanup(self, exes):
+
+        for e in exes:
+            if os.path.exists(e):
+                os.remove(e)
+
+    def post_build_checks(self, exes):
+
+        for e in exes:
+            assert(os.path.exists(e))
+
+    def do_basic_build(self, exp):
+
+        exp_path = os.path.join('payu-experiments/access/', exp)
+        ret = self.build(exp_path)
+        os.chdir(self.my_path)
+        assert(ret == 0)
+
 
     def pre_run_checks(self, paths):
 
@@ -53,7 +74,7 @@ class ModelTestSetup(object):
 
     def do_basic_access_cm_run(self, exp):
 
-        paths = self.get_paths(exp)
+        paths = self.make_paths(exp)
         
         self.pre_run_checks(paths)
         ret, _, _, qsub_files = self.run(paths['exp'], self.lab_path)
@@ -69,7 +90,7 @@ class ModelTestSetup(object):
 
     def do_basic_access_om_run(self, exp):
 
-        paths = self.get_paths(exp)
+        paths = self.make_paths(exp)
         
         self.pre_run_checks(paths)
         ret, _, _, qsub_files = self.run(paths['exp'], self.lab_path)
@@ -100,6 +121,16 @@ class ModelTestSetup(object):
             if 'Job has finished' in qsub_out:
                 break
 
+
+    def build(self, exp_path):
+
+        cur_dir = os.getcwd()
+        os.chdir(exp_path)
+        cmd = 'payu build --laboratory {}'.format(self.lab_path)
+        ret = sp.call(shlex.split(cmd))
+
+        os.chdir(cur_dir)
+        return ret
 
     def run(self, expt_path, lab_path):
         """
