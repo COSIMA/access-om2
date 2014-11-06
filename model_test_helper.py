@@ -8,6 +8,7 @@ import re
 import os
 import glob
 import time
+import threading
 
 class ModelTestHelper(object):
 
@@ -16,6 +17,7 @@ class ModelTestHelper(object):
         self.my_path = os.path.dirname(os.path.realpath(__file__))
         self.lab_path = os.path.join(self.my_path, 'lab')
         self.bin_path = os.path.join(self.lab_path, 'bin')
+        self.my_lock = threading.Lock()
 
     def make_paths(self, exp_name):
         paths = {} 
@@ -124,12 +126,17 @@ class ModelTestHelper(object):
 
     def build(self, exp_path):
 
+        # Need to lock around the chdirs. 
+        self.my_lock.acquire()
+
         cur_dir = os.getcwd()
         os.chdir(exp_path)
         cmd = 'payu build --laboratory {}'.format(self.lab_path)
         ret = sp.call(shlex.split(cmd))
 
         os.chdir(cur_dir)
+
+        self.my_lock.release()
         return ret
 
     def run(self, expt_path, lab_path):
@@ -137,6 +144,9 @@ class ModelTestHelper(object):
         Run the given experiment using payu and check output.
 
         """
+
+        # Need to lock around the chdirs. 
+        self.my_lock.acquire()
 
         # Change to experiment directory and run. 
         try:
@@ -149,7 +159,10 @@ class ModelTestHelper(object):
             os.chdir(self.my_path)
         except sp.CalledProcessError as err:
             os.chdir(self.my_path)
+            self.my_lock.release()
             return 1, None, None, None
+
+        self.my_lock.release()
 
         self.wait(run_id)
         run_id = run_id.split('.')[0]

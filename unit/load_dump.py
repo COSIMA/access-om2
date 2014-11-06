@@ -12,11 +12,11 @@ def load(test_name, input_names, output_names):
     outputs = {}
 
     for i in input_names:
-        with nc.Dataset(test_name + '-' i) as f:
+        with nc.Dataset(test_name + '-' + i) as f:
             inputs[i] = f.variables[i].data
 
     for o in output_names:
-        with nc.Dataset(test_name + '-' o) as f:
+        with nc.Dataset(test_name + '-' + o) as f:
             outputs[o] = f.variables[o].data
 
     return inputs, outputs
