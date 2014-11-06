@@ -15,10 +15,10 @@ def test_ice_formation():
     """
 
     # Load in inputs and call model. 
-    test_name = 'test_ice_formation'
-    input_names = ['temp', 'salt', 'thickness', 'frazil']
-    output_names = ['frazil', 'qice']
-    inputs, outputs = load_dump.load(test_name, input_names, output_names) 
+    routine = 'frzmlt_bottom_lateral'
+    inputs = ['temp', 'salt', 'thickness', 'frazil']
+    outputs = ['frazil', 'qice']
+    inputs, outputs = load_dump.load(routine, inputs, outputs)
 
     frazil, qice = ice_formation(temp, salt, thickness, frazil)
 
