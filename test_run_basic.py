@@ -31,7 +31,7 @@ class TestRunBasic(ModelTestHelper):
         """
 
         self.do_basic_access_cm_run('access-cm_tiny')
-        
+
 
     def test_ACCESS_OM(self):
         """
@@ -39,7 +39,7 @@ class TestRunBasic(ModelTestHelper):
         """
 
         self.do_basic_access_om_run('access-om')
-        
+
 
     def test_ACCESS_CM(self):
         """
