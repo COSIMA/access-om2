@@ -51,10 +51,15 @@ class ModelTestHelper(object):
         assert(ret == 0)
 
 
-    def pre_run_checks(self, paths):
+    def pre_run_cleanup(self, paths):
 
-        # No model output should exist.
-        assert(not os.path.exists(paths['archive']))
+        try:
+            shutil.rmtree(paths['archive'])
+        except OSError, e:
+            if not e.strerror == 'No such file or directory':
+                raise e
+                
+        os.remove(paths['archive_link'])
 
     def post_run_checks(self, paths):
 
@@ -65,20 +70,11 @@ class ModelTestHelper(object):
         assert(os.path.exists(paths['stderr']))
 
 
-    def post_run_cleanup(self, paths, qsub_files):
-
-        # Do some clean-up
-        shutil.rmtree(paths['archive'])
-        os.remove(paths['archive_link'])
-        for f in qsub_files:
-            os.remove(f)
-
-
     def do_basic_access_cm_run(self, exp):
 
         paths = self.make_paths(exp)
-        
-        self.pre_run_checks(paths)
+
+        self.pre_run_cleanup(paths)
         ret, _, _, qsub_files = self.run(paths['exp'], self.lab_path)
         assert(ret == 0)
         self.post_run_checks(paths)
@@ -87,14 +83,12 @@ class ModelTestHelper(object):
             s = f.read()
             assert('MOM4: --- completed ---' in s)
 
-        self.post_run_cleanup(paths, qsub_files)
-
 
     def do_basic_access_om_run(self, exp):
 
         paths = self.make_paths(exp)
-        
-        self.pre_run_checks(paths)
+
+        self.pre_run_cleanup(paths)
         ret, _, _, qsub_files = self.run(paths['exp'], self.lab_path)
         assert(ret == 0)
         self.post_run_checks(paths)
@@ -104,12 +98,10 @@ class ModelTestHelper(object):
             assert('MOM4: --- completed ---' in s)
             assert('********** End of MATM **********' in s)
 
-        self.post_run_cleanup(paths, qsub_files)
-
 
     def wait(self, run_id):
         """
-        Wait for the qsub job to terminate. 
+        Wait for the qsub job to terminate.
         """
 
         while True:
@@ -145,10 +137,10 @@ class ModelTestHelper(object):
 
         """
 
-        # Need to lock around the chdirs. 
+        # Need to lock around the chdirs.
         self.my_lock.acquire()
 
-        # Change to experiment directory and run. 
+        # Change to experiment directory and run.
         try:
             os.chdir(expt_path)
             cmd = 'payu sweep --laboratory {}'.format(lab_path)
@@ -191,18 +183,18 @@ class ModelTestHelper(object):
                 stderr = f.read()
 
         # Read the qsub id of the collate job from the stdout. 
-        # Payu puts this here. 
+        # Payu puts this here.
         m = re.search(r'\n(\d{7}.r-man2)\n', stdout)
         if m is None:
             return 1, stdout, stderr, output_files
 
-        # Wait for the collate to complete. 
+        # Wait for the collate to complete.
         run_id = m.group(1)
         self.wait(run_id)
 
         # Return files created by qsub so caller can read or delete.
         collate_files = os.path.join(expt_path, '*.[oe]{}'.format(run_id))
         output_files += glob.glob(collate_files)
-        
+
         return 0, stdout, stderr, output_files
 
