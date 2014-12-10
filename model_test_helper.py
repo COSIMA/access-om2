@@ -53,31 +53,31 @@ class ModelTestHelper(object):
         assert(os.path.exists(paths['stderr']))
 
 
-    def do_basic_access_cm_run(self, exp):
+    def print_output(self, files):
+
+        for file in files:
+            if os.path.exists(file):
+                with open(file, 'r') as f:
+                    print(f.read())
+
+
+    def do_basic_access_run(self, exp, model='cm'):
 
         paths = self.make_paths(exp)
 
-        ret, _, _, qsub_files = self.run(paths['exp'], self.lab_path)
+        ret, qsub_out, qsub_err, qsub_files = self.run(paths['exp'],
+                                                       self.lab_path)
+        if ret != 0:
+            self.print_output([qsub_out, qsub_err,
+                               paths['stdout'], paths['stderr']])
         assert(ret == 0)
         self.post_run_checks(paths)
 
         with open(paths['stdout'], 'r') as f:
             s = f.read()
             assert('MOM4: --- completed ---' in s)
-
-
-    def do_basic_access_om_run(self, exp):
-
-        paths = self.make_paths(exp)
-
-        ret, _, _, qsub_files = self.run(paths['exp'], self.lab_path)
-        assert(ret == 0)
-        self.post_run_checks(paths)
-
-        with open(paths['stdout'], 'r') as f:
-            s = f.read()
-            assert('MOM4: --- completed ---' in s)
-            assert('********** End of MATM **********' in s)
+            if model == 'om':
+                assert('********** End of MATM **********' in s)
 
 
     def wait(self, run_id):
@@ -165,7 +165,7 @@ class ModelTestHelper(object):
 
         # Read the qsub id of the collate job from the stdout.
         # Payu puts this here.
-        m = re.search(r'\n(\d{7}.r-man2)\n', stdout)
+        m = re.search(r'(\d{7}.r-man2)\n', stdout)
         if m is None:
             return 1, stdout, stderr, output_files
 

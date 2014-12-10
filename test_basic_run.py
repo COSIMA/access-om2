@@ -39,8 +39,8 @@ class TestBasicRun(ModelTestHelper):
         """
 
         self.pre_test_cleanup('om_360x300-tiny')
-        self.do_basic_access_om_run('om_360x300-tiny')
-        self.do_basic_access_om_run('om_360x300-tiny')
+        self.do_basic_access_run('om_360x300-tiny', model='om')
+        self.do_basic_access_run('om_360x300-tiny', model='om')
 
     @attr('fast')
     def test_ACCESS_CM_tiny(self):
@@ -49,8 +49,8 @@ class TestBasicRun(ModelTestHelper):
         """
 
         self.pre_test_cleanup('cm_360x300-tiny')
-        self.do_basic_access_cm_run('cm_360x300-tiny')
-        self.do_basic_access_cm_run('cm_360x300-tiny')
+        self.do_basic_access_run('cm_360x300-tiny')
+        self.do_basic_access_run('cm_360x300-tiny')
 
 
     @attr('slow')
@@ -60,8 +60,8 @@ class TestBasicRun(ModelTestHelper):
         """
 
         self.pre_test_cleanup('om_360x300-system_test')
-        self.do_basic_access_om_run('om_360x300-system_test')
-        self.do_basic_access_om_run('om_360x300-system_test')
+        self.do_basic_access_run('om_360x300-system_test', model='om')
+        self.do_basic_access_run('om_360x300-system_test', model='om')
 
 
     @attr('slow')
@@ -71,8 +71,8 @@ class TestBasicRun(ModelTestHelper):
         """
 
         self.pre_test_cleanup('cm_360x300-system_test')
-        self.do_basic_access_cm_run('cm_360x300-system_test')
-        self.do_basic_access_cm_run('cm_360x300-system_test')
+        self.do_basic_access_run('cm_360x300-system_test')
+        self.do_basic_access_run('cm_360x300-system_test')
 
 
     @attr('slow')
@@ -82,8 +82,8 @@ class TestBasicRun(ModelTestHelper):
         """
 
         self.pre_test_cleanup('om_1440x1080-system_test')
-        self.do_basic_access_om_run('om_1440x1080-system_test')
-        self.do_basic_access_om_run('om_1440x1080-system_test')
+        self.do_basic_access_run('om_1440x1080-system_test', model='om')
+        self.do_basic_access_run('om_1440x1080-system_test', model='om')
 
 
     @attr('slow')
@@ -93,5 +93,5 @@ class TestBasicRun(ModelTestHelper):
         """
 
         self.pre_test_cleanup('cm_1440x1080-system_test')
-        self.do_basic_access_cm_run('cm_1440x1080-system_test')
-        self.do_basic_access_cm_run('cm_1440x1080-system_test')
+        self.do_basic_access_run('cm_1440x1080-system_test')
+        self.do_basic_access_run('cm_1440x1080-system_test')
