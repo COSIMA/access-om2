@@ -12,7 +12,7 @@ import threading
 
 class ModelTestHelper(object):
 
-    def __init__(self): 
+    def __init__(self):
 
         self.my_path = os.path.dirname(os.path.realpath(__file__))
         self.lab_path = os.path.join(self.my_path, 'lab')
@@ -20,8 +20,9 @@ class ModelTestHelper(object):
         self.my_lock = threading.Lock()
 
     def make_paths(self, exp_name):
-        paths = {} 
-        paths['exp'] = os.path.join(self.my_path, 'payu-experiments/access', exp_name)
+        paths = {}
+        paths['exp'] = os.path.join(self.my_path, 'payu-experiments/access',
+                                    exp_name)
         paths['archive'] = os.path.join(self.lab_path, 'archive', exp_name)
         paths['archive_link'] = os.path.join(paths['exp'], 'archive')
         paths['output'] = os.path.join(paths['archive'], 'output000')
@@ -50,16 +51,14 @@ class ModelTestHelper(object):
         os.chdir(self.my_path)
         assert(ret == 0)
 
-
     def pre_run_cleanup(self, paths):
 
         try:
             shutil.rmtree(paths['archive'])
+            os.remove(paths['archive_link'])
         except OSError, e:
             if not e.strerror == 'No such file or directory':
                 raise e
-                
-        os.remove(paths['archive_link'])
 
     def post_run_checks(self, paths):
 
@@ -182,7 +181,7 @@ class ModelTestHelper(object):
             with open(stderr_filename, 'r') as f:
                 stderr = f.read()
 
-        # Read the qsub id of the collate job from the stdout. 
+        # Read the qsub id of the collate job from the stdout.
         # Payu puts this here.
         m = re.search(r'\n(\d{7}.r-man2)\n', stdout)
         if m is None:
