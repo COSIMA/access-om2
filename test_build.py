@@ -24,7 +24,7 @@ class TestBuild(ModelTestHelper):
         mom_exe = os.path.join(self.bin_path, 'fms_ACCESS-OM.x')
         exes = [matm_exe, cice_exe, mom_exe]
 
-        self.do_basic_build('access-om_tiny')
+        self.do_basic_build('om_360x300-tiny')
         self.post_build_checks(exes)
 
     @attr('fast')
@@ -37,7 +37,7 @@ class TestBuild(ModelTestHelper):
         mom_exe = os.path.join(self.bin_path, 'fms_ACCESS-CM.x')
         exes = [cice_exe, mom_exe]
 
-        self.do_basic_build('access-cm_tiny')
+        self.do_basic_build('cm_360x300-tiny')
         self.post_build_checks(exes)
 
 
@@ -54,7 +54,7 @@ class TestBuild(ModelTestHelper):
         mom_exe = os.path.join(self.bin_path, 'fms_ACCESS-OM.x')
         exes = [matm_exe, cice_exe, mom_exe]
 
-        self.do_basic_build('access-om')
+        self.do_basic_build('om_360x300-system_test')
         self.post_build_checks(exes)
 
 
@@ -70,7 +70,7 @@ class TestBuild(ModelTestHelper):
         mom_exe = os.path.join(self.bin_path, 'fms_ACCESS-CM.x')
         exes = [cice_exe, mom_exe]
 
-        self.do_basic_build('access-cm')
+        self.do_basic_build('om_360x300-system_test')
         self.post_build_checks(exes)
 
 
@@ -85,7 +85,7 @@ class TestBuild(ModelTestHelper):
         mom_exe = os.path.join(self.bin_path, 'fms_ACCESS-OM.x')
         exes = [matm_exe, cice_exe, mom_exe]
 
-        self.do_basic_build('access-om_1440x1080')
+        self.do_basic_build('om_1440x1080-system_test')
         self.post_build_checks(exes)
 
 
@@ -99,5 +99,5 @@ class TestBuild(ModelTestHelper):
         mom_exe = os.path.join(self.bin_path, 'fms_ACCESS-CM.x')
         exes = [cice_exe, mom_exe]
 
-        self.do_basic_build('access-cm_1440x1080-0.2_2')
+        self.do_basic_build('cm_1440x1080-system_test')
         self.post_build_checks(exes)
