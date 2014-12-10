@@ -1,6 +1,8 @@
 
 from __future__ import print_function
 
+import shutil
+import os
 from nose.plugins.attrib import attr
 
 from model_test_helper import ModelTestHelper
