@@ -178,4 +178,3 @@ class ModelTestHelper(object):
         output_files += glob.glob(collate_files)
 
         return 0, stdout, stderr, output_files
-

@@ -14,7 +14,7 @@ class TestBuild(ModelTestHelper):
         super(TestBuild, self).__init__()
 
     @attr('fast')
-    def test_ACCESS_OM_tiny(self):
+    def test_ACCESS_OM(self):
         """
         Build executables for ACCESS-OM_tiny experiment.
         """
@@ -24,53 +24,20 @@ class TestBuild(ModelTestHelper):
         mom_exe = os.path.join(self.bin_path, 'fms_ACCESS-OM.x')
         exes = [matm_exe, cice_exe, mom_exe]
 
-        self.do_basic_build('om_360x300-tiny')
+        self.do_basic_build('om_360x300-test')
         self.post_build_checks(exes)
 
     @attr('fast')
-    def test_ACCESS_CM_tiny(self):
-        """
-        Build executables for ACCESS-CM_tiny experiment.
-        """
-
-        cice_exe = os.path.join(self.bin_path, 'cice_access-cm_360x300_6p.exe')
-        mom_exe = os.path.join(self.bin_path, 'fms_ACCESS-CM.x')
-        exes = [cice_exe, mom_exe]
-
-        self.do_basic_build('cm_360x300-tiny')
-        self.post_build_checks(exes)
-
-
-    @attr('slow')
-    def test_ACCESS_OM(self):
-        """
-        Build executables for ACCESS-OM experiment.
-
-        These are the same as ACCESS-OM_tiny
-        """
-
-        matm_exe = os.path.join(self.bin_path, 'matm_nt62.exe')
-        cice_exe = os.path.join(self.bin_path, 'cice_access-om_360x300_6p.exe')
-        mom_exe = os.path.join(self.bin_path, 'fms_ACCESS-OM.x')
-        exes = [matm_exe, cice_exe, mom_exe]
-
-        self.do_basic_build('om_360x300-system_test')
-        self.post_build_checks(exes)
-
-
-    @attr('slow')
     def test_ACCESS_CM(self):
         """
         Build executables for ACCESS-CM_tiny experiment.
-
-        These are the same as ACCESS-CM_tiny
         """
 
         cice_exe = os.path.join(self.bin_path, 'cice_access-cm_360x300_6p.exe')
         mom_exe = os.path.join(self.bin_path, 'fms_ACCESS-CM.x')
         exes = [cice_exe, mom_exe]
 
-        self.do_basic_build('om_360x300-system_test')
+        self.do_basic_build('cm_360x300-test')
         self.post_build_checks(exes)
 
 
@@ -85,7 +52,7 @@ class TestBuild(ModelTestHelper):
         mom_exe = os.path.join(self.bin_path, 'fms_ACCESS-OM.x')
         exes = [matm_exe, cice_exe, mom_exe]
 
-        self.do_basic_build('om_1440x1080-system_test')
+        self.do_basic_build('om_1440x1080-test')
         self.post_build_checks(exes)
 
 
@@ -99,5 +66,5 @@ class TestBuild(ModelTestHelper):
         mom_exe = os.path.join(self.bin_path, 'fms_ACCESS-CM.x')
         exes = [cice_exe, mom_exe]
 
-        self.do_basic_build('cm_1440x1080-system_test')
+        self.do_basic_build('cm_1440x1080-test')
         self.post_build_checks(exes)
