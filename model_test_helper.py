@@ -32,13 +32,6 @@ class ModelTestHelper(object):
 
         return paths
 
-
-    def pre_build_cleanup(self, exes):
-
-        for e in exes:
-            if os.path.exists(e):
-                os.remove(e)
-
     def post_build_checks(self, exes):
 
         for e in exes:
@@ -50,15 +43,6 @@ class ModelTestHelper(object):
         ret = self.build(exp_path)
         os.chdir(self.my_path)
         assert(ret == 0)
-
-    def pre_run_cleanup(self, paths):
-
-        try:
-            shutil.rmtree(paths['archive'])
-            os.remove(paths['archive_link'])
-        except OSError, e:
-            if not e.strerror == 'No such file or directory':
-                raise e
 
     def post_run_checks(self, paths):
 
@@ -73,7 +57,6 @@ class ModelTestHelper(object):
 
         paths = self.make_paths(exp)
 
-        self.pre_run_cleanup(paths)
         ret, _, _, qsub_files = self.run(paths['exp'], self.lab_path)
         assert(ret == 0)
         self.post_run_checks(paths)
@@ -87,7 +70,6 @@ class ModelTestHelper(object):
 
         paths = self.make_paths(exp)
 
-        self.pre_run_cleanup(paths)
         ret, _, _, qsub_files = self.run(paths['exp'], self.lab_path)
         assert(ret == 0)
         self.post_run_checks(paths)
