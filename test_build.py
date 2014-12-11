@@ -13,7 +13,6 @@ class TestBuild(ModelTestHelper):
     def __init__(self):
         super(TestBuild, self).__init__()
 
-    @attr('fast')
     def test_ACCESS_OM(self):
         """
         Build executables for ACCESS-OM_tiny experiment.
@@ -27,7 +26,6 @@ class TestBuild(ModelTestHelper):
         self.do_basic_build('om_360x300-test')
         self.post_build_checks(exes)
 
-    @attr('fast')
     def test_ACCESS_CM(self):
         """
         Build executables for ACCESS-CM_tiny experiment.

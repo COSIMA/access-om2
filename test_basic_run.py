@@ -18,7 +18,7 @@ class TestBasicRun(ModelTestHelper):
     def __init__(self):
         super(TestBasicRun, self).__init__()
 
-    def pre_test_cleanup(self, exp):
+    def pre_run_cleanup(self, exp):
 
         paths = self.make_paths(exp)
 
@@ -30,25 +30,23 @@ class TestBasicRun(ModelTestHelper):
                 raise e
 
 
-    @attr('fast')
-    def test_ACCESS_OM_tiny(self):
+    def test_ACCESS_OM_360x300(self):
         """
         Run a tiny ACCESS-OM experiment.
 
         Do two runs to check that restart work correctly.
         """
 
-        self.pre_test_cleanup('om_360x300-test')
+        self.pre_run_cleanup('om_360x300-test')
         self.do_basic_access_run('om_360x300-test', model='om')
         self.do_basic_access_run('om_360x300-test', model='om')
 
-    @attr('fast')
-    def test_ACCESS_CM_tiny(self):
+    def test_ACCESS_CM_360x300(self):
         """
         Run a tiny ACCESS-CM experiment.
         """
 
-        self.pre_test_cleanup('cm_360x300-test')
+        self.pre_run_cleanup('cm_360x300-test')
         self.do_basic_access_run('cm_360x300-test')
         self.do_basic_access_run('cm_360x300-test')
 
@@ -58,7 +56,7 @@ class TestBasicRun(ModelTestHelper):
         Run the ACCESS-OM_1440x1080 experiment.
         """
 
-        self.pre_test_cleanup('om_1440x1080-test')
+        self.pre_run_cleanup('om_1440x1080-test')
         self.do_basic_access_run('om_1440x1080-test', model='om')
         self.do_basic_access_run('om_1440x1080-test', model='om')
 
@@ -69,6 +67,6 @@ class TestBasicRun(ModelTestHelper):
         Run the ACCESS-CM_1440x1080 experiment.
         """
 
-        self.pre_test_cleanup('cm_1440x1080-test')
+        self.pre_run_cleanup('cm_1440x1080-test')
         self.do_basic_access_run('cm_1440x1080-test')
         self.do_basic_access_run('cm_1440x1080-test')

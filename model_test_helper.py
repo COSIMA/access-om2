@@ -19,14 +19,16 @@ class ModelTestHelper(object):
         self.bin_path = os.path.join(self.lab_path, 'bin')
         self.my_lock = threading.Lock()
 
-    def make_paths(self, exp_name):
+    def make_paths(self, exp_name, run_num=0):
         paths = {}
+        run_num = str(run_num).zfill(3)
+
         paths['exp'] = os.path.join(self.my_path, 'payu-experiments/access',
                                     exp_name)
         paths['archive'] = os.path.join(self.lab_path, 'archive', exp_name)
         paths['archive_link'] = os.path.join(paths['exp'], 'archive')
-        paths['output'] = os.path.join(paths['archive'], 'output000')
-        paths['restart'] = os.path.join(paths['archive'], 'restart000')
+        paths['output'] = os.path.join(paths['archive'], 'output' + run_num)
+        paths['restart'] = os.path.join(paths['archive'], 'restart' + run_num)
         paths['stdout'] = os.path.join(paths['output'], 'access.out')
         paths['stderr'] = os.path.join(paths['output'], 'access.err')
 
@@ -44,15 +46,6 @@ class ModelTestHelper(object):
         os.chdir(self.my_path)
         assert(ret == 0)
 
-    def post_run_checks(self, paths):
-
-        # Model output should exist.
-        assert(os.path.exists(paths['output']))
-        assert(os.path.exists(paths['restart']))
-        assert(os.path.exists(paths['stdout']))
-        assert(os.path.exists(paths['stderr']))
-
-
     def print_output(self, files):
 
         for file in files:
@@ -60,18 +53,33 @@ class ModelTestHelper(object):
                 with open(file, 'r') as f:
                     print(f.read())
 
+    def get_most_recent_run_num(self, archive_path):
+        """
+        Look in the archive directory to find which build this is. 
+        """
+
+        dirs = glob.glob(archive_path + '/output*')
+        dirs.sort()
+
+        return int(dirs[-1][-3:])
+
 
     def do_basic_access_run(self, exp, model='cm'):
 
         paths = self.make_paths(exp)
+        ret, qso, qse, qsub_files = self.run(paths['exp'], self.lab_path)
 
-        ret, qsub_out, qsub_err, qsub_files = self.run(paths['exp'],
-                                                       self.lab_path)
+        run_num = self.get_most_recent_run_num(paths['archive'])
+        paths = self.make_paths(exp, run_num)
         if ret != 0:
-            self.print_output([qsub_out, qsub_err,
-                               paths['stdout'], paths['stderr']])
+            self.print_output([qso, qse, paths['stdout'], paths['stderr']])
         assert(ret == 0)
-        self.post_run_checks(paths)
+
+        # Model output should exist.
+        assert(os.path.exists(paths['output']))
+        assert(os.path.exists(paths['restart']))
+        assert(os.path.exists(paths['stdout']))
+        assert(os.path.exists(paths['stderr']))
 
         with open(paths['stdout'], 'r') as f:
             s = f.read()
