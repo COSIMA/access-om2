@@ -32,6 +32,9 @@ class ModelTestHelper(object):
         paths['stdout'] = os.path.join(paths['output'], 'access.out')
         paths['stderr'] = os.path.join(paths['output'], 'access.err')
 
+        paths['stdout_runtime'] = os.path.join(paths['exp'], 'access.out')
+        paths['stderr_runtime'] = os.path.join(paths['exp'], 'access.err')
+
         return paths
 
     def post_build_checks(self, exes):
@@ -68,12 +71,12 @@ class ModelTestHelper(object):
 
         paths = self.make_paths(exp)
         ret, qso, qse, qsub_files = self.run(paths['exp'], self.lab_path)
+        if ret != 0:
+            self.print_output([qso, qse, paths['stdout_runtime'], paths['stderr_runtime']])
+        assert(ret == 0)
 
         run_num = self.get_most_recent_run_num(paths['archive'])
         paths = self.make_paths(exp, run_num)
-        if ret != 0:
-            self.print_output([qso, qse, paths['stdout'], paths['stderr']])
-        assert(ret == 0)
 
         # Model output should exist.
         assert(os.path.exists(paths['output']))
