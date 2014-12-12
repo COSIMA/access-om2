@@ -10,21 +10,23 @@ def test_wind_rotation():
     normalise. Make sure they are the same.
     """
 
-    load_dump.load_coupling_fields('om_360x300-unit_test', ['uwnd', 'vwnd'])
-    routine = 'atmo_boundar_layer'
-    inputs = ['uatm', 'vatm']
-    inputs, _ = load_dump.load('om_360x300-unit_test', routine, inputs, [])
-    
-    # Choose our point, should be a place where grid cells are going to have 
-    # different rotations. 
+    pass
 
-    lat = 1.22317  
-    lon = -1.77761
+    #load_dump.load_coupling_fields('om_360x300-unit_test', ['uwnd', 'vwnd'])
+    #routine = 'atmo_boundar_layer'
+    #inputs = ['uatm', 'vatm']
+    #inputs, _ = load_dump.load('om_360x300-unit_test', routine, inputs, [])
 
-    # Check that there is a non-zero angle at this point. 
+    # Choose our point, should be a place where grid cells are going to have
+    # different rotations.
 
-    # Get the atm and ice grid boxes that corresponds to this location. 
+    #lat = 1.22317
+    #lon = -1.77761
 
-    # U and V winds at this location in both atmos and ice. 
+    # Check that there is a non-zero angle at this point.
 
-    # The should not be the same, the ice should have been rotated. 
+    # Get the atm and ice grid boxes that corresponds to this location.
+
+    # U and V winds at this location in both atmos and ice.
+
+    # The should not be the same, the ice should have been rotated.
