@@ -36,7 +36,7 @@ class TestBitReproducibility(ModelTestHelper):
 
     def expected_checksums(self, test_name):
 
-        filename = os.path.join(self.my_dir, 'checksums',
+        filename = os.path.join(self.my_path, 'checksums',
                                 '{}.txt'.format(test_name))
         return self.checksums_to_dict(filename)
 
@@ -46,8 +46,8 @@ class TestBitReproducibility(ModelTestHelper):
         Extract checksums from model run output.
         """
 
-        filename = os.path.join(self.work_dir, test_name, 'fms.out')
-        return self.checksums_to_dict(filename)
+        paths = self.make_paths(test_name)
+        return self.checksums_to_dict(paths['stdout'])
 
 
     def check_run(self, key):
@@ -64,7 +64,7 @@ class TestBitReproducibility(ModelTestHelper):
             assert(expected[k] == produced[k])
 
     def test_checksums(self):
-        for k in test.keys():
+        for k in tests.keys():
             yield self.check_run, k
 
 
