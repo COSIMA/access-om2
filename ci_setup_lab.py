@@ -45,7 +45,7 @@ def main():
 
     if not os.path.exists('lab/input'):
         os.symlink('/short/v45/nah599/access/input', 'lab/input')
-    shutil.copy('/short/v45/nah599/access/bin/um7.3.exe', 'lab/bin')
+    shutil.copy('/short/v45/nah599/access/bin/um7.3.dbg.exe', 'lab/bin')
 
 if __name__ == '__main__':
     sys.exit(main())
