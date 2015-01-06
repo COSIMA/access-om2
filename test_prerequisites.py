@@ -71,5 +71,5 @@ class TestPrerequisites():
         ACCESS-CM.
         """
 
-        assert(os.path.exists('lab/bin/um7.3.exe'))
+        assert(os.path.exists('lab/bin/um7.3.dgb.exe'))
 
