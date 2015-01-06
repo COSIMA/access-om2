@@ -32,7 +32,7 @@ class TestBasicRun(ModelTestHelper):
 
     def test_ACCESS_OM_360x300(self):
         """
-        Run a tiny ACCESS-OM experiment.
+        Run the ACCESS-OM_360x300 experiment.
 
         Do two runs to check that restart work correctly.
         """
@@ -43,7 +43,7 @@ class TestBasicRun(ModelTestHelper):
 
     def test_ACCESS_CM_360x300(self):
         """
-        Run a tiny ACCESS-CM experiment.
+        Run the ACCESS-CM_360x300 experiment.
         """
 
         self.pre_run_cleanup('cm_360x300-test')
