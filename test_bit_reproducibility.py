@@ -6,11 +6,7 @@ import sys
 import re
 
 from model_test_helper import ModelTestHelper
-
-tests = {'om_360x300-test' : ('om'),
-         'cm_360x300-test' : ('cm'),
-         'om_1440x1080-test' : ('om'),
-         'cm_1440x1080-test' : ('cm')}
+from test_basic_run import tests
 
 class TestBitReproducibility(ModelTestHelper):
 

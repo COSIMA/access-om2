@@ -3,12 +3,13 @@ from __future__ import print_function
 
 import shutil
 import os
-from nose.plugins.attrib import attr
 
 from model_test_helper import ModelTestHelper
 
-# FIXME: use a test generator here:
-# http://nose.readthedocs.org/en/latest/writing_tests.html
+tests = {'om_360x300-test' : ('om'),
+         'cm_360x300-test' : ('cm'),
+         'om_1440x1080-test' : ('om'),
+         'cm_1440x1080-test' : ('cm')}
 
 class TestBasicRun(ModelTestHelper):
     """
@@ -29,44 +30,13 @@ class TestBasicRun(ModelTestHelper):
             if not e.strerror == 'No such file or directory':
                 raise e
 
+    def check_run(self, key):
 
-    def test_ACCESS_OM_360x300(self):
-        """
-        Run the ACCESS-OM_360x300 experiment.
+        print('############ Running {} ############'.format(key))
+        self.pre_run_cleanup(key)
+        self.do_basic_access_run(key, model=tests[key][0])
+        self.do_basic_access_run(key, model=tests[key][0])
 
-        Do two runs to check that restart work correctly.
-        """
-
-        self.pre_run_cleanup('om_360x300-test')
-        self.do_basic_access_run('om_360x300-test', model='om')
-        self.do_basic_access_run('om_360x300-test', model='om')
-
-    def test_ACCESS_CM_360x300(self):
-        """
-        Run the ACCESS-CM_360x300 experiment.
-        """
-
-        self.pre_run_cleanup('cm_360x300-test')
-        self.do_basic_access_run('cm_360x300-test')
-        self.do_basic_access_run('cm_360x300-test')
-
-    @attr('slow')
-    def test_ACCESS_OM_1440x1080(self):
-        """
-        Run the ACCESS-OM_1440x1080 experiment.
-        """
-
-        self.pre_run_cleanup('om_1440x1080-test')
-        self.do_basic_access_run('om_1440x1080-test', model='om')
-        self.do_basic_access_run('om_1440x1080-test', model='om')
-
-
-    @attr('slow')
-    def test_ACCESS_CM_1440x1080(self):
-        """
-        Run the ACCESS-CM_1440x1080 experiment.
-        """
-
-        self.pre_run_cleanup('cm_1440x1080-test')
-        self.do_basic_access_run('cm_1440x1080-test')
-        self.do_basic_access_run('cm_1440x1080-test')
+    def test_runs(self):
+        for k in tests.keys():
+            yield self.check_run, k
