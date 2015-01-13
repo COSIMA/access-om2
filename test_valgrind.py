@@ -15,7 +15,7 @@ class TestValgrind(ModelTestHelper):
     """
 
     def __init__(self):
-        super(TestBasicRun, self).__init__()
+        super(TestValgrind, self).__init__()
 
     def pre_run_cleanup(self, exp):
 
