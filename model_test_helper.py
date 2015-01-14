@@ -2,6 +2,7 @@
 from __future__ import print_function
 
 import subprocess as sp
+import sys
 import shlex
 import shutil
 import re
@@ -73,6 +74,7 @@ class ModelTestHelper(object):
         ret, qso, qse, qsub_files = self.run(paths['exp'], self.lab_path)
         if ret != 0:
             self.print_output([qso, qse, paths['stdout_runtime'], paths['stderr_runtime']])
+        print('Run {} failed with code {}.'.format(exp, ret), file=sys.stderr)
         assert(ret == 0)
 
         run_num = self.get_most_recent_run_num(paths['archive'])
@@ -144,6 +146,7 @@ class ModelTestHelper(object):
         except sp.CalledProcessError as err:
             os.chdir(self.my_path)
             self.my_lock.release()
+            print('Error: call to payu-run failed.', file=sys.stderr)
             return 1, None, None, None
 
         self.my_lock.release()
@@ -156,7 +159,8 @@ class ModelTestHelper(object):
         stdout_filename = glob.glob(os.path.join(expt_path,
                                                 '*.o{}'.format(run_id)))
         if len(stdout_filename) != 1:
-            return 1, None, None, None
+            print('Error: there are too many stdout files.', file=sys.stderr)
+            return 2, None, None, None
 
         stdout_filename = stdout_filename[0]
         output_files.append(stdout_filename)
@@ -178,7 +182,8 @@ class ModelTestHelper(object):
         # Payu puts this here.
         m = re.search(r'(\d{7}.r-man2)\n', stdout)
         if m is None:
-            return 1, stdout, stderr, output_files
+            print('Error: qsub id of collate job.', file=sys.stderr)
+            return 3, stdout, stderr, output_files
 
         # Wait for the collate to complete.
         run_id = m.group(1)
