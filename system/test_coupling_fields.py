@@ -17,9 +17,12 @@ class TestCouplingFields(ModelTestHelper):
         models.
         """
 
-        hi_fields = os.path.join(self.paths['cm_1440x1080-test']['output'], 'ice',
+        hi_paths = self.make_paths('cm_1440x1080-test')
+        lo_paths = self.make_paths('cm_360x300-test')
+
+        hi_fields = os.path.join(hi_paths['output'], 'ice',
                                  'fields_a2i_in_ice.nc')
-        lo_fields = os.path.join(self.paths['cm_360x300-test']['output'], 'ice',
+        lo_fields = os.path.join(lo_paths['output'], 'ice',
                                  'fields_a2i_in_ice.nc')
         f_hi = nc.Dataset(hi_fields)
         f_hi.close()
