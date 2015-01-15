@@ -1,8 +1,7 @@
 
 from __future__ import print_function
 
-from nose.plugins.attrib import attr
-
+import os
 import netCDF4 as nc
 
 from model_test_helper import ModelTestHelper
@@ -12,7 +11,6 @@ class TestCouplingFields(ModelTestHelper):
     def __init__(self):
         super(TestCouplingFields, self).__init__()
 
-    @attr('slow')
     def test_swflx(self):
         """
         Compare short wave flux over a geographic area between low and hi res
