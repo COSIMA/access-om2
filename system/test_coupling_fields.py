@@ -13,7 +13,7 @@ class TestCouplingFields(ModelTestHelper):
         super(TestCouplingFields, self).__init__()
 
     @attr('slow')
-    def test_swflx():
+    def test_swflx(self):
         """
         Compare short wave flux over a geographic area between low and hi res
         models.
