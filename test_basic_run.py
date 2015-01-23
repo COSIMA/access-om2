@@ -6,10 +6,10 @@ import os
 
 from model_test_helper import ModelTestHelper
 
-tests = {'om_360x300-test' : ('om'),
-         'cm_360x300-test' : ('cm'),
-         'om_1440x1080-test' : ('om'),
-         'cm_1440x1080-test' : ('cm')}
+tests = {'cm_360x300-test' : ('cm'),
+         'om_360x300-test' : ('om'),
+         'cm_1440x1080-test' : ('cm'),
+         'om_1440x1080-test' : ('om')}
 
 class TestBasicRun(ModelTestHelper):
     """

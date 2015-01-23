@@ -74,7 +74,7 @@ class ModelTestHelper(object):
         ret, qso, qse, qsub_files = self.run(paths['exp'], self.lab_path)
         if ret != 0:
             self.print_output([qso, qse, paths['stdout_runtime'], paths['stderr_runtime']])
-        print('Run {} failed with code {}.'.format(exp, ret), file=sys.stderr)
+            print('Run {} failed with code {}.'.format(exp, ret), file=sys.stderr)
         assert(ret == 0)
 
         run_num = self.get_most_recent_run_num(paths['archive'])
