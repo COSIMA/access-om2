@@ -7,9 +7,7 @@ import os
 from model_test_helper import ModelTestHelper
 
 tests = {'cm_360x300-test' : ('cm'),
-         'om_360x300-test' : ('om'),
-         'cm_1440x1080-test' : ('cm'),
-         'om_1440x1080-test' : ('om')}
+         'cm_1440x1080-test' : ('cm')}
 
 class TestBasicRun(ModelTestHelper):
     """
