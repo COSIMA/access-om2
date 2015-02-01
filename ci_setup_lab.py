@@ -7,7 +7,10 @@ import shlex
 import subprocess as sp
 
 """
-Set up the payu lab and input directories before running tests. 
+Setup script. Initialises:
+    - the payu lab (which includes work, archive and source code directories.)
+    - standard experiments.
+    - standard model input.
 """
 
 def mkdir_p(path):
@@ -36,16 +39,30 @@ def clone(repo_url, dest):
 
 def main():
 
-    clone('https://github.com/nicholash/payu-experiments.git',
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--download_input_data", default=False, help="""
+                        Download experiment input data.""")
+
+    args = parser.parse_args()
+
+    # Download experiments from the Climate and Weather Science Laboratory
+    # (cwslab.nci.org.au)
+    clone('https://github.com/CWSL/payu-experiments.git',
           'payu-experiments')
 
     mkdir_p('lab/archive')
     mkdir_p('lab/bin')
     mkdir_p('lab/codebase')
+    mkdir_p('lab/input')
 
-    if not os.path.exists('lab/input'):
-        os.symlink('/short/v45/nah599/access/input', 'lab/input')
-    shutil.copy('/short/v45/nah599/access/bin/um7.3.dbg.exe', 'lab/bin')
+    # Download input data.
+    if args.download_input_data:
+        # FIXME: download from Ramadda.
+        pass
+    else:
+        # FIXME: link from /short/public. 
+        if not os.path.exists('lab/input'):
+            os.symlink('/short/v45/nah599/access/input', 'lab/input')
 
 if __name__ == '__main__':
     sys.exit(main())
