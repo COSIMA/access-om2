@@ -16,7 +16,7 @@ class ModelTestHelper(object):
     def __init__(self):
 
         self.my_path = os.path.dirname(os.path.realpath(__file__))
-        self.lab_path = os.path.join(self.my_path, 'lab')
+        self.lab_path = os.path.join(self.my_path, '../', 'lab')
         self.bin_path = os.path.join(self.lab_path, 'bin')
         self.my_lock = threading.Lock()
 
