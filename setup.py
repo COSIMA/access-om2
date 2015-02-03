@@ -2,9 +2,9 @@
 
 import sys
 import os, errno
-import shutil
 import shlex
 import subprocess as sp
+import argparse
 
 """
 Setup script. Initialises:
@@ -20,7 +20,6 @@ def mkdir_p(path):
         if exc.errno == errno.EEXIST and os.path.isdir(path):
             pass
         else: raise
-
 
 def clone(repo_url, dest):
 
@@ -47,22 +46,31 @@ def main():
 
     # Download experiments from the Climate and Weather Science Laboratory
     # (cwslab.nci.org.au)
-    clone('https://github.com/CWSL/payu-experiments.git',
-          'payu-experiments')
+    clone('https://github.com/CWSL/payu-experiments.git', 'experiments')
 
     mkdir_p('lab/archive')
     mkdir_p('lab/bin')
     mkdir_p('lab/codebase')
-    mkdir_p('lab/input')
 
     # Download input data.
+    data = '/short/public/access-om/access-om.tar.gz'
     if args.download_input_data:
         # FIXME: download from Ramadda.
+        # data = ''
         pass
-    else:
-        # FIXME: link from /short/public. 
-        if not os.path.exists('lab/input'):
-            os.symlink('/short/v45/nah599/access/input', 'lab/input')
+
+    if not os.path.exists('lab/input'):
+        cwd = os.getcwd()
+        try:
+            os.chdir('lab')
+            cmd = '/bin/tar -zxvf {}'.format(data)
+            ret = sp.call(shlex.split(cmd))
+        finally:
+            os.chdir(cwd)
+
+        assert(ret == 0)
+
+    return 0
 
 if __name__ == '__main__':
     sys.exit(main())
