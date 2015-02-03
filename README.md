@@ -20,7 +20,13 @@ This model needs the following software to run:
 Install
 -------
 
-The first step to installing this model is to create the directory structure and download standard experiments and their input data. The setup.py script can do this for you:
+Start by downloading this repository:
+
+    $ git clone https://github.com/CWSL/access-om.git
+
+This should be downloaded to a place which has enough disk space to the model inputs and output.
+
+The next step is to create the directory structure and download standard experiments and their input data. The setup.py script can be used to do this:
 
     $ setup.py --download_input_data
 
@@ -36,16 +42,16 @@ Payu will download and compile the model components based on information provide
     $ cd experiments/access/<experiment>
     $ payu build --laboratory <full_path_to_lab_directory>
 
-Once this has finished check that you have mom, cice and matm executables in lab/bin.
+Once this has finished check that the mom, cice and matm executables in lab/bin.
 
 If the build fails then it is probably because the build process is not configured for your particular platform. You may have to edit the individual build configurations in lab/codebase/\<model\>/ as well as the build commands found in the experiment config file in experiments/access/\<experiment\>/config.yaml
 
 Run
 ---
 
-Payu can now be used to submit and run an experiment. Before doing this you need to edit the experiment config to set up your job scheduling settings. Open experiments/access/\<experiment\>/config.yaml to do this.
+Payu can now be used to submit and run an experiment. Before doing the experiment config may need to be edited to configure the job scheduling settings. Open experiments/access/\<experiment\>/config.yaml to do this.
 
-To run an experiment:
+Then to run an experiment:
 
     $ cd experiments/access/<experiment>
     $ payu run --laboratory <full_path_to_lab_directory>
