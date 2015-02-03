@@ -12,9 +12,10 @@ Prerequisites
 -------------
 
 This model needs the following software to run:
-    * the Payu experiment management tool (http://payu.readthedocs.org/en/latest/).
-    * a fortran compiler such as gfortran or intel-fc
-    * an MPI implementation such as OpenMPI.
+
+* the Payu experiment management tool (http://payu.readthedocs.org/en/latest/).
+* a fortran compiler such as gfortran or intel-fc
+* an MPI implementation such as OpenMPI.
 
 Install
 -------
