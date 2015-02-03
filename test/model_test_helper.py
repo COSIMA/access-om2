@@ -24,7 +24,7 @@ class ModelTestHelper(object):
         paths = {}
         run_num = str(run_num).zfill(3)
 
-        paths['exp'] = os.path.join(self.my_path, 'payu-experiments/access',
+        paths['exp'] = os.path.join(self.my_path, 'experiments/access',
                                     exp_name)
         paths['archive'] = os.path.join(self.lab_path, 'archive', exp_name)
         paths['archive_link'] = os.path.join(paths['exp'], 'archive')
@@ -45,7 +45,7 @@ class ModelTestHelper(object):
 
     def do_basic_build(self, exp):
 
-        exp_path = os.path.join('payu-experiments/access/', exp)
+        exp_path = os.path.join('experiments/access/', exp)
         ret = self.build(exp_path)
         os.chdir(self.my_path)
         assert(ret == 0)
