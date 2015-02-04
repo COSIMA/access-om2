@@ -24,7 +24,7 @@ class ModelTestHelper(object):
         paths = {}
         run_num = str(run_num).zfill(3)
 
-        paths['exp'] = os.path.join(self.my_path, 'experiments/access',
+        paths['exp'] = os.path.join(self.my_path, '../', 'experiments/access',
                                     exp_name)
         paths['archive'] = os.path.join(self.lab_path, 'archive', exp_name)
         paths['archive_link'] = os.path.join(paths['exp'], 'archive')
