@@ -7,7 +7,7 @@ import os
 from model_test_helper import ModelTestHelper
 
 tests = {'om_360x300-valgrind' : ('om'),
-         'cm_360x300-valgrind' : ('cm')}
+         'om_1440x1080-valgrind' : ('om')}
 
 class TestValgrind(ModelTestHelper):
     """
