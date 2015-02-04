@@ -45,8 +45,8 @@ class ModelTestHelper(object):
 
     def do_basic_build(self, exp):
 
-        exp_path = os.path.join('experiments/access/', exp)
-        ret = self.build(exp_path)
+        paths = self.make_paths(exp)
+        ret = self.build(paths['exp'])
         os.chdir(self.my_path)
         assert(ret == 0)
 
