@@ -39,7 +39,8 @@ def clone(repo_url, dest):
 def main():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--download_input_data", default=False, help="""
+    parser.add_argument("--download_input_data", action='store_true',
+                        default=False, help="""
                         Download experiment input data.""")
 
     args = parser.parse_args()

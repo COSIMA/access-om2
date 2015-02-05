@@ -106,7 +106,7 @@ class ModelTestHelper(object):
             except sp.CalledProcessError as err:
                 qsub_out = err.output
 
-            if 'Job has finished' in qsub_out:
+            if 'Job id' not in qsub_out:
                 break
 
 
