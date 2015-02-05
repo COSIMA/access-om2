@@ -106,9 +106,8 @@ class ModelTestHelper(object):
             except sp.CalledProcessError as err:
                 qsub_out = err.output
 
-            if 'Job id' not in qsub_out:
+            if 'Job has finished' in qsub_out:
                 break
-
 
     def build(self, exp_path):
 
@@ -141,7 +140,7 @@ class ModelTestHelper(object):
             sp.check_output(shlex.split(cmd))
             cmd = 'payu run -n 1 --laboratory {}'.format(lab_path)
             run_id = sp.check_output(shlex.split(cmd))
-            run_id = run_id.strip()
+            run_id = run_id.splitlines()[0]
             os.chdir(self.my_path)
         except sp.CalledProcessError as err:
             os.chdir(self.my_path)
