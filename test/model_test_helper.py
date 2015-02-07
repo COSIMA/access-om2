@@ -53,9 +53,10 @@ class ModelTestHelper(object):
     def print_output(self, files):
 
         for file in files:
-            if os.path.exists(file):
-                with open(file, 'r') as f:
-                    print(f.read())
+            if file is not None:
+                if os.path.exists(file):
+                    with open(file, 'r') as f:
+                        print(f.read())
 
     def get_most_recent_run_num(self, archive_path):
         """
