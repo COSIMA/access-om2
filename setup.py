@@ -21,21 +21,6 @@ def mkdir_p(path):
             pass
         else: raise
 
-def clone(repo_url, dest):
-
-    # Clone the experiments directory. 
-    path = os.path.join(dest, '.git')
-    if not os.path.exists(path):
-        cmd = 'git clone {} {}'.format(repo_url, dest)
-        sp.check_call(shlex.split(cmd))
-
-    curdir = os.getcwd()
-    os.chdir(dest)
-    sp.check_call(shlex.split('git checkout master'))
-    sp.check_call(shlex.split('git pull'))
-    os.chdir(curdir)
-
-
 def main():
 
     parser = argparse.ArgumentParser()
@@ -44,10 +29,6 @@ def main():
                         Download experiment input data.""")
 
     args = parser.parse_args()
-
-    # Download experiments from the Climate and Weather Science Laboratory
-    # (cwslab.nci.org.au)
-    clone('https://github.com/CWSL/payu-experiments.git', 'experiments')
 
     mkdir_p('lab/archive')
     mkdir_p('lab/bin')

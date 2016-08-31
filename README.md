@@ -1,67 +1,102 @@
 ACCESS-OM
 =========
 
-The Australian Community Coupled Earth System Simulator Climate Model (ACCESS-CM) is a coupled climate model with several configurations:
-
-- An ocean only configuration consisting of MOM (www.mom-ocean.org), CICE (http://oceans11.lanl.gov/drupal/CICE) and a data driven atmosphere coupled together with OASIS3-MCT (https://verc.enes.org/oasis).
-- A climate configuration as above but with a dynamic atmosphere component.
-
-This repository contains the ocean only configuration, which is called ACCESS-OM. To run the climate configuration visit the Climate and Weather Science Laboratory at cwslab.nci.org.au
+This model consists of MOM5.1, CICE4.1, and a file-based atmosphere called MATM all coupled together with the OASIS3-MCT coupler.
 
 Prerequisites
 -------------
 
 This model needs the following software to run:
 
-* The Payu experiment management tool (http://payu.readthedocs.org/en/latest/).
+* git distributed version control software.
+* A Python installation.
 * A fortran compiler such as gfortran or intel-fc.
 * An MPI implementation such as OpenMPI.
 
 Install
 -------
 
-Start by downloading this repository:
+Start by downloading the experiment configurations and the source repositories:
 
-    $ git clone https://github.com/CWSL/access-om.git
+```
+$ git clone --recursive https://github.com/CWSL/access-om.git
+```
 
 This should be downloaded to a place which has enough disk space for the model inputs and output.
 
-The next step is to download standard experiments and their input data. The setup.py script can be used to do this:
+The next step is to download experiment input data.
 
-    $ setup.py --download_input_data
+```
+$ setup.py --download_input_data
+```
 
-Then run some tests to make sure the above step suceeded and the prerequisite software exists.
+Then run some tests to make sure the above steps suceeded.
 
-    $ nosetests test/test_prerequisites.py
+```
+$ nosetests test/test_download.py
+```
 
 Compile
 -------
 
-Payu will download and compile the model components based on information provided in the experiment configs. To compile the models for a particular experiment:
+Each model and the OASIS coupler need to be built individually.
 
-    $ cd experiments/access/<experiment>
-    $ payu build --laboratory <full_path_to_lab_directory>
+Start with OASIS because it is needed by the others:
 
-Once this has finished check that the mom, cice and matm executables are in lab/bin.
+```
+$ export ACCESS_OM_DIR=<full path to access-om dir>
+$ cd $ACCESS_OM_DIR/src/oasis3-mct/
+$ make
+```
 
-If the build fails then it is probably because the build process is not configured for your particular platform. You may have to edit the individual build configurations in lab/codebase/\<model\>/ as well as the build commands found in the experiment config file in experiments/access/\<experiment\>/config.yaml
+Now compile the ocean, ice and file-based atmosphere. These can be done in parallel. It's probably best to do them in separate terminals in case there is an error.
+
+For ocean:
+```
+$ cd $ACCESS_OM_DIR/src/mom
+$
+```
+
+For ice:
+```
+$ cd $ACCESS_OM_DIR/src/cice4
+$
+```
+
+For atm:
+```
+$ cd $ACCESS_OM_DIR/src/matm
+$
+```
+
+Once this has finished check that the mom, cice and matm executables exist.
+
+If the build fails then it is probably because the build process is not configured for your particular platform. You may have to edit the individual build configurations in src/\<model\>/.
+
+Now run tests to ensure that this step succeeded:
+
+```
+$ nosetests test/test_build.py
+```
 
 Run
 ---
 
-Payu can now be used to submit and run an experiment. Before doing this the experiment config may need to be edited to configure job scheduling settings, open experiments/access/\<experiment\>/config.yaml to do this.
-
 Then to run an experiment:
 
-    $ cd experiments/access/<experiment>
-    $ payu run --laboratory <full_path_to_lab_directory>
+    $ cd 025deg
+    $ mkdir RESTART
+    $ mpirun -
 
-The model output can be found in the experiment directory. For a successful run the experimental output will appear in lab/archive/\<experiment\>/
 
-If a run fails and you want to resubmit, before running payu run (from above) you need to run:
+Verify
+------
 
-    $ payu sweep --laboratory <full_path_to_lab_directory>
+To verify a successful run from above...
 
+```
+$ nosetests test/test_run.py
+```
 
 Testing
 -------

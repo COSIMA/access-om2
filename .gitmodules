@@ -7,9 +7,6 @@
 [submodule "src/oasis3-mct"]
 	path = src/oasis3-mct
 	url = git@github.com:OceansAus/oasis3-mct.git
-[submodule "src/matm.git"]
-	path = src/matm.git
-	url = git@github.com:OceansAus/matm.git
 [submodule "src/matm"]
 	path = src/matm
 	url = git@github.com:OceansAus/matm.git
