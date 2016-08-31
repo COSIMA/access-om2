@@ -1,0 +1,150 @@
+MOM4p1_CORE_IAF_v20120531_0849_noRestore_runoff_fix
+1 1 1 0 0 0
+#output files
+"ocean",            1,  "months", 1, "days", "time",
+"ocean_daily",     24,  "hours",  1, "days", "time",
+"ocean_grid",      -1,  "months", 1, "days", "time",
+"ocean_scalar",     1,  "days", 1, "hours", "time",
+"ocean_model","geolon_t","geolon_t", "ocean_grid","all",.false.,"none",2
+"ocean_model","geolat_t","geolat_t", "ocean_grid","all",.false.,"none",2
+"ocean_model","geolon_c","geolon_c", "ocean_grid","all",.false.,"none",2
+"ocean_model","geolat_c","geolat_c", "ocean_grid","all",.false.,"none",2
+"ocean_model","ht","ht",             "ocean_grid","all",.false.,"none",2
+"ocean_model","hu","hu",             "ocean_grid","all",.false.,"none",2
+"ocean_model","area_t","area_t",     "ocean_grid","all",.false.,"none",2
+"ocean_model","area_u","area_u",     "ocean_grid","all",.false.,"none",2
+"ocean_model","kmt","kmt",           "ocean_grid","all",.false.,"none",2
+"ocean_model","kmu","kmu",           "ocean_grid","all",.false.,"none",2
+"ocean_model","drag_coeff","drag_coeff","ocean_grid","all",.false.,"none",2
+#==========================================================================
+# Prognostic fields:
+# 3d fields
+"ocean_model","geolon_t","geolon_t", "ocean","all",.false.,"none",2
+"ocean_model","geolat_t","geolat_t", "ocean","all",.false.,"none",2
+"ocean_model","geolon_c","geolon_c", "ocean","all",.false.,"none",2
+"ocean_model","geolat_c","geolat_c", "ocean","all",.false.,"none",2
+"ocean_model","temp","temp",            "ocean","all",.true.,"none",2
+"ocean_model","salt","salt",            "ocean","all",.true.,"none",2
+"ocean_model","age_global","age_global","ocean","all",.true.,"none",2
+"ocean_model","u","u",                  "ocean","all",.true.,"none",2
+"ocean_model","v","v",                  "ocean","all",.true.,"none",2
+#
+# 2d fields
+"ocean_model","eta_t","eta_t",          "ocean","all",.true.,"none",2
+"ocean_model","eta_u","eta_u",          "ocean","all",.true.,"none",2
+"ocean_model","temp_int_rhodz","temp_int_rhodz",          "ocean","all",.true.,"none",2
+"ocean_model","salt_int_rhodz","salt_int_rhodz",          "ocean","all",.true.,"none",2
+"ocean_model","sea_level","sea_level",           "ocean","all",.true.,"none",2
+"ocean_model","sea_level_sq","sea_levelsq",      "ocean","all",.true.,"none",2
+# diagnostic fields
+# 3d fields
+ "ocean_model","wt","wt",                            "ocean","all",.true.,"none",2
+#
+"ocean_model","pot_rho_0","pot_rho_0",              "ocean","all",.true.,"none",2
+ "ocean_model","pot_rho_2k","pot_rho_2k",              "ocean","all",.true.,"none",2
+"ocean_model","dzt","dzt",                          "ocean","all",.true.,"none",2
+#
+# 2d fields
+"ocean_model","hblt","hblt",                        "ocean","all",.true.,"none",2
+"ocean_model","mld","mld",                          "ocean","all",.true.,"none",2
+"ocean_model","mld_dtheta","mld_dtheta",            "ocean","all",.true.,"none",2
+#
+"ocean_model","tau_x","tau_x"     , "ocean_daily","all",.false.,"none",2
+"ocean_model","tau_y","tau_y"     , "ocean_daily","all",.false.,"none",2
+"ocean_model","geolon_t","geolon_t", "ocean_daily","all",.false.,"none",2
+"ocean_model","geolat_t","geolat_t", "ocean_daily","all",.false.,"none",2
+"ocean_model","geolon_c","geolon_c", "ocean_daily","all",.false.,"none",2
+"ocean_model","geolat_c","geolat_c", "ocean_daily","all",.false.,"none",2
+#
+# surface flux quantities
+ "ocean_model","pme_river","pme_river",            "ocean","all",.true.,"none",2
+ "ocean_model","river","river",        "ocean","all",.true.,"none",2
+ "ocean_model","ice_calving","ice_calving",        "ocean","all",.true.,"none",2
+ "ocean_model","sfc_hflux_coupler","sfc_hflux_coupler" ,"ocean","all",.true.,"none",2
+ "ocean_model","net_sfc_heating","net_sfc_heating"     ,"ocean","all",.true.,"none",2
+ "ocean_model","tau_x","tau_x"                         ,"ocean","all",.true.,"none",2
+ "ocean_model","tau_y","tau_y"                         ,"ocean","all",.true.,"none",2
+ "ocean_model","salt_flux_coupler","salt_flux_coupler" ,"ocean","all",.true.,"none",2
+ "ocean_model","frazil_2d","frazil_2d" ,"ocean","all",.true.,"none",2
+ "ocean_model","sfc_salt_flux_restore","sfc_salt_flux_restore" ,"ocean","all",.true.,"none",2
+#
+# volume transport
+# 3d fields
+ "ocean_model","tx_trans","tx_trans",        "ocean","all",.true.,"none",2
+ "ocean_model","ty_trans","ty_trans",        "ocean","all",.true.,"none",2
+#
+# 2d fields
+  "ocean_model","salt_xflux_adv_int_z","salt_xflux_adv_int_z","ocean","all",.true.,"none",2
+  "ocean_model","salt_yflux_adv_int_z","salt_yflux_adv_int_z","ocean","all",.true.,"none",2
+  "ocean_model","temp_xflux_adv_int_z","temp_xflux_adv_int_z","ocean","all",.true.,"none",2
+  "ocean_model","temp_yflux_adv_int_z","temp_yflux_adv_int_z","ocean","all",.true.,"none",2
+  "ocean_model","tx_trans_int_z","tx_trans_int_z","ocean","all",.true.,"none",2
+  "ocean_model","ty_trans_int_z","ty_trans_int_z","ocean","all",.true.,"none",2
+#
+# volume transport streamfunction
+ "ocean_model","psiu","psiu",                "ocean","all",.true.,"none",2
+ "ocean_model","psiv","psiv",                "ocean","all",.true.,"none",2
+#
+# mixing coefficients
+ "ocean_model","diff_cbt_t","diff_cbt_t",          "ocean","all",.true.,"none",2
+#
+#
+# ocean scalar
+#
+#
+# global total kinetic and potential energy
+"ocean_model","ke_tot","ke_tot"                               , "ocean_scalar","all",.true.,"none",2
+"ocean_model","pe_tot","pe_tot"                               , "ocean_scalar","all",.true.,"none",2
+#
+# global mean temp, salinity, in situ density
+"ocean_model","temp_global_ave","temp_global_ave"             , "ocean_scalar","all",.true.,"none",2
+"ocean_model","salt_global_ave","salt_global_ave"             , "ocean_scalar","all",.true.,"none",2
+"ocean_model","rhoave","rhoave"                               , "ocean_scalar","all",.true.,"none",2
+#
+# mass weighted mean surface temperature and salinity
+"ocean_model","temp_surface_ave","temp_surface_ave"           , "ocean_scalar","all",.true.,"none",2
+"ocean_model","salt_surface_ave","salt_surface_ave"           , "ocean_scalar","all",.true.,"none",2
+#
+# global total heat and salt
+"ocean_model","total_ocean_salt","total_ocean_salt"           , "ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_heat","total_ocean_heat"           , "ocean_scalar","all",.true.,"none",2
+#
+# global mean ocean sea surface height
+"ocean_model","eta_global","eta_global"                       , "ocean_scalar","all",.true.,"none",2
+#
+# total volume of liquid seawater
+"ocean_model","total_volume_seawater","total_volume_seawater" , "ocean_scalar","all",.true.,"none",2
+#
+# total salt flux due to exchange with sea ice
+"ocean_model","total_ocean_sfc_salt_flux_coupler","total_ocean_sfc_salt_flux_coupler","ocean_scalar","all",.true.,"none",2
+#
+# total heat into ocean from (sw + lw + latent + sens + mass transfer)
+"ocean_model","total_net_sfc_heating","total_net_sfc_heating","ocean_scalar","all",.true.,"none",2
+#
+# total mass flux from p-e+r (note: melt is included in precip)
+"ocean_model","total_ocean_pme_river","total_ocean_pme_river" ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_river","total_ocean_river"         ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_runoff","total_ocean_runoff"       ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_calving","total_ocean_calving"     ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_melt","total_ocean_melt"           ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_evap","total_ocean_evap"           ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_lprec","total_ocean_lprec"         ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_fprec","total_ocean_fprec"         ,"ocean_scalar","all",.true.,"none",2
+#
+# total heat flux due to mass transport
+"ocean_model","total_ocean_runoff_heat","total_ocean_runoff_heat"   ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_calving_heat","total_ocean_calving_heat" ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_river_heat","total_ocean_river_heat"     ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_hflux_prec","total_ocean_hflux_prec"     ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_hflux_evap","total_ocean_hflux_evap"     ,"ocean_scalar","all",.true.,"none",2
+#
+# total heat flux due to sw+lw+latent+sens
+"ocean_model","total_ocean_hflux_coupler","total_ocean_hflux_coupler"        ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_swflx","total_ocean_swflx"                        ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_swflx_vis","total_ocean_swflx_vis"                ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_lw_heat","total_ocean_lw_heat"                    ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_evap_heat","total_ocean_evap_heat"                ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_fprec_melt_heat","total_ocean_fprec_melt_heat"    ,"ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_calving_melt_heat","total_ocean_calving_melt_heat","ocean_scalar","all",.true.,"none",2
+"ocean_model","total_ocean_sens_heat","total_ocean_sens_heat"                ,"ocean_scalar","all",.true.,"none",2
+#
