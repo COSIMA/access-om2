@@ -45,7 +45,8 @@ Start with OASIS because it is needed by the others:
 
 ```
 $ export ACCESS_OM_DIR=<full path to access-om dir>
-$ cd $ACCESS_OM_DIR/src/oasis3-mct/
+$ export OASIS_ROOT=$ACCESS_OM_DIR/src/oasis3-mct/
+$ cd $OASIS_ROOT
 $ make
 ```
 
@@ -53,20 +54,24 @@ Now compile the ocean, ice and file-based atmosphere. These can be done in paral
 
 For ocean:
 ```
-$ cd $ACCESS_OM_DIR/src/mom
-$
+$ cd $ACCESS_OM_DIR/src/mom/exp
+$ ./MOM_compile.csh --type ACCESS_OM --platform ubuntu
 ```
 
 For ice:
 ```
 $ cd $ACCESS_OM_DIR/src/cice4
-$
+$ ./bld/build.sh ubuntu access-om 360x300
+```
+or for another platform:
+```
+$ ./bld/build.sh nci access-om 360x300
 ```
 
 For atm:
 ```
 $ cd $ACCESS_OM_DIR/src/matm
-$
+$ ./build/build.sh ubuntu
 ```
 
 Once this has finished check that the mom, cice and matm executables exist.
