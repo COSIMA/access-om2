@@ -84,13 +84,22 @@ $ ls $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
 Run an experiment:
 
 ```{bash}
-$ cd 025deg
-$ ln -s ../input/025deg/* ./
 $ qsub -I -P x77 -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=1168,mem=2000Gb,walltime=4:00:00,jobfs=100GB
 $ cd $ACCESS_OM_DIR/025deg/
+$ ln -s ../input/025deg/INPUT ./
+$ cp ../input/025deg/*.nc ./
 $ module load openmpi/1.8.4
-$ mpirun --mca orte_base_help_aggregate 0 -np 1 $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe : -np 960 $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x : -np 192 $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
+$ mpirun --mca orte_base_help_aggregate 0 -np 960 $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x : -np 192 $ACCESS_OM_DIR/src/cice4/build_access-om_1440x1080_192p/cice_access-om_1440x1080_192p.exe : -np 1 $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
 ```
+
+If the run fails or you want to start from scratch for any reason then it's necessary to copy over the OASIS inputs again because these may have been corrupted/written over:
+```{bash}
+$ cd $ACCESS_OM_DIR/025deg/
+$ cp ../input/025deg/*.nc ./
+```
+
+```{bash}
+
 
 ## Verify
 
