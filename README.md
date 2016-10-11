@@ -4,7 +4,7 @@ This model consists of MOM5.1, CICE4.1, and a file-based atmosphere called MATM 
 
 ## Prerequisites
 
-This model needs the following software to run:
+The installation of ACCESS-OM depends on the following software:
 
 * git distributed version control software.
 * A fortran compiler such as gfortran or intel-fc.
@@ -13,7 +13,7 @@ This model needs the following software to run:
 
 ## Limitations
 
-This software has only been tested on NCI raijin supercomputer.
+This software configuration has only been tested on the NCI raijin supercomputer.
 
 ## Install
 
@@ -29,7 +29,7 @@ This should be downloaded to a place which has enough disk space for the model i
 The next step is to download experiment input data.
 
 ```{bash}
-$ ./get_data.py
+$ ./get_input_data.py
 ```
 
 ## Compile
@@ -71,7 +71,7 @@ $ cd $ACCESS_OM_DIR/src/matm
 $ ./build/build.sh nci
 ```
 
-Now run check that the executables exist:
+Check that the executables exist:
 
 ```{bash}
 $ ls $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
@@ -81,7 +81,7 @@ $ ls $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
 
 ## Run
 
-Run an experiment:
+Run the first month of the 0.25 degre CORE2 NYF experiment experiment:
 
 ```{bash}
 $ qsub -I -P x77 -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=1168,mem=2000Gb,walltime=4:00:00,jobfs=100GB
@@ -96,6 +96,7 @@ If the run fails or you want to start from scratch for any reason:
 ```{bash}
 $ cd $ACCESS_OM_DIR/025deg/
 $ cp ../input/025deg/*.nc ./
+$ <mpirrun command as above>
 ```
 
 ```{bash}
