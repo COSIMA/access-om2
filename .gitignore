@@ -1,4 +1,17 @@
 #
+025deg/oceout*
+025deg/iceout*
+025deg/atmout*
+025deg/debug*
+025deg/*.nc
+025deg/INPUT
+025deg/RESTART
+025deg/ice_diag.d
+025deg/ice_diag_out
+025deg/logfile.000000.out
+025deg/nout.000000
+025deg/time_stamp.out
+
 *.swp
 input
 

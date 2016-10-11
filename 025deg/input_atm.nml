@@ -2,7 +2,7 @@
     init_date=00010101
     inidate=00010101
     truntime0=0
-    runtime=0
+    runtime=2678400
     dt_cpl=21600
     dt_atm=1200
     dataset='core2'

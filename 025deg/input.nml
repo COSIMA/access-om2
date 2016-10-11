@@ -646,7 +646,7 @@
 
 &ocean_solo_nml
             years = 0
-            months = 6
+            months = 1
             days   = 0
             date_init = 01,01,01,0,0,0
             hours = 0

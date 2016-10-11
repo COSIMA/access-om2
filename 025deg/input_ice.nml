@@ -4,7 +4,7 @@
     jobnum=1
     inidate=00010101
     runtime0=0
-    runtime=0
+    runtime=2678400
     dt_cpl_ai=21600
     dt_cpl_io=1200
     dt_cice=1200

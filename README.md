@@ -92,7 +92,7 @@ $ module load openmpi/1.8.4
 $ mpirun --mca orte_base_help_aggregate 0 -np 960 $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x : -np 192 $ACCESS_OM_DIR/src/cice4/build_access-om_1440x1080_192p/cice_access-om_1440x1080_192p.exe : -np 1 $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
 ```
 
-If the run fails or you want to start from scratch for any reason then it's necessary to copy over the OASIS inputs again because these may have been corrupted/written over:
+If the run fails or you want to start from scratch for any reason:
 ```{bash}
 $ cd $ACCESS_OM_DIR/025deg/
 $ cp ../input/025deg/*.nc ./
