@@ -65,6 +65,13 @@ $ cd $ACCESS_OM_DIR/src/cice4
 $ ./bld/build.sh nci access-om 1440x1080
 ```
 
+OR, for the 1 deg ocean, ice configuration:
+
+```{bash}
+$ cd $ACCESS_OM_DIR/src/cice4
+$ ./bld/build.sh nci access-om 360x300
+```
+
 For atm:
 ```{bash}
 $ cd $ACCESS_OM_DIR/src/matm
@@ -81,7 +88,7 @@ $ ls $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
 
 ## Run
 
-Run the first month of the 0.25 degre CORE2 NYF experiment experiment:
+Run the first month of the 0.25 degree CORE2 NYF experiment experiment:
 
 ```{bash}
 $ qsub -I -P x77 -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=1168,mem=2000Gb,walltime=4:00:00,jobfs=100GB
@@ -99,8 +106,16 @@ $ cp ../input/025deg/*.nc ./
 $ <mpirrun command as above>
 ```
 
-```{bash}
+To run the 1 degree CORE2 NYF experiment experiment:
 
+```{bash}
+$ qsub -I -P x77 -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=128,mem=248Gb,walltime=4:00:00,jobfs=100GB
+$ cd $ACCESS_OM_DIR/1deg/
+$ ln -s ../input/1deg/INPUT ./
+$ cp ../input/1deg/*.nc ./
+$ module load openmpi/1.8.4
+$ mpirun --mca orte_base_help_aggregate 0 -np 120 $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x : -np 6 $ACCESS_OM_DIR/src/cice4/build_access-om_360x300_6p/cice_access-om_360x300_6p.exe : -np 1 $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
+```
 
 ## Verify
 
