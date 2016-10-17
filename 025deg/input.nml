@@ -41,10 +41,10 @@
       barotropic_time_stepping_A=.true.
       barotropic_time_stepping_B=.false.
       pred_corr_gamma=0.20
-      smooth_eta_t_laplacian=.false.
-      smooth_pbot_t_laplacian=.false.
-      smooth_eta_t_biharmonic=.true.
-      smooth_pbot_t_biharmonic=.true.
+      smooth_eta_t_laplacian=.true.
+      smooth_pbot_t_laplacian=.true.
+      smooth_eta_t_biharmonic=.false.
+      smooth_pbot_t_biharmonic=.false.
       smooth_eta_diag_laplacian=.true.
       vel_micom_lap_diag=0.2
       vel_micom_lap=.05
@@ -545,7 +545,7 @@
 	visc_cbu_iw=0.0
 	double_diffusion=.true.
 	Ricr=0.3
-	smooth_blmc=.true.
+	smooth_blmc=.false.
     kbl_standard_method=.false.
     smooth_ri_kmax_eq_kmu=.true.
 /
