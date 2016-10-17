@@ -19,7 +19,7 @@
 /
 
  &ocean_adv_vel_diag_nml
-      diag_step=120
+      diag_step=4320
       verbose_cfl=.false.
       max_cfl_value=100.0
       large_cfl_value=10.0
@@ -50,7 +50,7 @@
       eta_max=8.0
       verbose_truncate=.true.
       frac_crit_cell_height=0.20
-      diag_step=120
+      diag_step=4320
 /
 
  &ocean_bbc_nml
@@ -499,12 +499,13 @@
 
  &ocean_tracer_diag_nml
       tracer_conserve_days=1.0
-      diag_step=120
+      diag_step=4320
       do_bitwise_exact_sum=.false.
 /
 
  &ocean_tracer_nml
-      debug_this_module=.true.
+      debug_this_module=.false.
+      use_tempsalt_check_range=.true.
       zero_tendency=.false.
       remap_depth_to_s_init=.false.
       zero_tracer_source=.false.
@@ -520,8 +521,8 @@
 
  &ocean_velocity_diag_nml
       debug_this_module=.false.
-      diag_step=120
-      energy_diag_step=120
+      diag_step=4320
+      energy_diag_step=4320
       max_cfl_value=100.0
       large_cfl_value=10.0
 /
@@ -547,16 +548,25 @@
 
 /
 
- &ocean_vert_kpp_nml
-      use_this_module=.true.
-      diff_cbt_iw=0.0
-      visc_cbu_iw=0.0
-      visc_con_limit=0.1
-      diff_con_limit=0.1
-      double_diffusion=.true.
-      Ricr=0.3
-      smooth_blmc=.true.
-      kbl_standard_method=.true.
+ &ocean_vert_kpp_iow_nml
+	use_this_module=.false.
+/
+
+ &ocean_vert_kpp_mom4p0_nml
+	use_this_module=.false.
+/
+
+ &ocean_vert_kpp_mom4p1_nml
+	use_this_module=.true.
+	diff_cbt_iw=0.0
+	visc_cbu_iw=0.0
+    visc_con_limit=0.1
+    diff_con_limit=0.1
+	double_diffusion=.true.
+	Ricr=0.3
+	smooth_blmc=.true.
+    kbl_standard_method=.false.
+    smooth_ri_kmax_eq_kmu=.true.
 /
 
  &ocean_vert_mix_nml
@@ -644,7 +654,7 @@
 
 &ocean_solo_nml
     years = 0
-    months = 1
+    months = 12
     days   = 0
     date_init = 0001,01,01,0,0,0
     hours = 0
