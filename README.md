@@ -82,7 +82,7 @@ Check that the executables exist:
 
 ```{bash}
 ls $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
-ls $ACCESS_OM_DIR/cice4/build_access-om_1440x1080_192p/cice_access-om_1440x1080_192p.exe
+ls $ACCESS_OM_DIR/src/cice4/build_access-om_1440x1080_192p/cice_access-om_1440x1080_192p.exe
 ls $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
 ```
 
