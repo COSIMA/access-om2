@@ -91,30 +91,36 @@ ls $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
 Run the first month of the 0.25 degree CORE2 NYF experiment experiment:
 
 ```{bash}
-qsub -I -P x77 -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=1168,mem=2000Gb,walltime=4:00:00,jobfs=100GB
+# Make a run script (in this case to run on the NCI HPC system raijin)
+cat > run025.pbs<<EOF
 cd $ACCESS_OM_DIR/025deg/
 ln -s ../input/025deg/INPUT ./
 cp ../input/025deg/*.nc ./
 module load openmpi/1.8.4
 mpirun --mca orte_base_help_aggregate 0 -np 960 $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x : -np 192 $ACCESS_OM_DIR/src/cice4/build_access-om_1440x1080_192p/cice_access-om_1440x1080_192p.exe : -np 1 $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
+EOF
+# Submit run script to queuing system (in this case PBSPro)
+qsub -P x77 -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=1168,mem=2000Gb,walltime=4:00:00,jobfs=100GB run025.pbs 
 ```
 
 If the run fails or you want to start from scratch for any reason:
 ```{bash}
-cd $ACCESS_OM_DIR/025deg/
-cp ../input/025deg/*.nc ./
-<mpirrun command as above>
+qsub -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=1168,mem=2000Gb,walltime=4:00:00,jobfs=100GB run.pbs 
 ```
 
 To run the 1 degree CORE2 NYF experiment experiment:
 
 ```{bash}
-qsub -I -P x77 -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=128,mem=248Gb,walltime=4:00:00,jobfs=100GB
+# Make a run script (in this case to run on the NCI HPC system raijin)
+cat > run1deg.pbs<<EOF
 cd $ACCESS_OM_DIR/1deg/
 ln -s ../input/1deg/INPUT ./
 cp ../input/1deg/*.nc ./
 module load openmpi/1.8.4
 mpirun --mca orte_base_help_aggregate 0 -np 120 $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x : -np 6 $ACCESS_OM_DIR/src/cice4/build_access-om_360x300_6p/cice_access-om_360x300_6p.exe : -np 1 $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
+EOF
+# Submit run script to queuing system (in this case PBSPro)
+qsub -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=128,mem=248Gb,walltime=4:00:00,jobfs=100GB run1deg.pbs 
 ```
 
 ## Verify
