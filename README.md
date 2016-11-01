@@ -20,7 +20,7 @@ This software configuration has only been tested on the NCI raijin supercomputer
 Start by downloading the experiment configurations and the source repositories:
 
 ```
-git clone --recursive https://github.com/CWSL/access-om.git
+git clone --recursive https://github.com/OceansAus/access-om.git
 cd access-om
 ```
 
