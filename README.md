@@ -105,7 +105,7 @@ qsub -P $PROJECT -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l n
 
 If the run fails or you want to start from scratch for any reason:
 ```{bash}
-qsub -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=1168,mem=2000Gb,walltime=4:00:00,jobfs=100GB run.pbs 
+qsub -P $PROJECT -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=1168,mem=2000Gb,walltime=4:00:00,jobfs=100GB run.pbs 
 ```
 
 To run the 1 degree CORE2 NYF experiment experiment:
