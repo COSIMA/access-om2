@@ -1,0 +1,53 @@
+"prog_tracers","ocean_mod","temp"
+horizontal-advection-scheme = mdppm
+vertical-advection-scheme = mdppm
+restart_file  = ocean_temp_salt.res.nc
+ppm_hlimiter = 3
+ppm_vlimiter = 3
+/
+"prog_tracers","ocean_mod","salt"
+horizontal-advection-scheme = mdppm
+vertical-advection-scheme = mdppm
+restart_file  = ocean_temp_salt.res.nc
+ppm_hlimiter = 3
+ppm_vlimiter = 3
+/
+"tracer_packages","ocean_mod","ocean_age_tracer"
+names = global
+const_init_tracer = .true.
+horizontal-advection-scheme = mdppm
+vertical-advection-scheme = mdppm
+ppm_hlimiter = 3
+ppm_vlimiter = 3
+restart_file = ocean_age.res.nc
+min_tracer_limit=0.0
+/
+"namelists","ocean_mod","ocean_age_tracer/global"
+slat = -90.0
+nlat =  90.0
+wlon =   0.0
+elon = 360.0
+/
+# added by FRE: sphum must be present in atmos
+# specific humidity for moist runs
+ "TRACER", "atmos_mod", "sphum"
+           "longname",     "specific humidity"
+           "units",        "kg/kg"
+       "profile_type", "fixed", "surface_value=3.e-6" /
+# prognotic cloud scheme tracers
+  "TRACER", "atmos_mod", "liq_wat"
+            "longname",     "cloud liquid specific humidity"
+            "units",        "kg/kg" /
+  "TRACER", "atmos_mod", "ice_wat"
+            "longname",     "cloud ice water specific humidity"
+            "units",        "kg/kg" /
+  "TRACER", "atmos_mod", "cld_amt"
+            "longname",     "cloud fraction"
+            "units",        "none" /
+# test tracer for radon
+# "TRACER", "atmos_mod", "radon"
+#           "longname",     "radon test tracer"
+#           "units",        "kg/kg" /
+       "TRACER", "land_mod", "sphum"
+       "longname",     "specific humidity"
+       "units",        "kg/kg" /
