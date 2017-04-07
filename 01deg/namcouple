@@ -61,7 +61,7 @@
  $NLOGPRT
 # Index of printing level in output file cplout: 0 = no printing
 #  1 = main routines and field names when treated, 2 = complete output
- 2
+ 0
  $END
 ###########################################################################
 # $CALTYPE
@@ -91,136 +91,115 @@
 ##########
 # Field 01 : swflx down
 ##########
-swfld_ai swfld_i 367 21600 5 a2i.nc EXPORTED
-192 94 3600 2700 cort cict LAG=+300 SEQ=+1
+swfld_ai swfld_i 367 21600 3 a2i.nc EXPORTED
+192 94 3600 2700 cort cict LAG=+100 SEQ=+1
 P  0  P  0
 #
-LOCTRANS CHECKIN MAPPING SCRIPR CHECKOUT
+LOCTRANS MAPPING SCRIPR
 INSTANT
-INT=1
 rmp_cort_to_cict_CONSERV.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
-INT=1
 #########
 # Field 02 : lwflx down
 ##########
-lwfld_ai lwfld_i 366 21600 5 a2i.nc EXPORTED
-192 94 3600 2700 cort cict LAG=+300 SEQ=+1
+lwfld_ai lwfld_i 366 21600 3 a2i.nc EXPORTED
+192 94 3600 2700 cort cict LAG=+100 SEQ=+1
 P  0  P  0
 #
-LOCTRANS CHECKIN MAPPING SCRIPR CHECKOUT
+LOCTRANS MAPPING SCRIPR 
 INSTANT
-INT=1
 rmp_cort_to_cict_CONSERV.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
-INT=1
 ##########
 # Field 03 : rainfall
 ##########
-rain_ai rain_i 26 21600 5 a2i.nc EXPORTED
-192 94 3600 2700 cort cict LAG=+300 SEQ=+1
+rain_ai rain_i 26 21600 3 a2i.nc EXPORTED
+192 94 3600 2700 cort cict LAG=+100 SEQ=+1
 P  0  P  0
 #
-LOCTRANS CHECKIN MAPPING SCRIPR CHECKOUT
+LOCTRANS MAPPING SCRIPR
 INSTANT
-INT=1
 rmp_cort_to_cict_CONSERV.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
-INT=1
 ##########
 # Field 04 : snowfall
 ##########
-snow_ai snow_i 26 21600 5 a2i.nc EXPORTED
-192 94 3600 2700 cort cict LAG=+300 SEQ=+1
+snow_ai snow_i 26 21600 3 a2i.nc EXPORTED
+192 94 3600 2700 cort cict LAG=+100 SEQ=+1
 P  0  P  0
 #
-LOCTRANS CHECKIN MAPPING SCRIPR CHECKOUT
+LOCTRANS MAPPING SCRIPR
 INSTANT
-INT=1
 rmp_cort_to_cict_CONSERV.nc dst
 CONSERV LR SCALAR LATLON 9 FRACNNEI FIRST
-INT=1
 ##########
 # Field 05 : surface pressure
 ##########
-press_ai press_i 33 21600 5 a2i.nc EXPORTED
-192 94 3600 2700 cort cict LAG=+300 SEQ=+1
+press_ai press_i 33 21600 3 a2i.nc EXPORTED
+192 94 3600 2700 cort cict LAG=+100 SEQ=+1
 P  0  P  0
 # 
-LOCTRANS CHECKIN MAPPING SCRIPR CHECKOUT
+LOCTRANS MAPPING SCRIPR
 INSTANT
-INT=1
 rmp_cort_to_cict_CONSERV.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
-INT=1
 ##########
 # Field 06 : runoff
 ##########
-runof_ai runof_i 297 21600 5 a2i.nc EXPORTED
-192 94 3600 2700 cort cict LAG=+300 SEQ=+1
+runof_ai runof_i 297 21600 3 a2i.nc EXPORTED
+192 94 3600 2700 cort cict LAG=+100 SEQ=+1
 P  0  P  0
 # 
-LOCTRANS CHECKIN MAPPING SCRIPR CHECKOUT
+LOCTRANS MAPPING SCRIPR
 INSTANT
-INT=1
 rmp_cort_to_cict_CONSERV.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
-INT=1
 ##########
 # Field 07 : near surface (2m) air temp
 ##########
-tair_ai tair_i 110 21600 5 a2i.nc EXPORTED
-192 94 3600 2700 cort cict LAG=+300 SEQ=+1
+tair_ai tair_i 110 21600 3 a2i.nc EXPORTED
+192 94 3600 2700 cort cict LAG=+100 SEQ=+1
 P  0  P  0
 #
-LOCTRANS CHECKIN MAPPING SCRIPR CHECKOUT
+LOCTRANS MAPPING SCRIPR
 INSTANT
-INT=1
 rmp_cort_to_cict_CONSERV.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
-INT=1
 ##########
 # Field 08 : 2m air humidity
 ##########
-qair_ai qair_i 339 21600 5 a2i.nc EXPORTED
-192 94 3600 2700 cort cict LAG=+300 SEQ=+1
+qair_ai qair_i 339 21600 3 a2i.nc EXPORTED
+192 94 3600 2700 cort cict LAG=+100 SEQ=+1
 P  0  P  0
 #
-LOCTRANS CHECKIN MAPPING SCRIPR CHECKOUT
+LOCTRANS MAPPING SCRIPR
 INSTANT
-INT=1
 rmp_cort_to_cict_CONSERV.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
-INT=1
 ##########
 # Field 09 : 10m wind (u)
 ##########
-uwnd_ai uwnd_i 56 21600 4 a2i.nc EXPORTED
-192 94 3600 2700 cort cict LAG=+300 SEQ=+1
+uwnd_ai uwnd_i 56 21600 2 a2i.nc EXPORTED
+192 94 3600 2700 cort cict LAG=+100 SEQ=+1
 P  0  P  0
 #
-CHECKIN MAPPING SCRIPR CHECKOUT
-INT=1
-#
+MAPPING SCRIPR
 rmp_cort_to_cict_DISTWGT.nc
 DISTWGT LR VECTOR LATLON 10 4 vwnd_ai
-INT=1
 ##########
 # Field 10 : 10m wind (v)
 ##########
-vwnd_ai vwnd_i 56 21600 4 a2i.nc EXPORTED
-192 94 3600 2700 cort cict LAG=+300 SEQ=+1
+vwnd_ai vwnd_i 56 21600 2 a2i.nc EXPORTED
+192 94 3600 2700 cort cict LAG=+100 SEQ=+1
 P  0  P  0
 #
-CHECKIN MAPPING SCRIPR CHECKOUT
-INT=1
+MAPPING SCRIPR
 #
 rmp_cort_to_cict_DISTWGT.nc dst
 DISTWGT LR VECTOR LATLON 10 4 uwnd_ai
-INT=1
 #-------------------------------------------------
 #vwnd_ai vwnd_i 56 21600 2 a2i.nc EXPORTED
-#192 94 3600 2700 cort cict LAG=+300 SEQ=+1
+#192 94 3600 2700 cort cict LAG=+100 SEQ=+1
 #P  0  P  0
 ##
 #LOCTRANS INTERP
@@ -233,168 +212,138 @@ INT=1
 ##########
 # Field 11 : ice-ocean interface stress (x-direction)
 ##########
-strsu_io u_flux 170 300 3 i2o.nc EXPORTED
+strsu_io u_flux 170 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ########## 
 # Field 12 : ice-ocean interface stress (y-direction)
 ##########
-strsv_io v_flux 175 300 3 i2o.nc EXPORTED
+strsv_io v_flux 175 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ########## 
 # Field 13 : freshwater flux
 ##########
-rain_io lprec 27 300 3 i2o.nc EXPORTED
+rain_io lprec 27 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ##########
 # Field 14 : freshwater flux
 ##########
-snow_io fprec 28 300 3 i2o.nc EXPORTED
+snow_io fprec 28 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ########## 
 # Field 15 : salt flux   (no ref no for saltflux yet!)
 ##########
-stflx_io salt_flx 454 300 3 i2o.nc EXPORTED
+stflx_io salt_flx 454 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ########## 
 # Field 16 : next heat flux   (heatflux into ocean. '42' not right.)
 ##########
-htflx_io mh_flux 42 300 3 i2o.nc EXPORTED
+htflx_io mh_flux 42 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ########## 
 # Field 17 : swflux penetrating through ice into ocean 
 #########
-swflx_io sw_flux 367 300 3 i2o.nc EXPORTED
+swflx_io sw_flux 367 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ##########
 # Field 18 : latent heat flux
 ##########
-qflux_io q_flux 452 300 3 i2o.nc EXPORTED
+qflux_io q_flux 452 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 #########
 # Field 19 : Sensible heat flux
 ##########
-shflx_io t_flux 362 300 3 i2o.nc EXPORTED
+shflx_io t_flux 362 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ##########
 # Field 20 : LW radiation flux down
 ##########
-lwflx_io lw_flux 366 300 3 i2o.nc EXPORTED
+lwflx_io lw_flux 366 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ##########
 # Field 21 : runoff
 ########## 
-runof_io runof 297 300 3 i2o.nc EXPORTED
+runof_io runof 297 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ##########
 # Field 22 : surface pressure
 ########## 
-press_io p 33 300 3 i2o.nc EXPORTED
+press_io p 33 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ##########
 # Field 23 : ice concentration
 ########## 
-aice_io aice 44 300 3 i2o.nc EXPORTED
+aice_io aice 44 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS  CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ##########
 # Field 24 : ice melting waterflux
 ########## 
-melt_io wfimelt 36 300 3 i2o.nc EXPORTED
+melt_io wfimelt 36 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ##########
 # Field 25 : ice forming eaterflux
 ########## 
-form_io wfiform 36 300 3 i2o.nc EXPORTED
+form_io wfiform 36 100 1 i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN CHECKOUT
+LOCTRANS
 INSTANT
-INT=1
-INT=1
 ############################################################################
 # 
 #                      OCEAN --->>> ICE
@@ -402,7 +351,7 @@ INT=1
 ########## 
 # Field 26 : Sea surface temperature (Celsius in MOM4, Kelvin in MOM5)
 ##########
-t_surf sst_i 1 300 1 o2i.nc EXPORTED
+t_surf sst_i 1 100 1 o2i.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #  
@@ -411,7 +360,7 @@ INSTANT
 ########## 
 # Field 27 : Sea surface salinity (psu)
 ##########
-s_surf sss_i 312 300 1 o2i.nc EXPORTED
+s_surf sss_i 312 100 1 o2i.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #  
@@ -420,7 +369,7 @@ INSTANT
 ##########
 # Field 28 :  'eastward' sea surface water velocity
 ########## 
-u_surf ssu_i 181 300 1 o2i.nc EXPORTED
+u_surf ssu_i 181 100 1 o2i.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -429,7 +378,7 @@ INSTANT
 ########## 
 # Field 29 : 'northward' sea surface water velocity
 ##########
-v_surf ssv_i 261 300 1 o2i.nc EXPORTED
+v_surf ssv_i 261 100 1 o2i.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -439,8 +388,8 @@ INSTANT
 # Field 30 :  frazil ice fromation energy (J/m^2) 
 #             ('441' is "upward_sea_ice_basal_heat_flux' 'W m-2')
 ##########
-#pfmice_oi pfmice_i 441 300 1 o2i.nc EXPORTED
-frazil pfmice_i 441 300 1 o2i.nc EXPORTED
+#pfmice_oi pfmice_i 441 100 1 o2i.nc EXPORTED
+frazil pfmice_i 441 100 1 o2i.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -450,7 +399,7 @@ INSTANT
 # Field 31 :  sea surface slope _x_ (m/m)
 #             ( '203' is "height" ...)
 ##########
-dssldx sslx_i 203 300 1 o2i.nc EXPORTED
+dssldx sslx_i 203 100 1 o2i.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -460,7 +409,7 @@ INSTANT
 # Field 32 :  sea surface slope _y_ (m/m)
 #             ( '310' is "sea_surface_elevation")
 ##########
-dssldy ssly_i 310 300 1 o2i.nc EXPORTED
+dssldy ssly_i 310 100 1 o2i.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -473,15 +422,13 @@ INSTANT
 ##########
 # Field 33 : ice/ocean surface temp (no ref no! '331' is snow temp!)
 ##########
-isst_ia isst_a 331 21600 5 i2a.nc EXPORTED
-3600 2700 192 94 cict cort LAG=+300 SEQ=+1
+isst_ia isst_a 331 21600 3 i2a.nc EXPORTED
+3600 2700 192 94 cict cort LAG=+100 SEQ=+1
 P 0 P 0
 #
-LOCTRANS CHECKIN MAPPING SCRIPR CHECKOUT
+LOCTRANS MAPPING SCRIPR
 INSTANT
-INT=1
 rmp_cict_to_cort_CONSERV.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
-INT=1
 ############################################################################
  $END
