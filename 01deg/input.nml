@@ -215,7 +215,7 @@
 /
 
  &ocean_model_nml
-	dt_ocean=100
+	dt_ocean=600
 	time_tendency='twolevel'
 	vertical_coordinate='zstar'
 	baroclinic_split = 1
@@ -657,10 +657,10 @@
 /
 
  &auscom_ice_nml
-    dt_cpl=100
+    dt_cpl=600
     do_ice_once=.false.
     pop_icediag=.true.
-    kmxice=5 
+    kmxice=5
     fixmeltT=.false.
     Tmelt=-.216
     use_ioaice=.true.
@@ -675,12 +675,12 @@
 
 &ocean_solo_nml
             years = 0
-            months = 0
-            days   = 1
+            months = 1
+            days   = 0
             date_init = 01,01,01,0,0,0
             hours = 0
             minutes = 0
             seconds = 0
             calendar = 'NOLEAP'
-            dt_cpld  = 100
+            dt_cpld  = 600
 /

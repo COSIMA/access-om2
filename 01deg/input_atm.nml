@@ -4,7 +4,7 @@
     truntime0=0
     runtime=2678400
     dt_cpl=21600
-    dt_atm=100
+    dt_atm=600
     dataset='core2'
     runtype='NY'
     caltype=0
