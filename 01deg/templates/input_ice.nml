@@ -4,10 +4,10 @@
     jobnum=1
     inidate=00010101
     runtime0=0
-    runtime=2678400
-    dt_cpl_ai=21600
-    dt_cpl_io=600
-    dt_cice=600
+    runtime={{ runtime_in_seconds }}
+    dt_cpl_ai={{ atm_ice_coupling_timestep }}
+    dt_cpl_io={{ ice_ocean_coupling_timestep }}
+    dt_cice={{ ice_timestep }}
     pop_icediag=.true.
     ice_pressure_on=.true.
     ice_fwflux=.true.

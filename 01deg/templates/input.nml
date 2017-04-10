@@ -11,10 +11,6 @@
 	issue_oor_warnings=.false.
 /
 
- &flux_exchange_nml
-            do_area_weighted_flux=.true.
-/
-
  &fms_io_nml
 	threading_read ='multi'
 	threading_write='multi'
@@ -47,7 +43,7 @@
 
  &monin_obukhov_nml
             neutral = .true.
-/6
+/
 
  &ocean_adv_vel_diag_nml
 	diag_step=144
@@ -177,19 +173,19 @@
 /
 
  &ocean_grids_nml
-	debug_this_module=.FALSE.
+	debug_this_module=.false.
 /
 
  &ocean_increment_eta_nml
-	use_this_module = .FALSE.
+	use_this_module = .false.
 /
 
  &ocean_increment_tracer_nml
-	use_this_module = .FALSE.
+	use_this_module = .false.
 /
 
  &ocean_increment_velocity_nml
-	use_this_module = .FALSE.
+	use_this_module = .false.
 /
 
  &ocean_lap_friction_nml
@@ -215,7 +211,7 @@
 /
 
  &ocean_model_nml
-	dt_ocean=600
+	dt_ocean={{ ocn_timestep }}
 	time_tendency='twolevel'
 	vertical_coordinate='zstar'
 	baroclinic_split = 1
@@ -340,8 +336,8 @@
 	river_insertion_thickness=40.0
 	river_diffusion_thickness=0.0      
 	river_diffusivity=0.0
-	river_diffuse_salt=.false.
-	river_diffuse_temp=.false.
+	river_diffuse_salt=.true.
+	river_diffuse_temp=.true.
 /
 
  &ocean_riverspread_nml
@@ -428,16 +424,16 @@
 /
 
  &ocean_sponges_eta_nml
-	use_this_module = .FALSE.
+	use_this_module = .false.
 /
 
  &ocean_sponges_tracer_nml
-	use_this_module = .FALSE.
-	damp_coeff_3d = .FALSE.
+	use_this_module = .false.
+	damp_coeff_3d = .false.
 /
 
  &ocean_sponges_velocity_nml
-	use_this_module = .FALSE.
+	use_this_module = .false.
 /
 
  &ocean_submesoscale_nml
@@ -467,7 +463,7 @@
 /
 
  &ocean_tempsalt_nml
-	debug_this_module=.false.
+	debug_this_module=.true.
 	temperature_variable='potential_temp'
 	pottemp_2nd_iteration=.true.
 	pottemp_equal_contemp=.true.
@@ -505,14 +501,14 @@
 /
 
  &ocean_tracer_diag_nml
-	tracer_conserve_days=30.0      
+	tracer_conserve_days=30.0
 	diag_step=144
 	do_bitwise_exact_sum=.false.
 /
 
  &ocean_tracer_nml
-	debug_this_module=.false.
-	use_tempsalt_check_range=.false.
+	debug_this_module=.true.
+	use_tempsalt_check_range=.true.
 	zero_tendency=.false.
 	remap_depth_to_s_init=.false.
 	zero_tracer_source=.false.
@@ -657,7 +653,7 @@
 /
 
  &auscom_ice_nml
-    dt_cpl=600
+    dt_cpl={{ ice_ocean_coupling_timestep }}
     do_ice_once=.false.
     pop_icediag=.true.
     kmxice=5
@@ -675,12 +671,12 @@
 
 &ocean_solo_nml
             years = 0
-            months = 1
+            months = {{ runtime_in_months }}
             days   = 0
             date_init = 01,01,01,0,0,0
             hours = 0
             minutes = 0
             seconds = 0
             calendar = 'NOLEAP'
-            dt_cpld  = 600
+            dt_cpld  = {{ ice_ocean_coupling_timestep }}
 /
