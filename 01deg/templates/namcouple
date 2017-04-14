@@ -40,7 +40,7 @@
 #   86400    ! 1  day
 # 2678400    ! 31 days
 # 31536000   ! 365 days
- 2678400
+ {{ runtime_in_seconds }}
  $END
 ###########################################################################
 # $INIDATE
@@ -218,7 +218,7 @@ P 0 P 0
 #
 LOCTRANS
 INSTANT
-########## 
+##########
 # Field 12 : ice-ocean interface stress (y-direction)
 ##########
 strsv_io v_flux 175 {{ ice_ocn_coupling_timestep }} 1 i2o.nc EXPORTED
@@ -227,7 +227,7 @@ P 0 P 0
 #
 LOCTRANS
 INSTANT
-########## 
+##########
 # Field 13 : freshwater flux
 ##########
 rain_io lprec 27 {{ ice_ocn_coupling_timestep }} 1 i2o.nc EXPORTED

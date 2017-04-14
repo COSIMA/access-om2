@@ -653,7 +653,7 @@
 /
 
  &auscom_ice_nml
-    dt_cpl={{ ice_ocean_coupling_timestep }}
+    dt_cpl={{ ice_ocn_coupling_timestep }}
     do_ice_once=.false.
     pop_icediag=.true.
     kmxice=5
@@ -672,11 +672,11 @@
 &ocean_solo_nml
             years = 0
             months = {{ runtime_in_months }}
-            days   = 0
+            days   = {{ runtime_in_days }}
             date_init = 01,01,01,0,0,0
             hours = 0
             minutes = 0
             seconds = 0
             calendar = 'NOLEAP'
-            dt_cpld  = {{ ice_ocean_coupling_timestep }}
+            dt_cpld  = {{ ice_ocn_coupling_timestep }}
 /
