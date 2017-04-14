@@ -13,6 +13,20 @@ nout.000000
 time_stamp.out
 ocean*.nc.*
 
+01deg/HISTORY/
+01deg/cice_in.nml
+01deg/data_4_matm.table
+01deg/data_table
+01deg/diag_table
+01deg/field_table
+01deg/input.nml
+01deg/input_atm.nml
+01deg/input_ice.nml
+01deg/input_ice_gfdl.nml
+01deg/input_ice_monin.nml
+01deg/mom.out
+01deg/namcouple
+
 *.swp
 input
 
