@@ -10,3 +10,6 @@
 [submodule "src/matm"]
 	path = src/matm
 	url = https://github.com/OceansAus/matm.git
+[submodule "src/cice5"]
+	path = src/cice5
+	url = git@github.com:OceansAus/cice5.git
