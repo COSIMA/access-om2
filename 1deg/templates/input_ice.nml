@@ -1,13 +1,6 @@
 &coupling_nml
-    init_date = 00010101
-    caltype = 0
-    jobnum = 1
-    inidate = 00010101
-    runtime0 = 0
-    runtime = 31536000
-    dt_cpl_ai = 21600
-    dt_cpl_io = 1800
-    dt_cice = 1800
+    dt_cpl_ai={{ atm_ice_coupling_timestep }}
+    dt_cpl_io={{ ice_ocn_coupling_timestep }}
     pop_icediag = .true.
     ice_pressure_on = .true.
     ice_fwflux = .true.
