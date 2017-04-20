@@ -41,34 +41,67 @@ def run(exp, top_dir):
             print(line.decode(), end='')
             fout.write(line.decode())
             fout.flush()
-
     popen.wait()
 
     return popen.returncode
 
-def copy_files_around(exp_dir, run_date):
+def get_curr_cice_restart(exp_dir):
 
-    timestamp = str(run_date).replace(' ', '_')
+    res_file = os.path.join(exp_dir, 'INPUT', 'ice.restart_file')
+    if not os.path.exists(res_file):
+        return None
+    with open(res_file, 'r') as f:
+        s = f.read().strip()
 
-    # Keep a copy of RESTART for later reference.
-    shutil.copytree(os.path.join(exp_dir, 'RESTART'),
-                    os.path.join(exp_dir, '{}_RESTART'.format(timestamp)))
+    return os.path.join(exp_dir, s)
 
-    # Move the output dir? Need to do something about the MOM output being
-    # overwritten. For now just copy all files in exp directory.
-    output_dir = os.path.join(exp_dir, '{}_OUTPUT'.format(timestamp))
-    os.mkdir(output_dir)
+def get_archive_dir(exp_dir, run_date):
+
+    timestamp = str(run_date).replace(' ', '_').replace(':', '')
+    archive_dir = os.path.join(exp_dir, 'ARCHIVE_{}'.format(timestamp))
+
+    if not os.path.exists(archive_dir):
+        os.mkdir(archive_dir)
+    return archive_dir
+
+def copy_files_around_before_run(exp_dir, run_date, run_type, input_dir):
+    """
+    Save the input directory for this run.
+    """
+
+    output_dir = os.path.join(exp_dir, 'OUTPUT')
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
+
+    archive_dir = get_archive_dir(exp_dir, run_date)
+
+    # Delete any old ice restart from input, otherwise they build up.
+    ice_res = get_curr_cice_restart(exp_dir)
+    if ice_res is not None:
+        for f in glob.glob(os.path.join(exp_dir, 'INPUT/iced.*.nc')):
+            if f != ice_res:
+                os.remove(f)
+
+    # Keep a copy of INPUT for later reference. We should be able to restart
+    # from this.
+    for f in glob.glob(os.path.join(exp_dir, 'INPUT/*')):
+        os.chmod(f, stat.S_IRUSR | stat.S_IWUSR)
+    shutil.copytree(os.path.join(exp_dir, 'INPUT'),
+                    os.path.join(archive_dir, 'INPUT'))
+
+def copy_files_around_after_run(exp_dir, run_date):
+
+    archive_dir = get_archive_dir(exp_dir, run_date)
+
+    # Move everything to archived output dir.
+    shutil.move(os.path.join(exp_dir, 'OUTPUT'), archive_dir)
     for f in glob.glob(os.path.join(exp_dir, './*')):
         if os.path.isfile(f):
-            shutil.copy(f, output_dir)
+            shutil.move(f, os.path.join(archive_dir, 'OUTPUT'))
 
     # Copy contents of RESTART into INPUT ready for the next run.
-    # FIXME: is it bad that MOM doesn't start from the RESTART dir?
-    for f in glob.glob(os.path.join(exp_dir, 'INPUT/*.res.nc')):
-        os.chmod(f, stat.S_IRUSR | stat.S_IWUSR)
     for f in glob.glob(os.path.join(exp_dir, 'RESTART/*')):
         shutil.copy(f, os.path.join(exp_dir, 'INPUT'))
-
 
 def datetime_to_model_format(date):
     """
@@ -114,22 +147,23 @@ def init_namelists(exp_dir, timestep, runtime, curr_date,
                                 run_type=run_type)
 
             fname = os.path.basename(config_file)
+            # Write a copy to INPUT as well.
+            with open(os.path.join(exp_dir, 'INPUT', fname), 'w') as of:
+                of.write(s)
             with open(os.path.join(exp_dir, fname), 'w') as of:
                 of.write(s)
+
 
 def get_cice_date(exp_dir):
     """
     See what CICE thinks the current date and time is.
     """
 
-    res_file = os.path.join(exp_dir, 'RESTART', 'ice.restart_file')
-    if not os.path.exists(res_file):
+    res_file = get_curr_cice_restart(exp_dir)
+    if res_file is None:
         return dt.datetime(1, 1, 1), 0
 
-    with open(res_file, 'r') as f:
-        s = f.read().strip()
-
-    with nc.Dataset(os.path.join(exp_dir, s)) as f:
+    with nc.Dataset(res_file) as f:
         curr_date = dt.datetime(f.nyr, f.month, f.mday, second=f.sec)
         elapsed_seconds = int(f.time)
 
@@ -140,7 +174,7 @@ def get_mom_date(exp_dir):
     See what MOM thinks the current date and time is.
     """
 
-    res_file = os.path.join(exp_dir, 'RESTART', 'ocean_solo.res')
+    res_file = os.path.join(exp_dir, 'INPUT', 'ocean_solo.res')
     if not os.path.exists(res_file):
         return dt.datetime(1, 1, 1), dt.datetime(1, 1, 1), 'noleap'
 
@@ -163,7 +197,7 @@ def get_mom_date(exp_dir):
     return curr_date, init_date, caltype
 
 def is_continuation_run(exp_dir):
-    return os.path.exists(os.path.join(exp_dir, 'RESTART', 'ocean_solo.res'))
+    return os.path.exists(os.path.join(exp_dir, 'INPUT', 'ocean_solo.res'))
 
 def main():
 
@@ -174,6 +208,8 @@ def main():
                         help='The ice and ocean timestep in seconds.')
     parser.add_argument('--runtime', type=int, default=86400,
                         help='The per-submit runtime in seconds.')
+    parser.add_argument('--input_dir', default='./input/1deg/',
+                        help='Input directory, relative to this script')
 
     args = parser.parse_args()
 
@@ -195,10 +231,13 @@ def main():
 
     init_namelists(exp_dir, args.model_timestep, args.runtime, mom_curr_date,
                    cice_elapsed_time_seconds, run_type)
+
+    copy_files_around_before_run(exp_dir, mom_curr_date, run_type,
+                                 args.input_dir)
     ret = run(args.experiment, top_dir)
 
     if ret == 0:
-        copy_files_around(exp_dir, mom_curr_date)
+        copy_files_around_after_run(exp_dir, mom_curr_date)
 
     return ret
 

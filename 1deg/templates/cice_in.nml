@@ -13,9 +13,9 @@
   , use_restart_time = .true.
   , restart_format = 'nc'
   , lcdf64         = .false.
-  , restart_dir    = './RESTART/'
+  , restart_dir    = './INPUT/'
   , restart_file   = 'iced'
-  , pointer_file   = './RESTART/ice.restart_file'
+  , pointer_file   = './INPUT/ice.restart_file'
   , dumpfreq       = 'd'
   , dumpfreq_n     = 1
   , dump_last      = .true.
@@ -32,10 +32,10 @@
   , histfreq       = 'd','m','x','x','x'
   , histfreq_n     = 1, 1, 1, 1, 1
   , hist_avg       = .true.
-  , history_dir    = './HISTORY/'
+  , history_dir    = './OUTPUT/'
   , history_file   = 'iceh'
   , write_ic       = .false.
-  , incond_dir     = './HISTORY/'
+  , incond_dir     = './OUTPUT/'
   , incond_file    = 'iceh_ic'
 /
 
