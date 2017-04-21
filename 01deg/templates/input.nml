@@ -218,7 +218,7 @@
 	surface_height_split = 1
 	barotropic_split = 80
 	debug=.false.
-        layout = 60, 40
+        layout = 80, 65
         io_layout = 12, 10
 /
 
