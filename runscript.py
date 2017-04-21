@@ -13,7 +13,7 @@ from jinja2 import Template
 
 exp_defs = {'1deg'  : {'ocn_pes' : 120, 'ice_pes' : 6, 'atm_pes' : 1,
                        'res' : '360x300', 'timestep' : 1800},
-            '01deg' : {'ocn_pes' : 120, 'ice_pes' : 6, 'atm_pes' : 1,
+            '01deg' : {'ocn_pes' : 5200, 'ice_pes' : 1440, 'atm_pes' : 1,
                        'res' : '3600x2700', 'timestep' : 150 }}
             '025deg' : {'ocn_pes' : 960, 'ice_pes' : 192, 'atm_pes' : 1,
                        'res' : '1440x1080', 'timestep' : 1200 }}
@@ -226,8 +226,6 @@ def main():
                         help='The ice and ocean timestep in seconds.')
     parser.add_argument('--runtime', type=int, default=86400,
                         help='The per-submit runtime in seconds.')
-    parser.add_argument('--input_dir', default='./input/1deg/INPUT',
-                        help='Input directory, relative to this script')
 
     args = parser.parse_args()
 
@@ -236,7 +234,7 @@ def main():
 
     top_dir = os.path.dirname(os.path.realpath(__file__))
     exp_dir = os.path.join(top_dir, args.experiment)
-    initial_input_dir = os.path.join(top_dir, args.input_dir)
+    initial_input_dir = os.path.join(top_dir, 'input', args.experiment, 'INPUT')
     input_dir = os.path.join(exp_dir, 'INPUT')
 
     mom_curr_date, mom_init_date, mom_caltype = get_mom_date(exp_dir)
