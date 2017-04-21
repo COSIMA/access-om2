@@ -3,7 +3,7 @@
 	url = https://github.com/OceansAus/cice4.git
 [submodule "src/mom"]
 	path = src/mom
-	url = https://github.com/BreakawayLabs/mom.git
+	url = https://github.com/mom-ocean/MOM5.git
 [submodule "src/oasis3-mct"]
 	path = src/oasis3-mct
 	url = https://github.com/OceansAus/oasis3-mct.git
