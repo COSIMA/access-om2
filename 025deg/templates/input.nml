@@ -627,11 +627,11 @@
       send_after_ocean_update=.true.
 /
 
- &auscom_ice_nml
-    dt_cpl=1200
+&auscom_ice_nml
+    dt_cpl={{ ice_ocn_coupling_timestep }}
     do_ice_once=.false.
     pop_icediag=.true.
-    kmxice=5 
+    kmxice=5
     fixmeltT=.false.
     Tmelt=-.216
     use_ioaice=.true.
@@ -645,13 +645,13 @@
 /
 
 &ocean_solo_nml
-            years = 0
-            months = 1
-            days   = 0
-            date_init = 01,01,01,0,0,0
-            hours = 0
-            minutes = 0
-            seconds = 0
-            calendar = 'NOLEAP'
-            dt_cpld  = 1200
+    years = 0
+    months = {{ runtime_in_months }}
+    days   = {{ runtime_in_days }}
+    date_init = 0001,01,01,0,0,0
+    hours = 0
+    minutes = 0
+    seconds = 0
+    calendar = 'NOLEAP'
+    dt_cpld  = {{ ice_ocn_coupling_timestep }}
 /
