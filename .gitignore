@@ -12,8 +12,9 @@ logfile.000000.out
 nout.000000
 time_stamp.out
 ocean*.nc.*
+access-om.tar.gz
 
-01deg/HISTORY/
+ARCHIVE*
 01deg/cice_in.nml
 01deg/data_4_matm.table
 01deg/data_table
