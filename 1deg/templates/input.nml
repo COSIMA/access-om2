@@ -210,10 +210,10 @@
 /
 
  &ocean_model_nml
+	  dt_ocean={{ ocn_timestep }}
       layout = 12,10
       time_tendency='twolevel'
       vertical_coordinate='zstar'
-      dt_ocean = 1800
       baroclinic_split = 1
       surface_height_split = 1
       barotropic_split = 80
@@ -459,6 +459,7 @@
  /
 
  &ocean_tempsalt_nml
+      debug_this_module=.true.
       temperature_variable='conservative_temp'
       pottemp_2nd_iteration=.true.
       t_min=-5.0
@@ -504,7 +505,7 @@
 /
 
  &ocean_tracer_nml
-      debug_this_module=.false.
+      debug_this_module=.true.
       use_tempsalt_check_range=.true.
       zero_tendency=.false.
       remap_depth_to_s_init=.false.
@@ -636,7 +637,7 @@
 /
 
 &auscom_ice_nml
-    dt_cpl=1800
+    dt_cpl={{ ice_ocn_coupling_timestep }}
     do_ice_once=.false.
     pop_icediag=.true.
     kmxice=5 
@@ -654,14 +655,14 @@
 
 &ocean_solo_nml
     years = 0
-    months = 12
-    days   = 0
+    months = {{ runtime_in_months }}
+    days   = {{ runtime_in_days }}
     date_init = 0001,01,01,0,0,0
     hours = 0
     minutes = 0
     seconds = 0
     calendar = 'NOLEAP'
-    dt_cpld  = 1800
+    dt_cpld  = {{ ice_ocn_coupling_timestep }}
 /
 
 &bg_diff_lat_dependence_nml

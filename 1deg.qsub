@@ -1,0 +1,52 @@
+#!/bin/bash
+#PBS -P e14
+#PBS -q express
+#PBS -l walltime=00:10:00
+#PBS -l mem=256Gb
+#PBS -l jobfs=100Gb
+#PBS -l ncpus=128
+#PBS -l wd
+
+if [ X$NJOBS == X ]; then
+    echo "NJOBS (total number of jobs in sequence) is not set - defaulting to 1"
+    export NJOBS=1
+fi
+
+if [ X$NJOB == X ]; then
+    echo "NJOB (current job number in sequence) is not set - defaulting to 1"
+    export NJOB=1
+fi
+
+# Quick termination of job sequence - look for a specific file
+if [ -f STOP_SEQUENCE ] ; then
+    echo "Terminating sequence at job number $NJOB"
+    exit 0
+fi
+
+module load openmpi/1.10.2
+module load ipm/2.0.5
+export LD_PRELOAD=/apps/ipm/2.0.5/lib/libipm.so
+runscript.py
+
+# Check the exit status
+errstat=$?
+if [ $errstat -ne 0 ]; then
+    # A brief nap so PBS kills us in normal termination
+    # If execution line above exceeded some limit we want PBS
+    # to kill us hard
+    sleep 5
+    echo "Job number $NJOB returned an error status $errstat - stopping job sequence."
+    exit $errstat
+fi
+
+# Are we in an incomplete job sequence - more jobs to run ?
+if [ $NJOB -lt $NJOBS ]; then
+    NJOB=$(($NJOB+1))
+    echo "Submitting job number $NJOB in sequence of $NJOBS jobs"
+    qsub -v NJOBS=$NJOBS,NJOB=$NJOB 1deg.qsub
+else
+    echo "Finished last job in sequence of $NJOBS jobs"
+fi
+
+exit 0
+
