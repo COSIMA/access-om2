@@ -6,19 +6,19 @@
   , dt             = {{ ice_timestep }}
   , npt            = {{ runtime_in_ice_timesteps }}
   , ndtd           = 1
-  , runtype        = 'initial'
+  , runtype        = {{ run_type }}
   , ice_ic         = 'default'
-  , restart        = .false.
+  , restart        = .true.
   , restart_ext    = .false.
   , use_restart_time = .true.
   , restart_format = 'nc'
   , lcdf64         = .false.
-  , restart_dir    = './RESTART/'
+  , restart_dir    = './INPUT/'
   , restart_file   = 'iced'
-  , pointer_file   = './RESTART/ice.restart_file'
+  , pointer_file   = './INPUT/ice.restart_file'
   , dumpfreq       = 'd'
   , dumpfreq_n     = 5
-  , dump_last      = .false.
+  , dump_last      = .true.
   , diagfreq       = 960
   , diag_type      = 'file'
   , diag_file      = 'ice_diag.d'
@@ -32,10 +32,10 @@
   , histfreq       = 'd','m','x','x','x'
   , histfreq_n     = 1, 1, 1, 1, 1
   , hist_avg       = .true.
-  , history_dir    = './HISTORY/'
+  , history_dir    = './OUTPUT/'
   , history_file   = 'iceh'
   , write_ic       = .false.
-  , incond_dir     = './HISTORY/'
+  , incond_dir     = './OUTPUT/'
   , incond_file    = 'iceh_ic'
 /
 
