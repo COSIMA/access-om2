@@ -40,7 +40,7 @@
 #   86400    ! 1  day
 # 2678400    ! 31 days
 # 31536000   ! 365 days
- 2678400
+ {{ runtime_in_seconds }}
  $END
 ###########################################################################
 # $INIDATE
@@ -91,121 +91,111 @@
 ##########
 # Field 01 : swflx down
 ##########
-swfld_ai swfld_i 367 21600 3 a2i.nc EXPORTED
-192 94 1440 1080 nt62 cice LAG=+1200 SEQ=+1
+swfld_ai swfld_i 367 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
+192 94 1440 1080 nt62 cice LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 LOCTRANS MAPPING SCRIPR
 INSTANT
-rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
+INPUT/rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 #########
 # Field 02 : lwflx down
 ##########
-lwfld_ai lwfld_i 366 21600 3 a2i.nc EXPORTED
-192 94 1440 1080 nt62 cice LAG=+1200 SEQ=+1
+lwfld_ai lwfld_i 366 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
+192 94 1440 1080 nt62 cice LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 LOCTRANS MAPPING SCRIPR
 INSTANT
-rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
+INPUT/rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 ##########
 # Field 03 : rainfall
 ##########
-rain_ai rain_i 26 21600 3 a2i.nc EXPORTED
-192 94 1440 1080 nt62 cice LAG=+1200 SEQ=+1
+rain_ai rain_i 26 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
+192 94 1440 1080 nt62 cice LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 LOCTRANS MAPPING SCRIPR
 INSTANT
-rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
+INPUT/rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 ##########
 # Field 04 : snowfall
 ##########
-snow_ai snow_i 26 21600 3 a2i.nc EXPORTED
-192 94 1440 1080 nt62 cice LAG=+1200 SEQ=+1
+snow_ai snow_i 26 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
+192 94 1440 1080 nt62 cice LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 LOCTRANS MAPPING SCRIPR
 INSTANT
-rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
+INPUT/rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 ##########
 # Field 05 : surface pressure
 ##########
-press_ai press_i 33 21600 3 a2i.nc EXPORTED
-192 94 1440 1080 nt62 cice LAG=+1200 SEQ=+1
+press_ai press_i 33 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
+192 94 1440 1080 nt62 cice LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 # 
 LOCTRANS MAPPING SCRIPR
 INSTANT
-rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
+INPUT/rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 ##########
 # Field 06 : runoff
 ##########
-runof_ai runof_i 297 21600 3 a2i.nc EXPORTED
-192 94 1440 1080 nt62 cice LAG=+1200 SEQ=+1
+runof_ai runof_i 297 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
+192 94 1440 1080 nt62 cice LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 # 
 LOCTRANS MAPPING SCRIPR
 INSTANT
-rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
+INPUT/rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 ##########
 # Field 07 : near surface (2m) air temp
 ##########
-tair_ai tair_i 110 21600 3 a2i.nc EXPORTED
-192 94 1440 1080 nt62 cice LAG=+1200 SEQ=+1
+tair_ai tair_i 110 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
+192 94 1440 1080 nt62 cice LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 LOCTRANS MAPPING SCRIPR
 INSTANT
-rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
+INPUT/rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 ##########
 # Field 08 : 2m air humidity
 ##########
-qair_ai qair_i 339 21600 3 a2i.nc EXPORTED
-192 94 1440 1080 nt62 cice LAG=+1200 SEQ=+1
+qair_ai qair_i 339 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
+192 94 1440 1080 nt62 cice LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 LOCTRANS MAPPING SCRIPR
 INSTANT
-rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
+INPUT/rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 ##########
 # Field 09 : 10m wind (u)
 ##########
-uwnd_ai uwnd_i 56 21600 2 a2i.nc EXPORTED
-192 94 1440 1080 nt62 cice LAG=+1200 SEQ=+1
+uwnd_ai uwnd_i 56 {{ atm_ice_coupling_timestep }} 2 INPUT/a2i.nc EXPORTED
+192 94 1440 1080 nt62 cice LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 MAPPING SCRIPR
-#
-rmp_nt62_to_cice_DISTWGT.nc dst
+INPUT/rmp_nt62_to_cice_DISTWGT.nc dst
 DISTWGT LR VECTOR LATLON 10 4 vwnd_ai
 ##########
 # Field 10 : 10m wind (v)
 ##########
-vwnd_ai vwnd_i 56 21600 2 a2i.nc EXPORTED
-192 94 1440 1080 nt62 cice LAG=+1200 SEQ=+1
+vwnd_ai vwnd_i 56 {{ atm_ice_coupling_timestep }} 2 INPUT/a2i.nc EXPORTED
+192 94 1440 1080 nt62 cice LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 MAPPING SCRIPR
-#
-rmp_nt62_to_cice_DISTWGT.nc dst
+INPUT/rmp_nt62_to_cice_DISTWGT.nc dst
 DISTWGT LR VECTOR LATLON 10 4 uwnd_ai
-#-------------------------------------------------
-#vwnd_ai vwnd_i 56 21600 2 a2i.nc EXPORTED
-#192 94 1440 1080 nt62 cice LAG=+1200 SEQ=+1
-#P  0  P  0
-##
-#LOCTRANS INTERP
-#INSTANT
-#BICUBIC  G  SCALAR
 ############################################################################
 #
 #                      ICE --->>> OCEAN
@@ -213,25 +203,25 @@ DISTWGT LR VECTOR LATLON 10 4 uwnd_ai
 ##########
 # Field 11 : ice-ocean interface stress (x-direction)
 ##########
-strsu_io u_flux 170 1200 1 i2o.nc EXPORTED
+strsu_io u_flux 170 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
 LOCTRANS
 INSTANT
-########## 
+##########
 # Field 12 : ice-ocean interface stress (y-direction)
 ##########
-strsv_io v_flux 175 1200 1 i2o.nc EXPORTED
+strsv_io v_flux 175 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
 LOCTRANS
 INSTANT
-########## 
+##########
 # Field 13 : freshwater flux
 ##########
-rain_io lprec 27 1200 1 i2o.nc EXPORTED
+rain_io lprec 27 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -240,7 +230,7 @@ INSTANT
 ##########
 # Field 14 : freshwater flux
 ##########
-snow_io fprec 28 1200 1 i2o.nc EXPORTED
+snow_io fprec 28 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -249,7 +239,7 @@ INSTANT
 ########## 
 # Field 15 : salt flux   (no ref no for saltflux yet!)
 ##########
-stflx_io salt_flx 454 1200 1 i2o.nc EXPORTED
+stflx_io salt_flx 454 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -258,16 +248,16 @@ INSTANT
 ########## 
 # Field 16 : next heat flux   (heatflux into ocean. '42' not right.)
 ##########
-htflx_io mh_flux 42 1200 1 i2o.nc EXPORTED
+htflx_io mh_flux 42 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
 LOCTRANS
 INSTANT
-########## 
-# Field 17 : swflux penetrating through ice into ocean 
+##########
+# Field 17 : swflux penetrating through ice into ocean
 #########
-swflx_io sw_flux 367 1200 1 i2o.nc EXPORTED
+swflx_io sw_flux 367 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -276,7 +266,7 @@ INSTANT
 ##########
 # Field 18 : latent heat flux
 ##########
-qflux_io q_flux 452 1200 1 i2o.nc EXPORTED
+qflux_io q_flux 452 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -285,7 +275,7 @@ INSTANT
 #########
 # Field 19 : Sensible heat flux
 ##########
-shflx_io t_flux 362 1200 1 i2o.nc EXPORTED
+shflx_io t_flux 362 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -294,7 +284,7 @@ INSTANT
 ##########
 # Field 20 : LW radiation flux down
 ##########
-lwflx_io lw_flux 366 1200 1 i2o.nc EXPORTED
+lwflx_io lw_flux 366 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -303,7 +293,7 @@ INSTANT
 ##########
 # Field 21 : runoff
 ########## 
-runof_io runof 297 1200 1 i2o.nc EXPORTED
+runof_io runof 297 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -312,7 +302,7 @@ INSTANT
 ##########
 # Field 22 : surface pressure
 ########## 
-press_io p 33 1200 1 i2o.nc EXPORTED
+press_io p 33 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -321,16 +311,16 @@ INSTANT
 ##########
 # Field 23 : ice concentration
 ########## 
-aice_io aice 44 1200 1 i2o.nc EXPORTED
+aice_io aice 44 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
-LOCTRANS 
+LOCTRANS
 INSTANT
 ##########
 # Field 24 : ice melting waterflux
 ########## 
-melt_io wfimelt 36 1200 1 i2o.nc EXPORTED
+melt_io wfimelt 36 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -339,7 +329,7 @@ INSTANT
 ##########
 # Field 25 : ice forming eaterflux
 ########## 
-form_io wfiform 36 1200 1 i2o.nc EXPORTED
+form_io wfiform 36 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -350,7 +340,7 @@ INSTANT
 #                      OCEAN --->>> ICE
 #                      ----------------
 ########## 
-# Field 26 : Sea surface temperature (Celsius in MOM4)
+# Field 26 : Sea surface temperature (Celsius in MOM4, Kelvin in MOM5)
 ##########
 t_surf sst_i 1 1200 1 o2i.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
@@ -361,7 +351,7 @@ INSTANT
 ########## 
 # Field 27 : Sea surface salinity (psu)
 ##########
-s_surf sss_i 312 1200 1 o2i.nc EXPORTED
+s_surf sss_i 312 {{ ice_ocn_coupling_timestep }} 1 INPUT/o2i.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #  
@@ -370,7 +360,7 @@ INSTANT
 ##########
 # Field 28 :  'eastward' sea surface water velocity
 ########## 
-u_surf ssu_i 181 1200 1 o2i.nc EXPORTED
+u_surf ssu_i 181 {{ ice_ocn_coupling_timestep }} 1 INPUT/o2i.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -379,7 +369,7 @@ INSTANT
 ########## 
 # Field 29 : 'northward' sea surface water velocity
 ##########
-v_surf ssv_i 261 1200 1 o2i.nc EXPORTED
+v_surf ssv_i 261 {{ ice_ocn_coupling_timestep }} 1 INPUT/o2i.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -389,8 +379,7 @@ INSTANT
 # Field 30 :  frazil ice fromation energy (J/m^2) 
 #             ('441' is "upward_sea_ice_basal_heat_flux' 'W m-2')
 ##########
-#pfmice_oi pfmice_i 441 1200 1 o2i.nc EXPORTED
-frazil pfmice_i 441 1200 1 o2i.nc EXPORTED
+frazil pfmice_i 441 {{ ice_ocn_coupling_timestep }} 1 INPUT/o2i.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -400,7 +389,7 @@ INSTANT
 # Field 31 :  sea surface slope _x_ (m/m)
 #             ( '203' is "height" ...)
 ##########
-dssldx sslx_i 203 1200 1 o2i.nc EXPORTED
+dssldx sslx_i 203 {{ ice_ocn_coupling_timestep }} 1 INPUT/o2i.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -409,8 +398,8 @@ INSTANT
 ##########
 # Field 32 :  sea surface slope _y_ (m/m)
 #             ( '310' is "sea_surface_elevation")
-########## 
-dssldy ssly_i 310 1200 1 o2i.nc EXPORTED
+##########
+dssldy ssly_i 310 {{ ice_ocn_coupling_timestep }} 1 INPUT/o2i.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #
@@ -420,16 +409,16 @@ INSTANT
 #
 #                      ICE --->>> ATMOSPHERE
 #                      ---------------------
-########## 
+##########
 # Field 33 : ice/ocean surface temp (no ref no! '331' is snow temp!)
 ##########
-isst_ia isst_a 331 21600 3 i2a.nc EXPORTED
+isst_ia isst_a 331 {{ atm_ice_coupling_timestep }} 3 INPUT/i2a.nc EXPORTED
 1440 1080 192 94 cice nt62 LAG=+1200 SEQ=+1
 P 0 P 0
 #
 LOCTRANS MAPPING SCRIPR
 INSTANT
-rmp_cice_to_nt62_CONSERV_FRACNNEI.nc dst
+INPUT/rmp_cice_to_nt62_CONSERV_FRACNNEI.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 ############################################################################
  $END

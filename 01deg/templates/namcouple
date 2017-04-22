@@ -106,7 +106,7 @@ lwfld_ai lwfld_i 366 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
 192 94 3600 2700 cort cict LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
-LOCTRANS MAPPING SCRIPR 
+LOCTRANS MAPPING SCRIPR
 INSTANT
 INPUT/rmp_cort_to_cict_CONSERV.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
@@ -131,7 +131,7 @@ P  0  P  0
 LOCTRANS MAPPING SCRIPR
 INSTANT
 INPUT/rmp_cort_to_cict_CONSERV.nc dst
-CONSERV LR SCALAR LATLON 9 FRACNNEI FIRST
+CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 ##########
 # Field 05 : surface pressure
 ##########
@@ -194,7 +194,6 @@ vwnd_ai vwnd_i 56 {{ atm_ice_coupling_timestep }} 2 INPUT/a2i.nc EXPORTED
 P  0  P  0
 #
 MAPPING SCRIPR
-#
 INPUT/rmp_cort_to_cict_DISTWGT.nc dst
 DISTWGT LR VECTOR LATLON 10 4 uwnd_ai
 ############################################################################
@@ -293,7 +292,7 @@ LOCTRANS
 INSTANT
 ##########
 # Field 21 : runoff
-########## 
+##########
 runof_io runof 297 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
@@ -329,7 +328,7 @@ LOCTRANS
 INSTANT
 ##########
 # Field 25 : ice forming eaterflux
-########## 
+##########
 form_io wfiform 36 {{ ice_ocn_coupling_timestep }} 1 INPUT/i2o.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
@@ -337,37 +336,37 @@ P 0 P 0
 LOCTRANS
 INSTANT
 ############################################################################
-# 
+#
 #                      OCEAN --->>> ICE
 #                      ----------------
-########## 
+##########
 # Field 26 : Sea surface temperature (Celsius in MOM4, Kelvin in MOM5)
 ##########
 t_surf sst_i 1 {{ ice_ocn_coupling_timestep }} 1 INPUT/o2i.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
-#  
+#
 LOCTRANS
 INSTANT
-########## 
+##########
 # Field 27 : Sea surface salinity (psu)
 ##########
 s_surf sss_i 312 {{ ice_ocn_coupling_timestep }} 1 INPUT/o2i.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
-#  
+#
 LOCTRANS
 INSTANT
 ##########
 # Field 28 :  'eastward' sea surface water velocity
-########## 
+##########
 u_surf ssu_i 181 {{ ice_ocn_coupling_timestep }} 1 INPUT/o2i.nc EXPORTED
 3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
 P 0 P 0
 #
 LOCTRANS
 INSTANT
-########## 
+##########
 # Field 29 : 'northward' sea surface water velocity
 ##########
 v_surf ssv_i 261 {{ ice_ocn_coupling_timestep }} 1 INPUT/o2i.nc EXPORTED

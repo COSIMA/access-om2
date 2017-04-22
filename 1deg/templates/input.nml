@@ -646,7 +646,7 @@
     use_ioaice=.true.
     aice_cutoff=0.15
     icemlt_factor=1.0
-    frazil_factor=1.0 
+    frazil_factor=1.0
     iceform_adj_salt=.false.
     sign_stflx=1.0
     chk_i2o_fields=.false.
