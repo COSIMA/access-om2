@@ -13,7 +13,7 @@ from jinja2 import Template
 
 exp_defs = {'1deg'  : {'ocn_pes' : 120, 'ice_pes' : 6, 'atm_pes' : 1,
                        'res' : '360x300', 'timestep' : 1800},
-            '01deg' : {'ocn_pes' : 5200, 'ice_pes' : 1440, 'atm_pes' : 1,
+            '01deg' : {'ocn_pes' : 2400, 'ice_pes' : 1440, 'atm_pes' : 1,
                        'res' : '3600x2700', 'timestep' : 150 }}
 
 def run(exp, top_dir):

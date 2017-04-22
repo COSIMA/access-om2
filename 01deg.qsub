@@ -2,9 +2,9 @@
 #PBS -P e14
 #PBS -q normal
 #PBS -l walltime=05:00:00
-#PBS -l mem=12000Gb
+#PBS -l mem=6000Gb
 #PBS -l jobfs=100Gb
-#PBS -l ncpus=6656
+#PBS -l ncpus=3856
 #PBS -l wd
 
 if [ X$NJOBS == X ]; then
