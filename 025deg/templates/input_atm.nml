@@ -2,9 +2,9 @@
     init_date=00010101
     inidate=00010101
     truntime0=0
-    runtime=2678400
-    dt_cpl=21600
-    dt_atm=1200
+    runtime={{ runtime_in_seconds }}
+    dt_cpl={{ atm_ice_coupling_timestep }}
+    dt_atm={{ atm_timestep }}
     dataset='core2'
     runtype='NY'
     caltype=0
