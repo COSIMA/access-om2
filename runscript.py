@@ -11,8 +11,8 @@ import datetime as dt
 import netCDF4 as nc
 from jinja2 import Template
 
-exp_defs = {'1deg'  : {'ocn_pes' : 120, 'ice_pes' : 6, 'atm_pes' : 1,
-                       'res' : '360x300', 'timestep' : 1800},
+exp_defs = {'1deg'  : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
+                       'res' : '360x300', 'timestep' : 3600},
             '01deg' : {'ocn_pes' : 2400, 'ice_pes' : 1440, 'atm_pes' : 1,
                        'res' : '3600x2700', 'timestep' : 150 },
             '025deg' : {'ocn_pes' : 960, 'ice_pes' : 192, 'atm_pes' : 1,
@@ -88,6 +88,9 @@ def copy_files_around_before_run(exp_dir, run_date, config_files, run_type,
     output_dir = os.path.join(exp_dir, 'OUTPUT')
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
+    trash_dir = os.path.join(exp_dir, 'TRASH')
+    if not os.path.exists(trash_dir):
+        os.mkdir(trash_dir)
 
     archive_dir = get_archive_dir(exp_dir, run_date)
 
@@ -96,7 +99,7 @@ def copy_files_around_before_run(exp_dir, run_date, config_files, run_type,
     if ice_res is not None:
         for f in glob.glob(os.path.join(input_dir, './iced.*.nc')):
             if os.path.normpath(f) != os.path.normpath(ice_res):
-                os.remove(f)
+                shutil.move(f, trash_dir)
 
     # Keep a copy of INPUT for later reference. We should be able to restart
     # from this.
