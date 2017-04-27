@@ -24,7 +24,7 @@ if [ -f STOP_SEQUENCE ] ; then
 fi
 
 module load openmpi/1.10.2
-runscript.py --experiment 01deg --runtime 864000
+runscript.py --experiment 01deg --runtime 86400
 
 # Check the exit status
 errstat=$?
