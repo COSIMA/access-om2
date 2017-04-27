@@ -49,8 +49,8 @@
 
 &domain_nml
     nprocs = 24
-  , processor_shape   = 'slenderX1'
-  , distribution_type = 'cartesian'
+  , processor_shape   = 'square-ice'
+  , distribution_type = 'spacecurve'
   , distribution_wght = 'latitude'
   , ew_boundary_type  = 'cyclic'
   , ns_boundary_type  = 'tripole'
