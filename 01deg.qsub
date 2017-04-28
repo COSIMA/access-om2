@@ -24,9 +24,7 @@ if [ -f STOP_SEQUENCE ] ; then
 fi
 
 module load openmpi/1.10.2
-module load ipm/2.0.5
-export LD_PRELOAD=/apps/ipm/2.0.5/lib/libipm.so
-runscript.py --experiment 01deg --runtime 864000
+runscript.py --experiment 01deg --runtime 86400
 
 # Check the exit status
 errstat=$?
@@ -43,7 +41,7 @@ fi
 if [ $NJOB -lt $NJOBS ]; then
     NJOB=$(($NJOB+1))
     echo "Submitting job number $NJOB in sequence of $NJOBS jobs"
-    qsub -v NJOBS=$NJOBS,NJOB=$NJOB 1deg.qsub
+    qsub -v NJOBS=$NJOBS,NJOB=$NJOB 01deg.qsub
 else
     echo "Finished last job in sequence of $NJOBS jobs"
 fi

@@ -16,7 +16,7 @@
   , restart_dir    = './INPUT/'
   , restart_file   = 'iced'
   , pointer_file   = './INPUT/ice.restart_file'
-  , dumpfreq       = 'd'
+  , dumpfreq       = 'y'
   , dumpfreq_n     = 1
   , dump_last      = .true.
   , diagfreq       = 960
@@ -48,15 +48,15 @@
 /
 
 &domain_nml
-    nprocs = 6
-  , processor_shape   = 'slenderX2'
+    nprocs = 24
+  , processor_shape   = 'slenderX1'
   , distribution_type = 'cartesian'
   , distribution_wght = 'latitude'
   , ew_boundary_type  = 'cyclic'
   , ns_boundary_type  = 'tripole'
-  , maskhalo_dyn      = .false.
-  , maskhalo_remap    = .false.
-  , maskhalo_bound    = .false.
+  , maskhalo_dyn      = .true.
+  , maskhalo_remap    = .true.
+  , maskhalo_bound    = .true.
 /
 
 &tracer_nml
@@ -193,23 +193,23 @@
   , f_VGRDs        = .false.
   , f_VGRDb        = .false.
   , f_bounds       = .false.
-  , f_sice         = 'd' 
-  , f_hi           = 'd'
-  , f_hs           = 'd' 
-  , f_Tsfc         = 'd' 
-  , f_aice         = 'd' 
-  , f_uvel         = 'd' 
-  , f_vvel         = 'd' 
-  , f_fswdn        = 'd' 
-  , f_flwdn        = 'd'
+  , f_sice         = 'm' 
+  , f_hi           = 'm'
+  , f_hs           = 'm' 
+  , f_Tsfc         = 'm' 
+  , f_aice         = 'm' 
+  , f_uvel         = 'm' 
+  , f_vvel         = 'm' 
+  , f_fswdn        = 'm' 
+  , f_flwdn        = 'm'
   , f_snow         = 'x' 
   , f_snow_ai      = 'm' 
   , f_rain         = 'x' 
   , f_rain_ai      = 'm' 
-  , f_sst          = 'd' 
-  , f_sss          = 'd' 
-  , f_uocn         = 'd' 
-  , f_vocn         = 'd' 
+  , f_sst          = 'm' 
+  , f_sss          = 'm' 
+  , f_uocn         = 'm' 
+  , f_vocn         = 'm' 
   , f_frzmlt       = 'm'
   , f_fswfac       = 'm'
   , f_fswabs       = 'x' 

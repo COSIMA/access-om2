@@ -211,7 +211,7 @@
 
  &ocean_model_nml
 	  dt_ocean={{ ocn_timestep }}
-      layout = 12,10
+      layout = 16,15
       time_tendency='twolevel'
       vertical_coordinate='zstar'
       baroclinic_split = 1
@@ -459,7 +459,7 @@
  /
 
  &ocean_tempsalt_nml
-      debug_this_module=.true.
+      debug_this_module=.false.
       temperature_variable='conservative_temp'
       pottemp_2nd_iteration=.true.
       t_min=-5.0
@@ -505,7 +505,7 @@
 /
 
  &ocean_tracer_nml
-      debug_this_module=.true.
+      debug_this_module=.false.
       use_tempsalt_check_range=.true.
       zero_tendency=.false.
       remap_depth_to_s_init=.false.
