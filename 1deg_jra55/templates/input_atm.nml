@@ -5,7 +5,7 @@
     runtime={{ runtime_in_seconds }}
     dt_cpl={{ atm_ice_coupling_timestep }}
     dt_atm={{ atm_timestep }}
-    dataset = 'core2'
+    dataset = 'jra55'
     runtype = 'NY'
     caltype = 0
     days_per_year = 365

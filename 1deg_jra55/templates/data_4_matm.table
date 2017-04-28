@@ -1,24 +1,24 @@
 10     # num of input fields listed below: #
-INPUT/ncar_rad.0001.nc
-SWDN_MOD
-INPUT/ncar_rad.0001.nc
-LWDN_MOD
-INPUT/u_10.0001.nc
-U_10_MOD
-INPUT/v_10.0001.nc
-V_10_MOD
-INPUT/ncar_precip.0001.nc
-RAIN
-INPUT/ncar_precip.0001.nc
-SNOW
-INPUT/slp.0001.nc
-SLP
-INPUT/mean_runof.0001.nc
-RUNOF
-INPUT/t_10.0001.nc
-T_10_MOD
-INPUT/q_10.0001.nc
-Q_10_MOD
+INPUT/jra_rad.1984.30Jun2016.nc
+rsds
+INPUT/jra_rad.1984.30Jun2016.nc
+rlds
+INPUT/u_10.1984.30Jun2016.nc
+uas_10m
+INPUT/v_10.1984.30Jun2016.nc
+vas_10m
+INPUT/jra_precip.1984.30Jun2016.nc
+prrn
+INPUT/jra_precip.1984.30Jun2016.nc
+prsn
+INPUT/slp.1984.30Jun2016.nc
+psl
+INPUT/runoff_from_iaf_16MAR2016_jragrid_1984.nc
+runof
+INPUT/t_10.1984.30Jun2016.nc
+tas_10m
+INPUT/q_10.1984.30Jun2016.nc
+huss_10m
 
 
 #
