@@ -186,7 +186,7 @@
 /
 
  &ocean_model_nml
-      dt_ocean = 1200
+      dt_ocean = {{ ocn_timestep }}
       time_tendency='twolevel'
       vertical_coordinate='zstar'
       baroclinic_split = 1
@@ -194,7 +194,7 @@
       barotropic_split = 80
       cmip_units=.true.
       debug=.false.
-      layout = 32,30
+      layout = 48,40
 /
 
  &ocean_momentum_source_nml

@@ -15,7 +15,7 @@ exp_defs = {'1deg'  : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
                        'res' : '360x300', 'timestep' : 3600},
             '01deg' : {'ocn_pes' : 2400, 'ice_pes' : 1440, 'atm_pes' : 1,
                        'res' : '3600x2700', 'timestep' : 150 },
-            '025deg' : {'ocn_pes' : 960, 'ice_pes' : 192, 'atm_pes' : 1,
+            '025deg' : {'ocn_pes' : 1920, 'ice_pes' : 480, 'atm_pes' : 1,
                        'res' : '1440x1080', 'timestep' : 1200 }}
 
 def run(exp, top_dir):
