@@ -11,12 +11,14 @@ import datetime as dt
 import netCDF4 as nc
 from jinja2 import Template
 
-exp_defs = {'1deg'  : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
-                       'res' : '360x300', 'timestep' : 3600},
+exp_defs = {'1deg_corenyf'  : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
+                               'res' : '360x300', 'timestep' : 3600, 'atm_grid' : 'nt62'},
+            '1deg_jra55'  : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
+                               'res' : '360x300', 'timestep' : 3600, 'atm_grid' : 'jrat'},
             '01deg' : {'ocn_pes' : 2400, 'ice_pes' : 1440, 'atm_pes' : 1,
-                       'res' : '3600x2700', 'timestep' : 150 },
+                       'res' : '3600x2700', 'timestep' : 150, 'atm_grid' : 'nt62'},
             '025deg' : {'ocn_pes' : 1920, 'ice_pes' : 480, 'atm_pes' : 1,
-                       'res' : '1440x1080', 'timestep' : 1200 }}
+                       'res' : '1440x1080', 'timestep' : 1200, 'atm_grid' : 'nt62'}}
 
 def run(exp, top_dir):
     """
@@ -29,7 +31,8 @@ def run(exp, top_dir):
     cice_build = 'auscom_{}_{}p'.format(exp_def['res'], exp_def['ice_pes'])
     ice_exe = os.path.join(top_dir, 'src/cice5/',
                            'build_{}/cice_{}.exe'.format(cice_build, cice_build))
-    atm_exe = os.path.join(top_dir, 'src/matm/build_nt62/matm_nt62.exe')
+    atm_grid = exp_def['atm_grid']
+    atm_exe = os.path.join(top_dir, 'src/matm/build_{}/matm_{}.exe'.format(atm_grid, atm_grid))
 
     cmd = ['mpirun', '--mca', 'orte_base_help_aggregate', '0', '-np',
            str(exp_def['ocn_pes']), ocn_exe, ':', '-np', str(exp_def['ice_pes']),
