@@ -1,0 +1,24 @@
+&surface_flux_nml
+no_neg_q              = .false.
+use_virtual_temp      = .true.
+alt_gustiness         = .false.
+old_dtaudv            = .false.
+use_mixing_ratio      = .false.
+gust_const            =  1.0
+gust_min              =  0.0
+ncar_ocean_flux       = .true.
+ncar_ocean_flux_orig  = .false.
+raoult_sat_vap        = .false.
+/
+&ocean_rough_nml
+roughness_mom   = 5.8e-5
+roughness_heat  = 5.8e-5
+roughness_moist = 5.8e-5
+roughness_min   = 1.0e-6
+charnock = 0.032
+rough_scheme = 'beljaars'
+do_highwind = .false.
+do_cap40    = .false.
+zcoh1 = 0.0
+zcoq1 = 0.0
+/
