@@ -11,14 +11,24 @@ import datetime as dt
 import netCDF4 as nc
 from jinja2 import Template
 
-exp_defs = {'1deg_corenyf'  : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
+exp_defs = {'1deg_corenyf' : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
                                'res' : '360x300', 'timestep' : 3600, 'atm_grid' : 'nt62'},
-            '1deg_jra55'  : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
+            '1deg_jra55' : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
                                'res' : '360x300', 'timestep' : 3600, 'atm_grid' : 'jrat'},
-            '01deg' : {'ocn_pes' : 2400, 'ice_pes' : 1440, 'atm_pes' : 1,
-                       'res' : '3600x2700', 'timestep' : 150, 'atm_grid' : 'nt62'},
-            '025deg' : {'ocn_pes' : 1920, 'ice_pes' : 480, 'atm_pes' : 1,
-                       'res' : '1440x1080', 'timestep' : 1200, 'atm_grid' : 'nt62'}}
+            '01deg_corenyf' : {'ocn_pes' : 2400, 'ice_pes' : 1440, 'atm_pes' : 1,
+                               'res' : '3600x2700', 'timestep' : 150, 'atm_grid' : 'nt62'},
+            '01deg_jra55' : {'ocn_pes' : 2400, 'ice_pes' : 1440, 'atm_pes' : 1,
+                             'res' : '3600x2700', 'timestep' : 150, 'atm_grid' : 'jra55'},
+            '025deg_corenyf' : {'ocn_pes' : 1920, 'ice_pes' : 480, 'atm_pes' : 1,
+                                'res' : '1440x1080', 'timestep' : 1200, 'atm_grid' : 'nt62'},
+            '025deg_jra55' : {'ocn_pes' : 1920, 'ice_pes' : 480, 'atm_pes' : 1,
+                              'res' : '1440x1080', 'timestep' : 1200, 'atm_grid' : 'jra55'}}
+
+mca_opts = ['--mca', 'orte_base_help_aggregate', '0',
+            '--mca', 'btl_openib_eager_limit', '4096',
+            '--mca', 'btl_openib_max_send_size', '8192',
+            '--mca', 'mtl', 'mxm',
+            '--mca', 'coll_fca_enable', '1']
 
 def run(exp, top_dir):
     """
@@ -34,7 +44,7 @@ def run(exp, top_dir):
     atm_grid = exp_def['atm_grid']
     atm_exe = os.path.join(top_dir, 'src/matm/build_{}/matm_{}.exe'.format(atm_grid, atm_grid))
 
-    cmd = ['mpirun', '--mca', 'orte_base_help_aggregate', '0', '-np',
+    cmd = ['mpirun'] + mca_opts + ['-np',
            str(exp_def['ocn_pes']), ocn_exe, ':', '-np', str(exp_def['ice_pes']),
            ice_exe, ':', '-np', '1', atm_exe]
 

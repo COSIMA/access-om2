@@ -92,7 +92,7 @@
 # Field 01 : swflx down
 ##########
 swfld_ai swfld_i 367 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
-192 94 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
+640 320 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 LOCTRANS MAPPING SCRIPR
@@ -103,7 +103,7 @@ CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 # Field 02 : lwflx down
 ##########
 lwfld_ai lwfld_i 366 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
-192 94 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
+640 320 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 LOCTRANS MAPPING SCRIPR
@@ -114,7 +114,7 @@ CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 # Field 03 : rainfall
 ##########
 rain_ai rain_i 26 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
-192 94 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
+640 320 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 LOCTRANS MAPPING SCRIPR
@@ -125,7 +125,7 @@ CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 # Field 04 : snowfall
 ##########
 snow_ai snow_i 26 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
-192 94 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
+640 320 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 LOCTRANS MAPPING SCRIPR
@@ -136,7 +136,7 @@ CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 # Field 05 : surface pressure
 ##########
 press_ai press_i 33 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
-192 94 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
+640 320 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 # 
 LOCTRANS MAPPING SCRIPR
@@ -147,7 +147,7 @@ CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 # Field 06 : runoff
 ##########
 runof_ai runof_i 297 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
-192 94 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
+640 320 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 # 
 LOCTRANS MAPPING SCRIPR
@@ -158,7 +158,7 @@ CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 # Field 07 : near surface (2m) air temp
 ##########
 tair_ai tair_i 110 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
-192 94 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
+640 320 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 LOCTRANS MAPPING SCRIPR
@@ -169,7 +169,7 @@ CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 # Field 08 : 2m air humidity
 ##########
 qair_ai qair_i 339 {{ atm_ice_coupling_timestep }} 3 INPUT/a2i.nc EXPORTED
-192 94 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
+640 320 1440 1080 jrat cict LAG=+{{ ice_timestep }} SEQ=+1
 P  0  P  0
 #
 LOCTRANS MAPPING SCRIPR
