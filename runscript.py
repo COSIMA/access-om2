@@ -8,13 +8,14 @@ import argparse
 import subprocess as sp
 import glob
 import datetime as dt
+import calendar
 import netCDF4 as nc
 from jinja2 import Template
 
 exp_defs = {'1deg_corenyf' : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
                                'res' : '360x300', 'timestep' : 3600, 'atm_grid' : 'nt62'},
             '1deg_jra55' : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
-                               'res' : '360x300', 'timestep' : 3600, 'atm_grid' : 'jrat'},
+                               'res' : '360x300', 'timestep' : 3600, 'atm_grid' : 'jra55'},
             '01deg_corenyf' : {'ocn_pes' : 2400, 'ice_pes' : 1440, 'atm_pes' : 1,
                                'res' : '3600x2700', 'timestep' : 150, 'atm_grid' : 'nt62'},
             '01deg_jra55' : {'ocn_pes' : 2400, 'ice_pes' : 1440, 'atm_pes' : 1,
@@ -116,7 +117,7 @@ def copy_files_around_before_run(exp_dir, run_date, config_files, run_type,
 
     # Keep a copy of INPUT for later reference. We should be able to restart
     # from this.
-    shutil.copytree(input_dir, os.path.join(archive_dir, 'INPUT'))
+    # shutil.copytree(input_dir, os.path.join(archive_dir, 'INPUT'))
 
     try:
         os.mkdir(os.path.join(exp_dir, 'RESTART'))
@@ -144,6 +145,30 @@ def datetime_to_model_format(date):
 
     return str(date.year).zfill(4) + str(date.month).zfill(2) + \
            str(date.day).zfill(2)
+
+def days_in_months(date, months):
+    """
+    Return how many days there are in a number of months following a date.
+
+    The date should be at a month boundary.
+
+    Does not use leap year days.
+    """
+
+    assert date.day == 1
+
+    curr_date = date
+    days = 0
+    for m in range(months):
+        days_in_month = calendar.monthrange(curr_date.year, curr_date.month)[1]
+        if days_in_month == 29:
+            days += 28
+        else:
+            days += days_in_month
+
+        curr_date += dt.timedelta(days=days_in_month)
+
+    return days
 
 def init_namelists(exp_dir, timestep, runtime, curr_date,
                    elapsed_time_in_seconds, run_type):
@@ -240,13 +265,16 @@ def main():
                         help='The experiment to run.')
     parser.add_argument('--model_timestep', type=int, default=-1,
                         help='The ice and ocean timestep in seconds.')
-    parser.add_argument('--runtime', type=int, default=86400,
+    parser.add_argument('--runtime_seconds', type=int, default=None,
+                        help='The per-submit runtime in seconds.')
+    parser.add_argument('--runtime_months', type=int, default=None,
                         help='The per-submit runtime in seconds.')
 
     args = parser.parse_args()
 
     if args.model_timestep == -1:
         args.model_timestep = exp_defs[args.experiment]['timestep']
+    assert not (args.runtime_seconds is None and args.runtime_months is None)
 
     top_dir = os.path.dirname(os.path.realpath(__file__))
     exp_dir = os.path.join(top_dir, args.experiment)
@@ -258,13 +286,19 @@ def main():
     assert mom_curr_date == cice_curr_date
     assert mom_caltype == 'noleap'
 
+    # May need to figure out the runtime based on current date.
+    runtime = args.runtime_seconds
+    if runtime is None:
+        days = days_in_months(mom_curr_date, args.runtime_months)
+        runtime = days*86400
+
     if is_continuation_run(exp_dir):
         run_type = "'continue'"
     else:
         run_type = "'initial'"
         assert not os.path.exists(input_dir)
 
-    configs = init_namelists(exp_dir, args.model_timestep, args.runtime,
+    configs = init_namelists(exp_dir, args.model_timestep, runtime,
                              mom_curr_date, cice_elapsed_time_seconds, run_type)
 
     copy_files_around_before_run(exp_dir, mom_curr_date, configs, run_type,
