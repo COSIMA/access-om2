@@ -13,17 +13,23 @@ import netCDF4 as nc
 from jinja2 import Template
 
 exp_defs = {'1deg_corenyf' : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
-                               'res' : '360x300', 'timestep' : 3600, 'atm_grid' : 'nt62'},
+                               'res' : '360x300', 'timestep' : 3600,
+                               'atm_timestep' : 21600, 'atm_grid' : 'nt62'},
             '1deg_jra55' : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
-                               'res' : '360x300', 'timestep' : 3600, 'atm_grid' : 'jra55'},
+                            'res' : '360x300', 'timestep' : 3600,
+                            'atm_timestep' : 10800, 'atm_grid' : 'jra55'},
             '01deg_corenyf' : {'ocn_pes' : 2400, 'ice_pes' : 1440, 'atm_pes' : 1,
-                               'res' : '3600x2700', 'timestep' : 150, 'atm_grid' : 'nt62'},
+                               'res' : '3600x2700', 'timestep' : 150,
+                               'atm_timestep' : 21600, 'atm_grid' : 'nt62'},
             '01deg_jra55' : {'ocn_pes' : 2400, 'ice_pes' : 1440, 'atm_pes' : 1,
-                             'res' : '3600x2700', 'timestep' : 150, 'atm_grid' : 'jra55'},
+                             'res' : '3600x2700', 'timestep' : 150,
+                             'atm_timestep' : 10800, 'atm_grid' : 'jra55'},
             '025deg_corenyf' : {'ocn_pes' : 1920, 'ice_pes' : 480, 'atm_pes' : 1,
-                                'res' : '1440x1080', 'timestep' : 1200, 'atm_grid' : 'nt62'},
+                                'res' : '1440x1080', 'timestep' : 1200,
+                                'atm_timestep' : 21600, 'atm_grid' : 'nt62'},
             '025deg_jra55' : {'ocn_pes' : 1920, 'ice_pes' : 480, 'atm_pes' : 1,
-                              'res' : '1440x1080', 'timestep' : 1200, 'atm_grid' : 'jra55'}}
+                              'res' : '1440x1080', 'timestep' : 1200,
+                              'atm_timestep' : 10800, 'atm_grid' : 'jra55'}}
 
 mca_opts = ['--mca', 'orte_base_help_aggregate', '0',
             '--mca', 'btl_openib_eager_limit', '4096',
@@ -170,7 +176,7 @@ def days_in_months(date, months):
 
     return days
 
-def init_namelists(exp_dir, timestep, runtime, curr_date,
+def init_namelists(exp_dir, timestep, atm_timestep, runtime, curr_date,
                    elapsed_time_in_seconds, run_type):
     """
     Set timestep and runtime of experiment.
@@ -182,7 +188,7 @@ def init_namelists(exp_dir, timestep, runtime, curr_date,
     ocn_timestep = timestep
     atm_timestep = timestep
     ice_ocn_coupling_timestep = timestep
-    atm_ice_coupling_timestep = 21600
+    atm_ice_coupling_timestep = atm_timestep
 
     runtime_in_seconds = runtime
     runtime_in_months = 0
@@ -274,6 +280,7 @@ def main():
 
     if args.model_timestep == -1:
         args.model_timestep = exp_defs[args.experiment]['timestep']
+    atm_timestep = exp_defs[args.experiment]['atm_timestep']
     assert not (args.runtime_seconds is None and args.runtime_months is None)
 
     top_dir = os.path.dirname(os.path.realpath(__file__))
@@ -298,7 +305,7 @@ def main():
         run_type = "'initial'"
         assert not os.path.exists(input_dir)
 
-    configs = init_namelists(exp_dir, args.model_timestep, runtime,
+    configs = init_namelists(exp_dir, args.model_timestep, atm_timestep, runtime,
                              mom_curr_date, cice_elapsed_time_seconds, run_type)
 
     copy_files_around_before_run(exp_dir, mom_curr_date, configs, run_type,
