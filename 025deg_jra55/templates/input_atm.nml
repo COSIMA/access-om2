@@ -1,12 +1,14 @@
 &coupling
-    init_date=00010101
-    inidate=00010101
-    truntime0=0
+    init_date = 19840101
+    inidate = {{ current_date }}
+    truntime0 = {{ elapsed_time_in_seconds }}
     runtime={{ runtime_in_seconds }}
     dt_cpl={{ atm_ice_coupling_timestep }}
     dt_atm={{ atm_timestep }}
-    dataset='core2'
-    runtype='NY'
-    caltype=0
-    days_per_year=365
-&end
+    dataset = 'jra55'
+    runtype = 'NY'
+    caltype = 1
+    days_per_year = 365
+    chk_a2i_fields = .false.
+    chk_i2a_fields = .false.
+/

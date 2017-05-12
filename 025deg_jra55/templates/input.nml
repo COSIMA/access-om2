@@ -480,7 +480,7 @@
 
  &ocean_tracer_diag_nml
       tracer_conserve_days=30.0
-      diag_step=720
+      diag_step=4320
       do_bitwise_exact_sum=.false.
 /
 
@@ -648,10 +648,10 @@
     years = 0
     months = {{ runtime_in_months }}
     days   = {{ runtime_in_days }}
-    date_init = 0001,01,01,0,0,0
+    date_init = 1984,01,01,0,0,0
     hours = 0
     minutes = 0
     seconds = 0
-    calendar = 'NOLEAP'
+    calendar = 'GREGORIAN'
     dt_cpld  = {{ ice_ocn_coupling_timestep }}
 /

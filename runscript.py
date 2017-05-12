@@ -27,15 +27,15 @@ exp_defs = {'1deg_corenyf' : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
             '025deg_corenyf' : {'ocn_pes' : 1920, 'ice_pes' : 480, 'atm_pes' : 1,
                                 'res' : '1440x1080', 'timestep' : 1200,
                                 'cpl_timestep' : 21600, 'atm_grid' : 'nt62'},
-            '025deg_jra55' : {'ocn_pes' : 1920, 'ice_pes' : 480, 'atm_pes' : 1,
+            '025deg_jra55' : {'ocn_pes' : 1920, 'ice_pes' : 480, 'atm_pes' : 16,
                               'res' : '1440x1080', 'timestep' : 1200,
                               'cpl_timestep' : 10800, 'atm_grid' : 'jra55'}}
 
 mca_opts = ['--mca', 'orte_base_help_aggregate', '0',
             '--mca', 'btl_openib_eager_limit', '4096',
-            '--mca', 'btl_openib_max_send_size', '8192']
-            #'--mca', 'mtl', 'mxm',
-            #--mca', 'coll_fca_enable', '1']
+            '--mca', 'btl_openib_max_send_size', '8192',
+            '--mca', 'mtl', 'mxm',
+            '--mca', 'coll_fca_enable', '1']
 
 def run(exp, top_dir):
     """
