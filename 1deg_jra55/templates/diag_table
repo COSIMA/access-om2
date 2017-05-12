@@ -1,7 +1,7 @@
 MOM4p1_CORE_IAF_v20120531_0849_noRestore_runoff_fix
 1 1 1 0 0 0
 #output files
-"ocean",            1,  "months", 1, "days", "time",
+"ocean",           12,  "months", 1, "days", "time",
 "ocean_daily",     24,  "hours",  1, "days", "time",
 "ocean_grid",      -1,  "months", 1, "days", "time",
 "ocean_scalar",     1,  "days", 1, "hours", "time",

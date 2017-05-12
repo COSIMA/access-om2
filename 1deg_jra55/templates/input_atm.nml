@@ -1,5 +1,5 @@
 &coupling
-    init_date = 00010101
+    init_date = 19840101
     inidate = {{ current_date }}
     truntime0 = {{ elapsed_time_in_seconds }}
     runtime={{ runtime_in_seconds }}
@@ -7,7 +7,7 @@
     dt_atm={{ atm_timestep }}
     dataset = 'jra55'
     runtype = 'NY'
-    caltype = 0
+    caltype = 1
     days_per_year = 365
     chk_a2i_fields = .false.
     chk_i2a_fields = .false.

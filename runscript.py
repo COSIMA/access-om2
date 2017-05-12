@@ -14,28 +14,28 @@ from jinja2 import Template
 
 exp_defs = {'1deg_corenyf' : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
                                'res' : '360x300', 'timestep' : 3600,
-                               'atm_timestep' : 21600, 'atm_grid' : 'nt62'},
-            '1deg_jra55' : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
+                               'cpl_timestep' : 21600, 'atm_grid' : 'nt62'},
+            '1deg_jra55' : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 16,
                             'res' : '360x300', 'timestep' : 3600,
-                            'atm_timestep' : 10800, 'atm_grid' : 'jra55'},
+                            'cpl_timestep' : 10800, 'atm_grid' : 'jra55'},
             '01deg_corenyf' : {'ocn_pes' : 2400, 'ice_pes' : 1440, 'atm_pes' : 1,
                                'res' : '3600x2700', 'timestep' : 150,
-                               'atm_timestep' : 21600, 'atm_grid' : 'nt62'},
+                               'cpl_timestep' : 21600, 'atm_grid' : 'nt62'},
             '01deg_jra55' : {'ocn_pes' : 2400, 'ice_pes' : 1440, 'atm_pes' : 1,
                              'res' : '3600x2700', 'timestep' : 150,
-                             'atm_timestep' : 10800, 'atm_grid' : 'jra55'},
+                             'cpl_timestep' : 10800, 'atm_grid' : 'jra55'},
             '025deg_corenyf' : {'ocn_pes' : 1920, 'ice_pes' : 480, 'atm_pes' : 1,
                                 'res' : '1440x1080', 'timestep' : 1200,
-                                'atm_timestep' : 21600, 'atm_grid' : 'nt62'},
+                                'cpl_timestep' : 21600, 'atm_grid' : 'nt62'},
             '025deg_jra55' : {'ocn_pes' : 1920, 'ice_pes' : 480, 'atm_pes' : 1,
                               'res' : '1440x1080', 'timestep' : 1200,
-                              'atm_timestep' : 10800, 'atm_grid' : 'jra55'}}
+                              'cpl_timestep' : 10800, 'atm_grid' : 'jra55'}}
 
 mca_opts = ['--mca', 'orte_base_help_aggregate', '0',
             '--mca', 'btl_openib_eager_limit', '4096',
-            '--mca', 'btl_openib_max_send_size', '8192',
-            '--mca', 'mtl', 'mxm',
-            '--mca', 'coll_fca_enable', '1']
+            '--mca', 'btl_openib_max_send_size', '8192']
+            #'--mca', 'mtl', 'mxm',
+            #--mca', 'coll_fca_enable', '1']
 
 def run(exp, top_dir):
     """
@@ -152,7 +152,7 @@ def datetime_to_model_format(date):
     return str(date.year).zfill(4) + str(date.month).zfill(2) + \
            str(date.day).zfill(2)
 
-def days_in_months(date, months):
+def days_in_months(date, months, caltype):
     """
     Return how many days there are in a number of months following a date.
 
@@ -167,7 +167,7 @@ def days_in_months(date, months):
     days = 0
     for m in range(months):
         days_in_month = calendar.monthrange(curr_date.year, curr_date.month)[1]
-        if days_in_month == 29:
+        if days_in_month == 29 and caltype == 'noleap':
             days += 28
         else:
             days += days_in_month
@@ -176,8 +176,8 @@ def days_in_months(date, months):
 
     return days
 
-def init_namelists(exp_dir, timestep, atm_timestep, runtime, curr_date,
-                   elapsed_time_in_seconds, run_type):
+def init_namelists(exp_dir, timestep, atm_ice_coupling_timestep, runtime,
+                   curr_date, elapsed_time_in_seconds, run_type):
     """
     Set timestep and runtime of experiment.
     """
@@ -188,7 +188,6 @@ def init_namelists(exp_dir, timestep, atm_timestep, runtime, curr_date,
     ocn_timestep = timestep
     atm_timestep = timestep
     ice_ocn_coupling_timestep = timestep
-    atm_ice_coupling_timestep = atm_timestep
 
     runtime_in_seconds = runtime
     runtime_in_months = 0
@@ -226,7 +225,7 @@ def get_cice_date(exp_dir):
 
     res_file = get_curr_cice_restart(exp_dir)
     if res_file is None:
-        return dt.datetime(1, 1, 1), 0
+        return None, 0
 
     with nc.Dataset(res_file) as f:
         curr_date = dt.datetime(f.nyr, f.month, f.mday, second=f.sec)
@@ -241,7 +240,7 @@ def get_mom_date(exp_dir):
 
     res_file = os.path.join(exp_dir, 'INPUT', 'ocean_solo.res')
     if not os.path.exists(res_file):
-        return dt.datetime(1, 1, 1), dt.datetime(1, 1, 1), 'noleap'
+        return None, None, None
 
     with open(res_file, 'r') as f:
         s = f.read()
@@ -256,6 +255,8 @@ def get_mom_date(exp_dir):
     m = re.search('\s+(\d+)\s+\(Calendar: no_calendar=0, thirty_day_months=1, julian=2, gregorian=3, noleap=4\)', s)
     if m.group(1) == '4':
         caltype = 'noleap'
+    elif m.group(1) == '3':
+        caltype = 'gregorian'
     else:
         caltype = None
 
@@ -275,12 +276,13 @@ def main():
                         help='The per-submit runtime in seconds.')
     parser.add_argument('--runtime_months', type=int, default=None,
                         help='The per-submit runtime in seconds.')
+    parser.add_argument('--start_date', default='0001-01-01', help='The start date.')
 
     args = parser.parse_args()
 
     if args.model_timestep == -1:
         args.model_timestep = exp_defs[args.experiment]['timestep']
-    atm_timestep = exp_defs[args.experiment]['atm_timestep']
+    atm_ice_cpl_timestep = exp_defs[args.experiment]['cpl_timestep']
     assert not (args.runtime_seconds is None and args.runtime_months is None)
 
     top_dir = os.path.dirname(os.path.realpath(__file__))
@@ -288,15 +290,26 @@ def main():
     initial_input_dir = os.path.join(top_dir, 'input', args.experiment, 'INPUT')
     input_dir = os.path.join(exp_dir, 'INPUT')
 
-    mom_curr_date, mom_init_date, mom_caltype = get_mom_date(exp_dir)
+    mom_curr_date, mom_init_date, caltype = get_mom_date(exp_dir)
     cice_curr_date, cice_elapsed_time_seconds = get_cice_date(exp_dir)
     assert mom_curr_date == cice_curr_date
-    assert mom_caltype == 'noleap'
+
+    if mom_curr_date is None:
+        mom_curr_date = dt.datetime.strptime(args.start_date, '%Y-%m-%d')
+
+    if 'jra55' in args.experiment:
+        if caltype is None:
+            caltype = 'gregorian'
+        assert caltype == 'gregorian'
+    else:
+        if caltype is None:
+            caltype = 'noleap'
+        assert caltype == 'noleap'
 
     # May need to figure out the runtime based on current date.
     runtime = args.runtime_seconds
     if runtime is None:
-        days = days_in_months(mom_curr_date, args.runtime_months)
+        days = days_in_months(mom_curr_date, args.runtime_months, caltype)
         runtime = days*86400
 
     if is_continuation_run(exp_dir):
@@ -305,8 +318,8 @@ def main():
         run_type = "'initial'"
         assert not os.path.exists(input_dir)
 
-    configs = init_namelists(exp_dir, args.model_timestep, atm_timestep, runtime,
-                             mom_curr_date, cice_elapsed_time_seconds, run_type)
+    configs = init_namelists(exp_dir, args.model_timestep, atm_ice_cpl_timestep,
+                             runtime, mom_curr_date, cice_elapsed_time_seconds, run_type)
 
     copy_files_around_before_run(exp_dir, mom_curr_date, configs, run_type,
                                  initial_input_dir)

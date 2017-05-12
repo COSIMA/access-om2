@@ -1,7 +1,7 @@
 &setup_nml
     days_per_year  = 365
-  , use_leap_years = .false.
-  , year_init      = 1
+  , use_leap_years = .true.
+  , year_init      = 1984
   , istep0         = 0
   , dt             = {{ ice_timestep }}
   , npt            = {{ runtime_in_ice_timesteps }}
