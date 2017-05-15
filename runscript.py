@@ -227,8 +227,11 @@ def get_cice_date(exp_dir):
     if res_file is None:
         return None, 0
 
+    m = re.search('iced\.(\d+)-(\d+)-(\d+)-(\d+)', res_file)
+    assert int(m.group(4)) == 0
+    curr_date = dt.datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+
     with nc.Dataset(res_file) as f:
-        curr_date = dt.datetime(f.nyr, f.month, f.mday, second=f.sec)
         elapsed_seconds = int(f.time)
 
     return curr_date, elapsed_seconds
