@@ -342,7 +342,7 @@ INSTANT
 ########## 
 # Field 26 : Sea surface temperature (Celsius in MOM4, Kelvin in MOM5)
 ##########
-t_surf sst_i 1 {{ ice_ocn_coupling_timestep }} 1 o2i.nc EXPORTED
+t_surf sst_i 1 {{ ice_ocn_coupling_timestep }} 1 INPUT/o2i.nc EXPORTED
 1440 1080 1440 1080 cice cice LAG=0 SEQ=+1
 P 0 P 0
 #  
