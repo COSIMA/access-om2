@@ -51,6 +51,8 @@
       verbose_truncate=.true.
       frac_crit_cell_height=0.20
       diag_step=4320
+	  barotropic_halo = 10
+      use_legacy_barotropic_halos=.false.
 /
 
  &ocean_bbc_nml
