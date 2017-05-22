@@ -31,6 +31,9 @@ exp_defs = {'1deg_corenyf' : {'ocn_pes' : 240, 'ice_pes' : 24, 'atm_pes' : 1,
                               'res' : '1440x1080', 'timestep' : 1200,
                               'cpl_timestep' : 10800, 'atm_grid' : 'jra55'}}
 
+exp_defs['1deg_jra55_ryf'] = exp_defs['1deg_jra55']
+exp_defs['1deg_jra55_ryf']['calendar'] = 'noleap'
+
 mca_opts = ['--mca', 'orte_base_help_aggregate', '0',
             '--mca', 'btl_openib_eager_limit', '4096',
             '--mca', 'btl_openib_max_send_size', '8192',
@@ -300,14 +303,17 @@ def main():
     if mom_curr_date is None:
         mom_curr_date = dt.datetime.strptime(args.start_date, '%Y-%m-%d')
 
-    if 'jra55' in args.experiment:
-        if caltype is None:
-            caltype = 'gregorian'
-        assert caltype == 'gregorian'
+    if 'calendar' in exp_defs[args.experiment]:
+        caltype = exp_defs[args.experiment]['calendar']
     else:
-        if caltype is None:
-            caltype = 'noleap'
-        assert caltype == 'noleap'
+        if 'jra55' in args.experiment:
+            if caltype is None:
+                caltype = 'gregorian'
+            assert caltype == 'gregorian'
+        else:
+            if caltype is None:
+                caltype = 'noleap'
+            assert caltype == 'noleap'
 
     # May need to figure out the runtime based on current date.
     runtime = args.runtime_seconds

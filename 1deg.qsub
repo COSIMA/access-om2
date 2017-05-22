@@ -26,7 +26,7 @@ fi
 module load openmpi/1.10.2
 module load ipm/2.0.5
 export LD_PRELOAD=/apps/ipm/2.0.5/lib/libipm.so
-runscript.py --experiment 1deg_jra55 --runtime_months 12 --start_date 1984-01-01
+runscript.py --experiment 1deg_jra55_ryf --runtime_months 12
 
 # Check the exit status
 errstat=$?
