@@ -1,12 +1,10 @@
 
 import subprocess as sp
 import os
-import shlex
 
 class TestPrerequisites():
 
-
-    def test_payu_exists(self):
+    def test_payu(self):
         """
         Test that there is a payu installation.
 
@@ -15,41 +13,29 @@ class TestPrerequisites():
         Then follow installation instructions.
         """
 
-        cmd = 'which payu'
-        sp.check_output(shlex.split(cmd))
+        ret = sp.call(['which', 'payu'])
+        assert ret == 0
 
 
-    def test_experiments_exist(self):
+    def test_inputs(self):
         """
-        Test that the payu experiment repo has been downloaded.
-
-        To get this test to pass, run either:
-
-        git clone https://github.com/cwsl/payu-experiments.git experiments
-
-        or ./setup.py
-        """
-
-        assert(os.path.exists('./experiments/.git'))
-
-
-    def test_ocean_ice_inputs(self):
-        """
-        Test that all the necessary ocean and ice inputs exist.
+        Test that all the necessary inputs exist.
 
         To get this test to pass, either:
 
-        Type payu init --laboratory ./lab --model access
-        Then populate lab/input with the correct model inputs.
-        You may find these at /short/public/access-om/
-
-        or, ./setup.py
+        ./get_input_data.py
         """
 
-        inputs = ['cice_om_360x300', 'cice_om_1440x1080',
-                  'mom_om_360x300', 'mom_om_1440x1080',
-                  'oasis_om_360x300', 'oasis_om_1440x1080',
-                  'core2_nyf_matm']
+        assert os.path.exists('get_input_data.py')
+
+        ret = sp.call(['./get_input_data.py'])
+        assert ret == 0
+
+        inputs = ['cice_01deg', 'cice_025deg', 'cice_1deg',
+                  'core_nyf', 'mom_01deg', 'mom_025deg',
+                  'mom_1deg', 'oasis_core_to_1deg',
+                  'oasis_jra55_to_01deg', 'oasis_jra55_to_025deg',
+                  'oasis_jra55_to_1deg']
 
         for i in inputs:
-            assert(os.path.exists(os.path.join('lab/input', i)))
+            assert os.path.exists(os.path.join('input', i))
