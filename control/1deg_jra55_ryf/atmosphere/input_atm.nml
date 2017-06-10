@@ -1,0 +1,14 @@
+&coupling
+    init_date = 00010101
+    inidate = 00010101
+    truntime0 = 0
+    runtime=126144000
+    dt_cpl=10800
+    dt_atm=3600
+    dataset = 'jra55'
+    runtype = 'NY'
+    caltype = 1
+    days_per_year = 365
+    chk_a2i_fields = .false.
+    chk_i2a_fields = .false.
+/

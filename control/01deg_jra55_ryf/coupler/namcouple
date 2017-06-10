@@ -1,0 +1,406 @@
+# This is a typical input file for OASIS 3.0, using netCDF format
+# for restart input files.  Oasis reads this file at run-time. 
+#
+# Any line beginning with # is ignored. Blank lines are not allowed.
+#
+# $SEQMODE
+# This keyword concerns the coupling algorithm. Put here the maximum number
+# of fields that have to be, at one particular coupling timestep,
+# necessarily exchanged sequentially in a given order.
+#       1
+# $END
+#########################################################################
+
+ $NFIELDS
+# This is the total number of fields being exchanged. 
+### 10 fields  atm -> ice
+### 15 fields  ice -> ocn
+###  7 fields  ocn -> ice
+###  1 fields  ice -> atm
+   32 
+ $END
+#########################################################################
+# $JOBNAME
+# This is an acronym for this run.
+# (3 characters)
+#   OIA
+# $END
+##########################################################################
+ $NBMODEL
+# This gives you the number of models running in this experiment +
+# their names (character*6, exactly!) + , in option, the maximum Fortran unit
+# number used by each model; 1024 will be used if none are given.
+#
+  3  cicexx matmxx mom5xx  99  99  99
+ $END
+###########################################################################
+ $RUNTIME
+# This gives you the total simulated time for this run in seconds 
+#
+#   86400    ! 1  day
+# 2678400    ! 31 days
+# 31536000   ! 365 days
+ 2592000
+ $END
+###########################################################################
+# $INIDATE
+# This is the initial date of the run. This is important only if
+# FILLING analysis is used for a coupling field in the run.
+# The format is YYYYMMDD such as 19910101
+# #Inidate
+# $END
+###########################################################################
+# $MODINFO
+# Indicates if a header is encapsulated within the field brick 
+# in binary restart files for all communication techniques, and  
+# for coupling field exchanges for PIPE, SIPC and GMEM.
+# (YES or NOT)
+#  NOT
+# $END
+###########################################################################
+ $NLOGPRT
+# Index of printing level in output file cplout: 0 = no printing
+#  1 = main routines and field names when treated, 2 = complete output
+ 0
+ $END
+###########################################################################
+# $CALTYPE
+# Calendar type :  0      = 365 day calendar (no leap years)
+#                  1      = 365 day, or 366 days for leap years, calendar
+#                  n (>1) = n day month calendar
+# This is important only if FILLING analysis is used for a coupling
+# field in the run.
+#
+# #Caltype
+# $END
+###########################################################################
+ $STRINGS
+#
+# The above variables are the general parameters for the experiment.
+# Everything below has to do with the fields being exchanged.
+#
+############################################################################
+# --- note file cf_name_table.txt does not include all the coupling flds ---
+# --- listed below. so the fld number (367 for swfld etc) may not point  ---
+# --- to the realistic 'longname' of the variable. (may modify this file ---
+# --- to add more fields in the future.) 
+############################################################################
+#
+#                      ATMOSPHERE  --->>>  ICE
+#                      -----------------------
+##########
+# Field 01 : swflx down
+##########
+swfld_ai swfld_i 367 10800 3 a2i.nc EXPORTED
+640 320 3600 2700 jrat cict LAG=+400 SEQ=+1
+P  0  P  0
+#
+LOCTRANS MAPPING SCRIPR
+INSTANT
+rmp_jrat_to_cict_CONSERV.nc dst
+CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
+#########
+# Field 02 : lwflx down
+##########
+lwfld_ai lwfld_i 366 10800 3 a2i.nc EXPORTED
+640 320 3600 2700 jrat cict LAG=+400 SEQ=+1
+P  0  P  0
+#
+LOCTRANS MAPPING SCRIPR
+INSTANT
+rmp_jrat_to_cict_CONSERV.nc dst
+CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
+##########
+# Field 03 : rainfall
+##########
+rain_ai rain_i 26 10800 3 a2i.nc EXPORTED
+640 320 3600 2700 jrat cict LAG=+400 SEQ=+1
+P  0  P  0
+#
+LOCTRANS MAPPING SCRIPR
+INSTANT
+rmp_jrat_to_cict_CONSERV.nc dst
+CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
+##########
+# Field 04 : snowfall
+##########
+snow_ai snow_i 26 10800 3 a2i.nc EXPORTED
+640 320 3600 2700 jrat cict LAG=+400 SEQ=+1
+P  0  P  0
+#
+LOCTRANS MAPPING SCRIPR
+INSTANT
+rmp_jrat_to_cict_CONSERV.nc dst
+CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
+##########
+# Field 05 : surface pressure
+##########
+press_ai press_i 33 10800 3 a2i.nc EXPORTED
+640 320 3600 2700 jrat cict LAG=+400 SEQ=+1
+P  0  P  0
+# 
+LOCTRANS MAPPING SCRIPR
+INSTANT
+rmp_jrat_to_cict_CONSERV.nc dst
+CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
+##########
+# Field 06 : runoff. Runoff is passed on the destination grid.
+##########
+runof_ai runof_i 297 10800 1 a2i.nc EXPORTED
+640 320 3600 2700 cict cict LAG=+400 SEQ=+1
+P  0  P  0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 07 : near surface (2m) air temp
+##########
+tair_ai tair_i 110 10800 3 a2i.nc EXPORTED
+640 320 3600 2700 jrat cict LAG=+400 SEQ=+1
+P  0  P  0
+#
+LOCTRANS MAPPING SCRIPR
+INSTANT
+rmp_jrat_to_cict_CONSERV.nc dst
+CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
+##########
+# Field 08 : 2m air humidity
+##########
+qair_ai qair_i 339 10800 3 a2i.nc EXPORTED
+640 320 3600 2700 jrat cict LAG=+400 SEQ=+1
+P  0  P  0
+#
+LOCTRANS MAPPING SCRIPR
+INSTANT
+rmp_jrat_to_cict_CONSERV.nc dst
+CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
+##########
+# Field 09 : 10m wind (u)
+##########
+uwnd_ai uwnd_i 56 10800 2 a2i.nc EXPORTED
+640 320 3600 2700 jrat cict LAG=+400 SEQ=+1
+P  0  P  0
+#
+MAPPING SCRIPR
+rmp_jrat_to_cict_DISTWGT.nc dst
+DISTWGT LR VECTOR LATLON 10 4 vwnd_ai
+##########
+# Field 10 : 10m wind (v)
+##########
+vwnd_ai vwnd_i 56 10800 2 a2i.nc EXPORTED
+640 320 3600 2700 jrat cict LAG=+400 SEQ=+1
+P  0  P  0
+#
+MAPPING SCRIPR
+rmp_jrat_to_cict_DISTWGT.nc dst
+DISTWGT LR VECTOR LATLON 10 4 uwnd_ai
+############################################################################
+#
+#                      ICE --->>> OCEAN
+#                      ----------------
+##########
+# Field 11 : ice-ocean interface stress (x-direction)
+##########
+strsu_io u_flux 170 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 12 : ice-ocean interface stress (y-direction)
+##########
+strsv_io v_flux 175 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 13 : freshwater flux
+##########
+rain_io lprec 27 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 14 : freshwater flux
+##########
+snow_io fprec 28 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+########## 
+# Field 15 : salt flux   (no ref no for saltflux yet!)
+##########
+stflx_io salt_flx 454 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+########## 
+# Field 16 : next heat flux   (heatflux into ocean. '42' not right.)
+##########
+htflx_io mh_flux 42 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 17 : swflux penetrating through ice into ocean
+#########
+swflx_io sw_flux 367 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 18 : latent heat flux
+##########
+qflux_io q_flux 452 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+#########
+# Field 19 : Sensible heat flux
+##########
+shflx_io t_flux 362 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 20 : LW radiation flux down
+##########
+lwflx_io lw_flux 366 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 21 : runoff
+##########
+runof_io runof 297 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 22 : surface pressure
+########## 
+press_io p 33 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 23 : ice concentration
+########## 
+aice_io aice 44 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 24 : ice melting waterflux
+########## 
+melt_io wfimelt 36 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 25 : ice forming eaterflux
+##########
+form_io wfiform 36 400 1 i2o.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+############################################################################
+#
+#                      OCEAN --->>> ICE
+#                      ----------------
+##########
+# Field 26 : Sea surface temperature (Celsius in MOM4, Kelvin in MOM5)
+##########
+t_surf sst_i 1 400 1 o2i.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 27 : Sea surface salinity (psu)
+##########
+s_surf sss_i 312 400 1 o2i.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 28 :  'eastward' sea surface water velocity
+##########
+u_surf ssu_i 181 400 1 o2i.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 29 : 'northward' sea surface water velocity
+##########
+v_surf ssv_i 261 400 1 o2i.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 30 :  frazil ice fromation energy (J/m^2) 
+#             ('441' is "upward_sea_ice_basal_heat_flux' 'W m-2')
+##########
+frazil pfmice_i 441 400 1 o2i.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 31 :  sea surface slope _x_ (m/m)
+#             ( '203' is "height" ...)
+##########
+dssldx sslx_i 203 400 1 o2i.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+##########
+# Field 32 :  sea surface slope _y_ (m/m)
+#             ( '310' is "sea_surface_elevation")
+##########
+dssldy ssly_i 310 400 1 o2i.nc EXPORTED
+3600 2700 3600 2700 cict cict LAG=0 SEQ=+1
+P 0 P 0
+#
+LOCTRANS
+INSTANT
+ $END

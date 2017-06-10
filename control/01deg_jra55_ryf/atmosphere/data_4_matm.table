@@ -1,0 +1,45 @@
+10     # num of input fields listed below: #
+/g/data1/v45/aph502/jra55/RYF/RYF.rsds.1984_1985.nc
+rsds
+/g/data1/v45/aph502/jra55/RYF/RYF.rlds.1984_1985.nc
+rlds
+/g/data1/v45/aph502/jra55/RYF/RYF.u_10.1984_1985.nc
+uas_10m
+/g/data1/v45/aph502/jra55/RYF/RYF.v_10.1984_1985.nc
+vas_10m
+/g/data1/v45/aph502/jra55/RYF/RYF.rain.1984_1985.nc
+prrn
+/g/data1/v45/aph502/jra55/RYF/RYF.snow.1984_1985.nc
+prsn
+/g/data1/v45/aph502/jra55/RYF/RYF.slp.1984_1985.nc
+psl
+INPUT/runoff_from_iaf_16MAR2016_jragrid_1984.nc
+runof
+/g/data1/v45/aph502/jra55/RYF/RYF.t_10.1984_1985.nc
+tas_10m
+/g/data1/v45/aph502/jra55/RYF/RYF.q_10.1984_1985.nc
+huss_10m
+
+#
+# this forcing is COREv1 Normal Year (NY) forcing.
+#
+
+
+# --- the above list MUST be in the correct order --- #
+#             as shown in code matm.F90!	      # 
+#
+# now we use the relocated runoff data (by Steve Phipps) instead of
+# the original ncep2 at
+#/cs/data/ofa001/auscom/CORE/runof.sfc.gauss.r-2.0001.nc
+#
+# 20/07/2007 
+#-------------------------------------------------------------------
+#
+# *** for the spinup run we use "normal year" (NY) CORE forcing. 
+#     all data marked as year 0001 are actually multi-year mean.
+#     mean_cloud and mean_runof are generated using the NCEP2 r-2 
+#     data (1979-2006 excluding leap years)  
+#     (see cherax:~/333 and ~/444, very inefficient approach)
+#
+# 16/10/2008
+#------------------------------------------------------------------- 

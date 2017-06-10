@@ -1,0 +1,12 @@
+&coupling
+    init_date=00010101
+    inidate=00010101
+    truntime0=0
+    runtime=2592000
+    dt_cpl=10800
+    dt_atm=400
+    dataset='core2'
+    runtype='NY'
+    caltype=0
+    days_per_year=365
+&end

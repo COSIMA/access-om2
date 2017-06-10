@@ -1,0 +1,18 @@
+&coupling_nml
+    dt_cpl_ai=10800
+    dt_cpl_io=3600
+    pop_icediag = .true.
+    ice_pressure_on = .true.
+    ice_fwflux = .true.
+    use_ocnslope = .false.
+    use_umask = .false.
+    rotate_winds = .false.
+    limit_icemelt = .false.
+    meltlimit = -200.0
+    use_core_nyf_runoff=.true.
+    precip_factor = 1.0
+    cst_ocn_albedo = .true.
+    ocn_albedo = 0.1
+    gfdl_surface_flux = .true.
+    chk_gfdl_roughness = .false.
+/
