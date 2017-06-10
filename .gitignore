@@ -4,6 +4,8 @@
 input_*.tar.gz
 input
 
+.cache
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
