@@ -18,7 +18,8 @@ submodels:
 
     - name: ocean
       model: mom
-      exe: fms_ACCESS-OM_c830597c.x
+      exe: fms_ACCESS-OM.x
+      #exe: fms_ACCESS-OM_c830597c.x
       input: mom_01deg
       timestep: 150
       ncpus: 6000
