@@ -1,6 +1,8 @@
 
 from exp_test_helper import ExpTestHelper
 
+import subprocess as sp
+
 class TestRun():
     """
     Run and check return code.
