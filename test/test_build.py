@@ -20,8 +20,8 @@ class TestBuild():
 
     def test_build_cice(self):
         helper = ExpTestHelper('1deg_jra55_ryf')
-        assert helper.build_matm() == 0
+        assert helper.build_cice5() == 0
 
     def test_build_mom(self):
         helper = ExpTestHelper('1deg_jra55_ryf')
-        assert helper.build_matm() == 0
+        assert helper.build_mom() == 0

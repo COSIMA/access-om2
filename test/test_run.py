@@ -1,8 +1,4 @@
 
-from __future__ import print_function
-
-import shutil
-import os
 from exp_test_helper import ExpTestHelper
 
 class TestRun():
@@ -14,6 +10,6 @@ class TestRun():
 
         helper = ExpTestHelper('1deg_jra55_ryf')
         assert helper.build() == 0
+        ret, qso, qse, qsub_files = helper.run()
 
-        for k in tests.keys():
-            yield self.check_run, k
+        assert ret == 0

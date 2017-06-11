@@ -1,14 +1,14 @@
 # PBS configuration
-queue: normal
+queue: express
 project: x77
-walltime: 5:00:00
+walltime: 0:30:00
 jobname: 1deg_jra55_ryf
 ncpus: 304
 
 shortpath: /short/e14
 
 # Model configuration
-model: access
+model: access-om2
 submodels:
     - name: coupler
       model: oasis
@@ -17,25 +17,25 @@ submodels:
 
     - name: atmosphere
       model: matm
-      exe: matm_jra55.exe
+      exe: matm_jra55_fd6f3f8a.exe
       ncpus: 1
 
     - name: ocean
       model: mom
-      exe: fms_ACCESS-OM_11b63cb3.x
+      exe: fms_ACCESS-OM_c830597c.x
       input: mom_1deg
       ncpus: 240
 
     - name: ice
       model: cice5
-      exe: cice_auscom_360x300_24p.exe
+      exe: cice_auscom_360x300_24p_1c1f7c75.exe
       input: cice_1deg
       ncpus: 24
 
 calendar:
     runtime:
-        years: 10
-        months: 0
+        years: 0
+        months: 1
         days: 0
 
     start:

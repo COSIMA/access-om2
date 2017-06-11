@@ -15,38 +15,45 @@ class ExpTestHelper(object):
 
         self.exp_name = exp_name
         self.res = exp_name.split('_')[0]
+
         self.my_path = os.path.dirname(os.path.realpath(__file__))
-        self.lab_path = os.path.join(self.my_path, '../')
+        self.lab_path = os.path.realpath(os.path.join(self.my_path, '../'))
         self.bin_path = os.path.join(self.lab_path, 'bin')
-        self.exp_path = os.path.join(self.lab_path, 'control', exp)
-        self.archive = os.path.join(self.lab_path, 'archive', exp)
+        self.exp_path = os.path.join(self.lab_path, 'control', exp_name)
+        self.archive = os.path.join(self.lab_path, 'archive', exp_name)
         self.src = os.path.join(self.lab_path, 'src')
+
         self.oasis_src = os.path.join(self.src, 'oasis3-mct')
         self.mom_src = os.path.join(self.src, 'mom')
         self.matm_src = os.path.join(self.src, 'matm')
         self.cice5_src = os.path.join(self.src, 'cice5')
+
+        if not os.path.exists(self.bin_path):
+            os.mkdir(self.bin_path)
 
     def has_built(self):
         """
         See wether this experiment has been built.
         """
 
-        exes = glob.glob(self.bin_path, '*.exe')
-        exes += glob.glob(self.bin_path, '*.x')
+        exes = glob.glob(self.bin_path + '/*.exe')
+        exes += glob.glob(self.bin_path + '/*.x')
 
-
+        # 3 cice, matm and mom
+        return len(exes) >= 3
 
     def has_run(self):
         """
         See wether this experiment has been run.
         """
 
+        return os.path.exists(self.archive)
+
 
     def make_paths(self, exp_name, run_num=0):
         paths = {}
         run_num = str(run_num).zfill(3)
 
-        paths['archive'] = 
         paths['archive_link'] = os.path.join(paths['exp'], 'archive')
         paths['output'] = os.path.join(paths['archive'], 'output' + run_num)
         paths['restart'] = os.path.join(paths['archive'], 'restart' + run_num)
@@ -118,27 +125,65 @@ class ExpTestHelper(object):
             if 'Job has finished' in qsub_out:
                 break
 
+    def git_hash(self, src_dir):
+        """
+        Get the git hash of src_dir.
+        """
+        mydir = os.getcwd()
+        os.chdir(src_dir)
+        ghash = sp.check_output(['git', 'rev-parse', 'HEAD'])[:8]
+        os.chdir(mydir)
+
+        return ghash
+
+    def copy_to_bin(self, src_dir, wildcard):
+        exes = glob.glob(wildcard)
+        if exes == []:
+            return 1
+
+        ghash = self.git_hash(src_dir)
+
+        for e in exes:
+            eb = os.path.basename(e)
+            new_name = '{}_{}.{}'.format(eb.split('.')[0], ghash, 
+                                         eb.split('.')[1])
+            shutil.copy(e, os.path.join(self.bin_path, new_name))
+
+        return 0
+
     def build_oasis(self):
-        return sp.call(['make', '-C', 'src/oasis3-mct'])
+        return sp.call(['make', '-C', self.oasis_src])
 
     def build_matm(self):
         os.environ['OASIS_ROOT'] = os.path.join(self.oasis_src)
-        return sp.call(['make', '-C', 'src/matm'])
+        ret = sp.call(['make', '-C', self.matm_src])
+        ret += self.copy_to_bin(self.matm_src,
+                                self.matm_src + '/build_*/*.exe')
+        return ret
 
-    def build_cice5(self)
+    def build_cice5(self):
         os.environ['OASIS_ROOT'] = os.path.join(self.oasis_src)
-        return sp.call(['make', '-C', 'src/cic5', 'om', self.res])
+        ret = sp.call(['make', '-C', self.cice5_src, self.res])
+        ret += self.copy_to_bin(self.cice5_src,
+                                self.cice5_src + '/build_*/*.exe')
+        return ret
 
-    def build_mom(self)
+    def build_mom(self):
         os.environ['OASIS_ROOT'] = os.path.join(self.oasis_src)
         mydir = os.getcwd()
-        os.chdir(self.mom_src, 'exp')
+        os.chdir(os.path.join(self.mom_src, 'exp'))
         ret = sp.call(['./MOM_compile.csh', '--type', 'ACCESS-OM',
                        '--platform', 'nci'])
         os.chdir(mydir)
+
+        ret += self.copy_to_bin(self.mom_src,
+                                self.mom_src + '/exec/nci/ACCESS-OM/*.x')
         return ret
 
     def build(self):
+
+        if self.has_built():
+            return 0
 
         ret = self.build_oasis()
         if ret != 0:
@@ -149,18 +194,17 @@ class ExpTestHelper(object):
 
         return ret
 
-    def run(self, expt_path, lab_path):
+    def run(self):
         """
-        Run the given experiment using payu and check output.
-
+        Run the experiment using payu and check output.
         """
 
-        # Need to lock around the chdirs.
-        self.my_lock.acquire()
+        if self.has_run():
+            return 0
 
         # Change to experiment directory and run.
         try:
-            os.chdir(expt_path)
+            os.chdir(self.exp_path)
             sp.check_output(['payu', 'sweep'])
             run_id = sp.check_output(['payu', 'run'])
             run_id = run_id.splitlines()[0]
@@ -175,7 +219,7 @@ class ExpTestHelper(object):
 
         output_files = []
         # Read qsub stdout file
-        stdout_filename = glob.glob(os.path.join(expt_path,
+        stdout_filename = glob.glob(os.path.join(self.exp_path,
                                     '*.o{}'.format(run_id)))
         if len(stdout_filename) != 1:
             print('Error: there are too many stdout files.', file=sys.stderr)
@@ -188,7 +232,7 @@ class ExpTestHelper(object):
             stdout = f.read()
 
         # Read qsub stderr file
-        stderr_filename = glob.glob(os.path.join(expt_path,
+        stderr_filename = glob.glob(os.path.join(self.exp_path,
                                                 '*.e{}'.format(run_id)))
         stderr = ''
         if len(stderr_filename) == 1:
@@ -209,7 +253,7 @@ class ExpTestHelper(object):
         self.wait(run_id)
 
         # Return files created by qsub so caller can read or delete.
-        collate_files = os.path.join(expt_path, '*.[oe]{}'.format(run_id))
+        collate_files = os.path.join(self.exp_path, '*.[oe]{}'.format(run_id))
         output_files += glob.glob(collate_files)
 
         return 0, stdout, stderr, output_files
