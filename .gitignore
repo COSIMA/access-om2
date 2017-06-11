@@ -1,5 +1,9 @@
 #
 
+archive
+bin
+pbs_logs
+
 *.swp
 input_*.tar.gz
 input
