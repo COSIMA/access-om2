@@ -6,39 +6,22 @@ import os
 import shlex
 import pytest
 
+from exp_test_helper import ExpTestHelper
+
 class TestBuild():
 
-    def build_oasis(self):
-        return sp.call(['make', '-C', 'src/oasis3-mct'])
+    def test_build_oasis(self):
+        helper = ExpTestHelper('1deg_jra55_ryf')
+        assert helper.build_oasis() == 0
 
     def test_build_matm(self):
-
-        ret = self.build_oasis()
-        assert ret == 0
-        os.environ['OASIS_ROOT'] = os.path.join(os.getcwd(), 'src/oasis3-mct')
-
-        ret = sp.call(['make', '-C', 'src/matm'])
-        assert ret == 0
+        helper = ExpTestHelper('1deg_jra55_ryf')
+        assert helper.build_matm() == 0
 
     def test_build_cice(self):
-
-        ret = self.build_oasis()
-        assert ret == 0
-        os.environ['OASIS_ROOT'] = os.path.join(os.getcwd(), 'src/oasis3-mct')
-
-        for res in ['1', '01', '025']:
-            ret = sp.call(['make', '-C', 'src/cice5', 'access-om{}'.format(res)])
-            assert ret == 0
+        helper = ExpTestHelper('1deg_jra55_ryf')
+        assert helper.build_matm() == 0
 
     def test_build_mom(self):
-
-        ret = self.build_oasis()
-        assert ret == 0
-        os.environ['OASIS_ROOT'] = os.path.join(os.getcwd(), 'src/oasis3-mct')
-
-        mydir = os.getcwd()
-        os.chdir('src/mom/exp')
-        ret = sp.call(['./MOM_compile.csh', '--type', 'ACCESS-OM', '--platform', 'nci'])
-
-        os.chdir(mydir)
-        assert ret == 0
+        helper = ExpTestHelper('1deg_jra55_ryf')
+        assert helper.build_matm() == 0

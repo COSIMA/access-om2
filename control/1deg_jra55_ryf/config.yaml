@@ -18,7 +18,6 @@ submodels:
     - name: atmosphere
       model: matm
       exe: matm_jra55.exe
-      input: jra55_ryf
       ncpus: 1
 
     - name: ocean

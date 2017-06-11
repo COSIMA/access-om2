@@ -3,30 +3,50 @@ from __future__ import print_function
 
 import subprocess as sp
 import sys
-import shlex
 import shutil
 import re
 import os
 import glob
 import time
-import threading
 
-class ModelTestHelper(object):
+class ExpTestHelper(object):
 
-    def __init__(self):
+    def __init__(self, exp_name):
 
+        self.exp_name = exp_name
+        self.res = exp_name.split('_')[0]
         self.my_path = os.path.dirname(os.path.realpath(__file__))
-        self.lab_path = os.path.join(self.my_path, '../', 'lab')
+        self.lab_path = os.path.join(self.my_path, '../')
         self.bin_path = os.path.join(self.lab_path, 'bin')
-        self.my_lock = threading.Lock()
+        self.exp_path = os.path.join(self.lab_path, 'control', exp)
+        self.archive = os.path.join(self.lab_path, 'archive', exp)
+        self.src = os.path.join(self.lab_path, 'src')
+        self.oasis_src = os.path.join(self.src, 'oasis3-mct')
+        self.mom_src = os.path.join(self.src, 'mom')
+        self.matm_src = os.path.join(self.src, 'matm')
+        self.cice5_src = os.path.join(self.src, 'cice5')
+
+    def has_built(self):
+        """
+        See wether this experiment has been built.
+        """
+
+        exes = glob.glob(self.bin_path, '*.exe')
+        exes += glob.glob(self.bin_path, '*.x')
+
+
+
+    def has_run(self):
+        """
+        See wether this experiment has been run.
+        """
+
 
     def make_paths(self, exp_name, run_num=0):
         paths = {}
         run_num = str(run_num).zfill(3)
 
-        paths['exp'] = os.path.join(self.my_path, '../', 'experiments/access',
-                                    exp_name)
-        paths['archive'] = os.path.join(self.lab_path, 'archive', exp_name)
+        paths['archive'] = 
         paths['archive_link'] = os.path.join(paths['exp'], 'archive')
         paths['output'] = os.path.join(paths['archive'], 'output' + run_num)
         paths['restart'] = os.path.join(paths['archive'], 'restart' + run_num)
@@ -37,18 +57,6 @@ class ModelTestHelper(object):
         paths['stderr_runtime'] = os.path.join(paths['exp'], 'access.err')
 
         return paths
-
-    def post_build_checks(self, exes):
-
-        for e in exes:
-            assert(os.path.exists(e))
-
-    def do_basic_build(self, exp):
-
-        paths = self.make_paths(exp)
-        ret = self.build(paths['exp'])
-        os.chdir(self.my_path)
-        assert(ret == 0)
 
     def print_output(self, files):
 
@@ -110,19 +118,35 @@ class ModelTestHelper(object):
             if 'Job has finished' in qsub_out:
                 break
 
-    def build(self, exp_path):
+    def build_oasis(self):
+        return sp.call(['make', '-C', 'src/oasis3-mct'])
 
-        # Need to lock around the chdirs. 
-        self.my_lock.acquire()
+    def build_matm(self):
+        os.environ['OASIS_ROOT'] = os.path.join(self.oasis_src)
+        return sp.call(['make', '-C', 'src/matm'])
 
-        cur_dir = os.getcwd()
-        os.chdir(exp_path)
-        cmd = 'payu build --laboratory {}'.format(self.lab_path)
-        ret = sp.call(shlex.split(cmd))
+    def build_cice5(self)
+        os.environ['OASIS_ROOT'] = os.path.join(self.oasis_src)
+        return sp.call(['make', '-C', 'src/cic5', 'om', self.res])
 
-        os.chdir(cur_dir)
+    def build_mom(self)
+        os.environ['OASIS_ROOT'] = os.path.join(self.oasis_src)
+        mydir = os.getcwd()
+        os.chdir(self.mom_src, 'exp')
+        ret = sp.call(['./MOM_compile.csh', '--type', 'ACCESS-OM',
+                       '--platform', 'nci'])
+        os.chdir(mydir)
+        return ret
 
-        self.my_lock.release()
+    def build(self):
+
+        ret = self.build_oasis()
+        if ret != 0:
+            return ret
+        ret += self.build_matm()
+        ret += self.build_cice5()
+        ret += self.build_mom()
+
         return ret
 
     def run(self, expt_path, lab_path):
@@ -137,19 +161,14 @@ class ModelTestHelper(object):
         # Change to experiment directory and run.
         try:
             os.chdir(expt_path)
-            cmd = 'payu sweep --laboratory {}'.format(lab_path)
-            sp.check_output(shlex.split(cmd))
-            cmd = 'payu run -n 1 --laboratory {}'.format(lab_path)
-            run_id = sp.check_output(shlex.split(cmd))
+            sp.check_output(['payu', 'sweep'])
+            run_id = sp.check_output(['payu', 'run'])
             run_id = run_id.splitlines()[0]
             os.chdir(self.my_path)
         except sp.CalledProcessError as err:
             os.chdir(self.my_path)
-            self.my_lock.release()
             print('Error: call to payu-run failed.', file=sys.stderr)
             return 1, None, None, None
-
-        self.my_lock.release()
 
         self.wait(run_id)
         run_id = run_id.split('.')[0]
@@ -157,7 +176,7 @@ class ModelTestHelper(object):
         output_files = []
         # Read qsub stdout file
         stdout_filename = glob.glob(os.path.join(expt_path,
-                                                '*.o{}'.format(run_id)))
+                                    '*.o{}'.format(run_id)))
         if len(stdout_filename) != 1:
             print('Error: there are too many stdout files.', file=sys.stderr)
             return 2, None, None, None
