@@ -7,7 +7,7 @@
     dt_atm=1200
     dataset = 'jra55'
     runtype = 'NY'
-    caltype = 1
+    caltype = 0
     days_per_year = 365
     chk_a2i_fields = .false.
     chk_i2a_fields = .false.

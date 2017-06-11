@@ -8,23 +8,24 @@ ncpus: 7216
 shortpath: /short/e14
 
 # Model configuration
-model: access
+model: access-om2
 submodels:
     - name: atmosphere
       model: matm
-      exe: matm_jra55_103fe0a5.exe
-      input: jra55_ryf
+      #exe: matm_jra55_fd6f3f8a.exe
+      exe: matm_jra55.exe
       ncpus: 1
 
     - name: ocean
       model: mom
-      exe: fms_ACCESS-OM.x
+      exe: fms_ACCESS-OM_c830597c.x
       input: mom_01deg
       timestep: 150
       ncpus: 6000
 
     - name: ice
       model: cice5
+      #exe: cice_auscom_3600x2700_1200p_1c1f7c75.exe
       exe: cice_auscom_3600x2700_1200p.exe
       input: cice_01deg
       timestep: 150

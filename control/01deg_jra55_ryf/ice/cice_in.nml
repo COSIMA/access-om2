@@ -13,9 +13,9 @@
   , use_restart_time = .true.
   , restart_format = 'nc'
   , lcdf64         = .true.
-  , restart_dir    = './INPUT/'
+  , restart_dir    = './RESTART/'
   , restart_file   = 'iced'
-  , pointer_file   = './INPUT/ice.restart_file'
+  , pointer_file   = './RESTART/ice.restart_file'
   , dumpfreq       = 'd'
   , dumpfreq_n     = 10
   , dump_last      = .true.

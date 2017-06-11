@@ -5,7 +5,7 @@
     runtime=2592000
     dt_cpl=10800
     dt_atm=400
-    dataset='core2'
+    dataset='jra55'
     runtype='NY'
     caltype=0
     days_per_year=365

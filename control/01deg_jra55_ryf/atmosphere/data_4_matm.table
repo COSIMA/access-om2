@@ -13,8 +13,8 @@ prrn
 prsn
 /g/data1/v45/aph502/jra55/RYF/RYF.slp.1984_1985.nc
 psl
-INPUT/runoff_from_iaf_16MAR2016_jragrid_1984.nc
-runof
+/g/data1/v45/aph502/jra55/RYF/RYF.runoff_all.1984_1985.nc
+friver
 /g/data1/v45/aph502/jra55/RYF/RYF.t_10.1984_1985.nc
 tas_10m
 /g/data1/v45/aph502/jra55/RYF/RYF.q_10.1984_1985.nc

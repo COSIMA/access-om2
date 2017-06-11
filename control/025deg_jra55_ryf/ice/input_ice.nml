@@ -9,7 +9,6 @@
     rotate_winds = .true.
     limit_icemelt = .false.
     meltlimit = -200.0
-    use_core_nyf_runoff = .true.
     precip_factor = 1.0
     cst_ocn_albedo = .true.
     ocn_albedo = 0.1

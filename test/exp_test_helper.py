@@ -18,6 +18,7 @@ class ExpTestHelper(object):
 
         self.my_path = os.path.dirname(os.path.realpath(__file__))
         self.lab_path = os.path.realpath(os.path.join(self.my_path, '../'))
+        self.input_path = os.path.realpath(os.path.join(self.lab_path, 'input'))
         self.bin_path = os.path.join(self.lab_path, 'bin')
         self.exp_path = os.path.join(self.lab_path, 'control', exp_name)
         self.archive = os.path.join(self.lab_path, 'archive', exp_name)

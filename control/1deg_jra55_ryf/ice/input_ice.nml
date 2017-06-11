@@ -14,5 +14,5 @@
     ocn_albedo = 0.1
     gfdl_surface_flux = .true.
     chk_gfdl_roughness = .false.
-    chk_a2i_fields = .true.
+    chk_a2i_fields = .false.
 /

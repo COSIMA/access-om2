@@ -664,7 +664,7 @@
     hours = 0
     minutes = 0
     seconds = 0
-    calendar = 'GREGORIAN'
+    calendar = 'NOLEAP'
     dt_cpld  = 3600
 /
 
