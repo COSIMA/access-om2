@@ -147,7 +147,7 @@ CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 # Field 06 : runoff. Runoff is passed on the destination grid.
 ##########
 runof_ai runof_i 297 10800 1 a2i.nc EXPORTED
-640 320 3600 2700 cict cict LAG=+400 SEQ=+1
+3600 2700 3600 2700 cict cict LAG=+400 SEQ=+1
 P  0  P  0
 #
 LOCTRANS
