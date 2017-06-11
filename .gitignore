@@ -2,6 +2,9 @@
 
 archive
 bin
+work
+access-om2.err
+access-om2.out
 pbs_logs
 
 *.swp
