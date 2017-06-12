@@ -2,6 +2,7 @@
 from exp_test_helper import ExpTestHelper
 
 import subprocess as sp
+import pytest
 
 class TestRun():
     """
