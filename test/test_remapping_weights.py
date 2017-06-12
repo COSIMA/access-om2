@@ -105,6 +105,10 @@ def remap(src_data, weights, dest_shape):
 class TestBuild():
 
     def test_jra55_to_01deg(self):
+
+        ret = sp.call(['./get_input_data.py'])
+        assert ret == 0
+
         helper = ExpTestHelper('01deg_jra55_ryf')
 
         weights = os.path.join(helper.input_path, 'oasis_jra55_to_01deg',
