@@ -1,40 +1,51 @@
-# ACCESS-OM
+# ACCESS-OM2 pre-release
 
-This model consists of MOM5.1, CICE4.1, and a file-based atmosphere called MATM all coupled together with the OASIS3-MCT coupler.
+ACCESS-OM2 is a coupled ice and ocean global model. It is being developed through a collaborate with [COSIMA](www.cosima.org.au), [ARCCSS](www.arccss.org.au) and [CSIRO](www.csiro.au). It builds on the ACCESS-OM model orinially developed at CSIRO [1].
+
+The model consists of [MOM5.1](mom-ocean.science), CICE5.1, a file-based atmosphere all coupled together with the [OASIS3-MCT](https://portal.enes.org/oasis) coupler. Regridding is done using interpolation weights generated using ESMF_RegridWeightGen from [ESMF](https://www.earthsystemcog.org/projects/esmf/).
+
+ACCESS-OM2 comes with a number of standard experiments. These configurations include ice and ocean at 1, 1/4 and 1/10th degree resolution. [JRA55](http://jra.kishou.go.jp/JRA-55/index_en.html) and [CORE2](http://www.clivar.org/clivar-panels/omdp/core-2) forcing datasets are supported.
+
+This document describes how to download, compile and run the model. The instructions have only been tested on the [NCI](www.nci.org.au) raijin supercomputer.
 
 ## Prerequisites
 
-The installation of ACCESS-OM depends on the following software:
+The ACCESS-OM2 depends on the following software:
 
+* [payu](http://payu.readthedocs.io) run management software.
 * git distributed version control software.
-* A fortran compiler such as gfortran or intel-fc.
-* An MPI implementation such as OpenMPI.
-* Python to run the tests.
-
-## Limitations
-
-This software configuration has only been tested on the NCI raijin supercomputer.
+* a fortran compiler such as gfortran or intel-fc.
+* an MPI implementation such as OpenMPI.
+* Python and pytest to run the tests.
 
 ## Install
 
 Start by downloading the experiment configurations and the source repositories:
 
 ```
-git clone --recursive https://github.com/OceansAus/access-om.git
-cd access-om
+cd /short/${PROJECT}/${USER}
+git clone --recursive https://github.com/OceansAus/access-om2.git
+cd access-om2
 ```
 
-This should be downloaded to a place which has enough disk space for the model inputs and output.
+This should be downloaded to a place which has enough disk space for the model inputs and output. On raijin it should be downloaded to `/short/${PROJECT}/${USER}
 
-The next step is to download experiment input data.
+The next step is to create the 'lab' by downloading experiment input data and creating directories.
 
 ```{bash}
 ./get_input_data.py
+mkdir -p bin
 ```
 
 ## Compile
 
-Each model and the OASIS coupler need to be built individually.
+The quick way to compile all models is to run the build test.
+
+```
+python -m pytest test/test_build.py
+```
+
+Alternatively each model can be built individually.
 
 Start with OASIS because it is needed by the others:
 
@@ -43,12 +54,6 @@ export ACCESS_OM_DIR=$(pwd)
 export OASIS_ROOT=$ACCESS_OM_DIR/src/oasis3-mct/
 cd $OASIS_ROOT
 make
-```
-
-Output from the OASIS build can be found in:
-
-```{bash}
-less $ACCESS_OM_DIR/src/oasis3-mct/util/make_dir/COMP.log
 ```
 
 Now compile the ocean, ice and file-based atmosphere.
@@ -61,77 +66,57 @@ cd $ACCESS_OM_DIR/src/mom/exp
 
 For ice:
 ```{bash}
-cd $ACCESS_OM_DIR/src/cice4
-./bld/build.sh nci access-om 1440x1080
+cd $ACCESS_OM_DIR/src/cice5
+make
 ```
 
-OR, for the 1 deg ocean, ice configuration:
+OR, for the 1/4 deg, ice configuration:
 
 ```{bash}
-cd $ACCESS_OM_DIR/src/cice4
-./bld/build.sh nci access-om 360x300
+cd $ACCESS_OM_DIR/src/cice5
+make 025deg
 ```
 
 For atm:
 ```{bash}
 cd $ACCESS_OM_DIR/src/matm
-./build/build.sh nci
+make jra55
 ```
 
 Check that the executables exist:
 
 ```{bash}
 ls $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
-ls $ACCESS_OM_DIR/src/cice4/build_access-om_1440x1080_192p/cice_access-om_1440x1080_192p.exe
-ls $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
+ls $ACCESS_OM_DIR/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe
+ls $ACCESS_OM_DIR/src/matm/build_jra55/matm_jra55.exe
+```
+
+These then need to be copied to the bin directory created above. Also, as an added complication, they need to be renamed to match the names used in the experiment configuration file `config.yaml`. The name of each executable is changed to include the hash/id of the git commit from which they were built. The following should do the trick:
+
+```{bash}
+ls $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x $ACCESS_OM_DIR/bin/fms_ACCESS-OM_f2876c46.x
+ls $ACCESS_OM_DIR/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe $ACCESS_OM_DIR/bin/cice_auscom_360x300_24p_fb3693fe.exe
+ls $ACCESS_OM_DIR/src/matm/build_jra55/matm_jra55.exe $ACCESS_OM_DIR/bin/matm_jra55_77ca58ce.exe
 ```
 
 ## Run
 
-Run the first month of the 0.25 degree CORE2 NYF experiment experiment:
+To run the 1 degree JRA55 RYF experiment:
 
 ```{bash}
-# Make a run script (in this case to run on the NCI HPC system raijin)
-cat > run025deg.pbs<<EOF
-cd $ACCESS_OM_DIR/025deg/
-ln -s ../input/025deg/INPUT ./
-cp ../input/025deg/*.nc ./
-module load openmpi/1.8.4
-mpirun --mca orte_base_help_aggregate 0 -np 960 $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x : -np 192 $ACCESS_OM_DIR/src/cice4/build_access-om_1440x1080_192p/cice_access-om_1440x1080_192p.exe : -np 1 $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
-EOF
-# Submit run script to queuing system (in this case PBSPro)
-qsub -P $PROJECT -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=1168,mem=2000Gb,walltime=4:00:00,jobfs=100GB run025deg.pbs 
+cd $ACCESS_OM_DIR/1deg_jra55_ryf/
+payu run
 ```
-
-If the run fails or you want to start from scratch for any reason:
-```{bash}
-qsub -P $PROJECT -q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=1168,mem=2000Gb,walltime=4:00:00,jobfs=100GB run.pbs 
-```
-
-To run the 1 degree CORE2 NYF experiment experiment:
-
-```{bash}
-# Make a run script (in this case to run on the NCI HPC system raijin)
-cat > run1deg.pbs<<EOF
-cd $ACCESS_OM_DIR/1deg/
-ln -s ../input/1deg/INPUT ./
-cp ../input/1deg/*.nc ./
-module load openmpi/1.8.4
-mpirun --mca orte_base_help_aggregate 0 -np 120 $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x : -np 6 $ACCESS_OM_DIR/src/cice4/build_access-om_360x300_6p/cice_access-om_360x300_6p.exe : -np 1 $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
-EOF
-# Submit run script to queuing system (in this case PBSPro)
-qsub --P $PROJECT q normal -v DISPLAY=$DISPLAY,ACCESS_OM_DIR=$ACCESS_OM_DIR -l ncpus=128,mem=248Gb,walltime=4:00:00,jobfs=100GB run1deg.pbs 
-```
-
-## Verify
-
-TBC.
 
 ## Testing
 
-These models and the standard experiments are tested routinely. The test status can be seen here: https://climate-cms.nci.org.au/jenkins/job/ACCESS-CM/
+These models and the standard experiments are tested routinely. The test status can be seen here: https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/
 
 ## Problems?
 
-Please contact nicjhannah@gmail.com OR ... 
+Please contact post an issue describing your problem at: https://github.com/OceansAus/access-om2/issues
+
+## References
+
+[1] "ACCESS-OM: the Ocean and Sea ice Core of the ACCESS Coupled Model" https://publications.csiro.au/rpr/pub?pid=csiro:EP125880
 
