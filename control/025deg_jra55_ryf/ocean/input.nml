@@ -128,7 +128,7 @@
 /
 
  &ocean_domains_nml
-
+        max_tracers = 5
 /
 
  &ocean_drifters_nml

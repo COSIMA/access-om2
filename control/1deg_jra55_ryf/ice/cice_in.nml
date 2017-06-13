@@ -1,6 +1,6 @@
 &setup_nml
     days_per_year  = 365
-  , use_leap_years = .true.
+  , use_leap_years = .false.
   , year_init      = 0001
   , istep0         = 0
   , dt             = 3600

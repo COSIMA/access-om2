@@ -6,7 +6,7 @@
     ice_fwflux = .true.
     use_ocnslope = .false.
     use_umask = .false.
-    rotate_winds = .true.
+    rotate_winds = .false.
     limit_icemelt = .false.
     meltlimit = -200.0
     precip_factor = 1.0

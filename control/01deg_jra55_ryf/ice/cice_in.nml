@@ -1,6 +1,6 @@
 &setup_nml
     days_per_year  = 365
-  , use_leap_years = .true.
+  , use_leap_years = .false.
   , year_init      = 0001
   , istep0         = 0
   , dt             = 400
@@ -16,8 +16,8 @@
   , restart_dir    = './RESTART/'
   , restart_file   = 'iced'
   , pointer_file   = './RESTART/ice.restart_file'
-  , dumpfreq       = 'd'
-  , dumpfreq_n     = 10
+  , dumpfreq       = 'm'
+  , dumpfreq_n     = 3
   , dump_last      = .true.
   , diagfreq       = 960
   , diag_type      = 'file'

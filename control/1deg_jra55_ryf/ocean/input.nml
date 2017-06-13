@@ -113,20 +113,11 @@
       neutralrho_max=1030.0
       layer_nk=80
       eos_linear=.false.
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true.
+      eos_preteos10=.true. 
 /
 
  &ocean_domains_nml
-        max_tracers = 20
+        max_tracers = 5
 /
 
  &ocean_drifters_nml
@@ -140,7 +131,6 @@
  &ocean_frazil_nml
       use_this_module=.true.
       freezing_temp_simple=.true.
-      frazil_only_in_surface=.true.
 /
 
  &ocean_grids_nml
@@ -503,7 +493,7 @@
 
  &ocean_tracer_diag_nml
       tracer_conserve_days=1.0
-      diag_step=4320
+      diag_step=48
       do_bitwise_exact_sum=.false.
 /
 
@@ -643,7 +633,7 @@
     dt_cpl=3600
     do_ice_once=.false.
     pop_icediag=.true.
-    kmxice=5 
+    kmxice=3
     fixmeltT=.false.
     Tmelt=-.216
     use_ioaice=.true.

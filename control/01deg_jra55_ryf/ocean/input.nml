@@ -153,7 +153,7 @@
 /
 
  &ocean_domains_nml
-
+        max_tracers = 5
 /
 
  &ocean_drifters_nml
@@ -219,7 +219,7 @@
 	barotropic_split = 80
 	debug=.false.
     layout = 80, 75
-    io_layout = 20, 15
+    io_layout = 80, 75
 /
 
  &ocean_momentum_source_nml

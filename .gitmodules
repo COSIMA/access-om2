@@ -1,6 +1,6 @@
 [submodule "src/mom"]
 	path = src/mom
-	url = https://github.com/BreakawayLabs/mom.git
+	url = https://github.com/nicjhan/mom.git
 [submodule "src/oasis3-mct"]
 	path = src/oasis3-mct
 	url = https://github.com/OceansAus/oasis3-mct.git

@@ -2,7 +2,7 @@
 
 ACCESS-OM2 is a coupled ice and ocean global model. It is being developed through a collaborate with [COSIMA](www.cosima.org.au), [ARCCSS](www.arccss.org.au) and [CSIRO](www.csiro.au). It builds on the ACCESS-OM model orinially developed at CSIRO [1].
 
-The model consists of [MOM5.1](mom-ocean.science), CICE5.1, a file-based atmosphere all coupled together with the [OASIS3-MCT](https://portal.enes.org/oasis) coupler. Regridding is done using interpolation weights generated using ESMF_RegridWeightGen from [ESMF](https://www.earthsystemcog.org/projects/esmf/).
+The model consists of [MOM5.1](mom-ocean.science), [CICE5.1](http://oceans11.lanl.gov/trac/CICE), and a file-based atmosphere. The models are coupled together using [OASIS3-MCT](https://portal.enes.org/oasis) coupler and regridding is done using ESMF_RegridWeightGen from [ESMF](https://www.earthsystemcog.org/projects/esmf/) and [KDTREE2](https://github.com/jmhodges/kdtree2).
 
 ACCESS-OM2 comes with a number of standard experiments. These configurations include ice and ocean at 1, 1/4 and 1/10th degree resolution. [JRA55](http://jra.kishou.go.jp/JRA-55/index_en.html) and [CORE2](http://www.clivar.org/clivar-panels/omdp/core-2) forcing datasets are supported.
 
