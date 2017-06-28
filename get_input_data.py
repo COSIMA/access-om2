@@ -7,13 +7,16 @@ import sh
 import subprocess as sp
 import argparse
 
-data_path = '/short/public/access-om2/input_6912b015.tar.gz'
-data_url = 'http://s3-ap-southeast-2.amazonaws.com/dp-drop/access-om2/input_6912b015.tar.gz'
+data_filename = 'input_b8053e87.tar.gz'
+
+data_path = '/short/public/access-om2/' + data_filename
+data_url = 'http://s3-ap-southeast-2.amazonaws.com/dp-drop/access-om2/' + data_filename
+
 
 def main():
 
     my_dir = os.path.dirname(os.path.realpath(__file__))
-    tarball = os.path.join(my_dir, 'input_6912b015.tar.gz')
+    tarball = os.path.join(my_dir, data_filename)
 
     # Download input data.
     if not os.path.exists(data_path):
