@@ -15,12 +15,11 @@
  &xgrid_nml
          make_exchange_reproduce=.false.
 	    interp_method = 'second_order'
-        nsubset = 16
 /
 
  &ocean_adv_vel_diag_nml
       diag_step=4320
-      verbose_cfl=.false.
+      verbose_cfl=.true.
       max_cfl_value=100.0
       large_cfl_value=10.0
 /
@@ -647,6 +646,7 @@
 /
 
 &ocean_solo_nml
+    debug_this_module=.false.
     years = 0
     months = 0
     days   = 1460

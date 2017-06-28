@@ -19,26 +19,26 @@ submodels:
       model: mom
       exe: fms_ACCESS-OM_55a1bd92.x
       input: mom_025deg
-      timestep: 540
+      timestep: 400
       ncpus: 1920
 
     - name: ice
       model: cice5
       exe: cice_auscom_1440x1080_480p_fb3693fe.exe
       input: cice_025deg
-      timestep: 540
+      timestep: 400
       ncpus: 480
 
     - name: coupler
       model: oasis
       input: oasis_jra55_to_025deg
-      timestep: 540
+      timestep: 400
       ncpus: 0
 
 calendar:
     runtime:
-        years: 1
-        months: 0
+        years: 0
+        months: 6
         days: 0
 
     start:
