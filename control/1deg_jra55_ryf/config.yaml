@@ -1,11 +1,11 @@
 # PBS configuration
 queue: normal
-project: e14
+project: x77
 walltime: 3:00:00
 jobname: 1deg_jra55_ryf
 ncpus: 304
 
-shortpath: /short/e14
+shortpath: /short/v45
 
 # Model configuration
 model: access-om2
