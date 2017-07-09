@@ -1,6 +1,6 @@
 # PBS configuration
 queue: normal
-project: x77
+project: g40
 walltime: 5:00:00
 jobname: 025deg_jra55_ryf
 ncpus: 2416
