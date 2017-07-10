@@ -19,14 +19,14 @@ submodels:
       model: mom
       exe: fms_ACCESS-OM_55a1bd92.x
       input: mom_025deg
-      timestep: 540
+      timestep: 600
       ncpus: 1920
 
     - name: ice
       model: cice5
       exe: cice_auscom_1440x1080_480p_fb3693fe.exe
       input: cice_025deg
-      timestep: 540
+      timestep: 600
       ncpus: 480
 
     - name: coupler
