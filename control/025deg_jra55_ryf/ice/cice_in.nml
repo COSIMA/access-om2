@@ -5,7 +5,7 @@
   , istep0         = 0
   , dt             = 1200
   , npt            = 2232
-  , ndtd           = 1
+  , ndtd           = 2
   , runtype        = 'initial'
   , ice_ic         = 'default'
   , restart        = .false.
