@@ -644,6 +644,7 @@
     sign_stflx=1.0
     chk_i2o_fields=.false.
     chk_o2i_fields=.false.
+    redsea_gulfbay_sfix=.true.
 /
 
 &ocean_solo_nml
