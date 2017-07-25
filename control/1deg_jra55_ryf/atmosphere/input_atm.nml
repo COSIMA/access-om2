@@ -11,5 +11,5 @@
     days_per_year = 365
     chk_a2i_fields = .false.
     chk_i2a_fields = .false.
-    debug_output = .true.
+    debug_output = .false.
 /

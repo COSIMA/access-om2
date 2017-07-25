@@ -42,8 +42,8 @@
 &grid_nml
     grid_format  = 'nc'
   , grid_type    = 'tripole'
-  , grid_file    = 'INPUT/grid.nc'
-  , kmt_file     = 'INPUT/kmt.nc'
+  , grid_file    = 'RESTART/grid.nc'
+  , kmt_file     = 'RESTART/kmt.nc'
   , kcatbound    = 0
 /
 

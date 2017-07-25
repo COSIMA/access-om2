@@ -116,7 +116,7 @@
 /
 
  &ocean_domains_nml
-        max_tracers = 5
+        max_tracers = 10
 /
 
  &ocean_drifters_nml
@@ -492,7 +492,7 @@
 
  &ocean_tracer_diag_nml
       tracer_conserve_days=1.0
-      diag_step=48
+      diag_step=4320
       do_bitwise_exact_sum=.false.
 /
 
@@ -646,7 +646,7 @@
 /
 
 &ocean_solo_nml
-    debug_this_module=.false.
+    debug_this_module=.true.
     years = 0
     months = 0
     days   = 1460

@@ -42,8 +42,8 @@
 &grid_nml
     grid_format  = 'nc'
   , grid_type    = 'tripole'
-  , grid_file    = 'INPUT/grid.nc'
-  , kmt_file     = 'INPUT/kmt.nc'
+  , grid_file    = 'RESTART/grid.nc'
+  , kmt_file     = 'RESTART/kmt.nc'
   , kcatbound    = 0
 /
 
@@ -160,8 +160,8 @@
   , atm_data_format = 'nc'
   , atm_data_type   = 'default'
   , atm_data_dir    = 'unknown_atm_data_dir'
-  , calc_strair     = .false.
-  , calc_Tsfc       = .false.
+  , calc_strair     = .true.
+  , calc_Tsfc       = .true.
   , precip_units    = 'mks'
   , update_ocn_f    = .true.
   , oceanmixed_ice  = .false.
