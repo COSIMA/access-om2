@@ -55,6 +55,7 @@ collate_queue: express
 collate_flags: -n4 -z -m -r
 
 # Misc
+runlog: False
 stacksize: unlimited
 mpirun: --mca orte_base_help_aggregate 0 --mca btl_openib_eager_limit 4096 --mca btl_openib_max_send_size 8192 --mca mtl mxm
 qsub_flags: -lother=hyperthread

@@ -1,9 +1,9 @@
 # PBS configuration
 queue: normal
 project: e14
-walltime: 5:00:00
+walltime: 3:00:00
 jobname: 025deg_jra55_ryf
-ncpus: 2416
+ncpus: 1936
 
 shortpath: /short/e14
 
@@ -37,8 +37,8 @@ submodels:
 
 calendar:
     runtime:
-        years: 0
-        months: 6
+        years: 1
+        months: 0
         days: 0
 
     start:
@@ -48,6 +48,7 @@ calendar:
 
 # Misc
 stacksize: unlimited
+runlog: False
 collate_walltime: 1:00:00
 collate_queue: express
 collate_ncpus: 4

@@ -646,7 +646,7 @@
 /
 
 &ocean_solo_nml
-    debug_this_module=.true.
+    debug_this_module=.false.
     years = 0
     months = 0
     days   = 1460
