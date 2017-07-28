@@ -125,8 +125,8 @@ Please post an issue describing your problem at: https://github.com/OceansAus/ac
 ## Releases
 
 - pre-release: 5a1f28d56ab06c12a495c21af10cb55913bdba0b
-- pre-release bugfix: f60586d22c671139271f610897fceeb4920901c9
-    Containing, among others, the following changes/fixes: https://github.com/mom-ocean/MOM5/issues/175, https://github.com/mom-ocean/MOM5/issues/183, https://github.com/mom-ocean/MOM5/issues/184, https://github.com/OceansAus/access-om2/issues/13, https://github.com/OceansAus/access-om2/issues/12, https://github.com/OceansAus/access-om2/issues/11
+- pre-release bugfix: 8fe4429a46de61c27b74736300cad5998cdc9836
+    Containing, among others, the following changes/fixes: https://github.com/mom-ocean/MOM5/issues/175, https://github.com/mom-ocean/MOM5/issues/183, https://github.com/mom-ocean/MOM5/issues/184, https://github.com/OceansAus/access-om2/issues/13, https://github.com/OceansAus/access-om2/issues/12, https://github.com/OceansAus/access-om2/issues/11, https://github.com/mom-ocean/MOM5/issues/187
 
 ## References
 
