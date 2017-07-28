@@ -120,7 +120,13 @@ These models and the standard experiments are tested routinely. The test status 
 
 ## Problems?
 
-Please contact post an issue describing your problem at: https://github.com/OceansAus/access-om2/issues
+Please post an issue describing your problem at: https://github.com/OceansAus/access-om2/issues
+
+## Releases
+
+- pre-release: 5a1f28d56ab06c12a495c21af10cb55913bdba0b
+- pre-release bugfix: d6407afbcc973e17c6c71869e693dbf218ba237b
+    Containing, among others, the following changes/fixes: https://github.com/mom-ocean/MOM5/issues/175, https://github.com/mom-ocean/MOM5/issues/183, https://github.com/mom-ocean/MOM5/issues/184, https://github.com/OceansAus/access-om2/issues/13, https://github.com/OceansAus/access-om2/issues/12, https://github.com/OceansAus/access-om2/issues/11
 
 ## References
 
