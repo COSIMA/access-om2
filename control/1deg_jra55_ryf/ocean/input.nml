@@ -632,7 +632,7 @@
     dt_cpl=3600
     do_ice_once=.false.
     pop_icediag=.true.
-    kmxice=3
+    kmxice=5
     fixmeltT=.false.
     Tmelt=-.216
     use_ioaice=.true.
