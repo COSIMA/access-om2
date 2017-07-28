@@ -3,15 +3,14 @@
 import sys
 import os, errno
 import shlex
-import sh
+import shutil
 import subprocess as sp
 import argparse
 
-data_filename = 'input_b8053e87.tar.gz'
+data_filename = 'input_486a8dd0.tar.gz'
 
 data_path = '/short/public/access-om2/' + data_filename
 data_url = 'http://s3-ap-southeast-2.amazonaws.com/dp-drop/access-om2/' + data_filename
-
 
 def main():
 
@@ -24,11 +23,11 @@ def main():
     # Download input data.
     if not os.path.exists(data_filename):
         if not os.path.exists(data_path):
-            sh.wget('-P', my_dir, data_url)
+            sp.check_call(['wget', '-P', my_dir, data_url])
         else:
-            sh.cp(data_path, my_dir)
+            shutil.copy(data_path, my_dir)
 
-    sh.tar('zxvf', tarball, '-C', my_dir)
+    sp.check_call(['tar', 'zxvf', tarball, '-C', my_dir])
 
     return 0
 
