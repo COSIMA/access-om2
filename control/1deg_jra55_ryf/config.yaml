@@ -1,7 +1,7 @@
 # PBS configuration
 queue: normal
 project: e14
-walltime: 3:00:00
+walltime: 2:00:00
 jobname: 1deg_jra55_ryf
 ncpus: 256
 
@@ -38,7 +38,7 @@ submodels:
 
 calendar:
     runtime:
-        years: 3
+        years: 2
         months: 0
         days: 0
 
