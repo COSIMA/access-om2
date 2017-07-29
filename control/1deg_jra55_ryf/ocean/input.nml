@@ -15,12 +15,11 @@
  &xgrid_nml
          make_exchange_reproduce=.false.
 	    interp_method = 'second_order'
-        nsubset = 16
 /
 
  &ocean_adv_vel_diag_nml
       diag_step=4320
-      verbose_cfl=.false.
+      verbose_cfl=.true.
       max_cfl_value=100.0
       large_cfl_value=10.0
 /
@@ -117,7 +116,7 @@
 /
 
  &ocean_domains_nml
-        max_tracers = 5
+        max_tracers = 10
 /
 
  &ocean_drifters_nml
@@ -493,7 +492,7 @@
 
  &ocean_tracer_diag_nml
       tracer_conserve_days=1.0
-      diag_step=48
+      diag_step=4320
       do_bitwise_exact_sum=.false.
 /
 
@@ -633,7 +632,7 @@
     dt_cpl=3600
     do_ice_once=.false.
     pop_icediag=.true.
-    kmxice=3
+    kmxice=5
     fixmeltT=.false.
     Tmelt=-.216
     use_ioaice=.true.
@@ -648,6 +647,7 @@
 /
 
 &ocean_solo_nml
+    debug_this_module=.false.
     years = 0
     months = 0
     days   = 1460

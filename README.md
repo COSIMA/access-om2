@@ -46,7 +46,13 @@ tar zxvf input_b8053e87.tar.gz
 
 ## Compile
 
-Now to build each model. Start with OASIS because it is needed by the others:
+Now to build each model. There are two ways to do this. If you have pytest installed, an easier way to compile all models is to use the build test:
+
+```
+python -m pytest test/test_build.py
+```
+
+Otherwise, the models can be build individually. Start with OASIS because it is needed by the others:
 
 ```
 export ACCESS_OM_DIR=$(pwd)
@@ -83,12 +89,6 @@ cd $ACCESS_OM_DIR/src/matm
 make jra55
 ```
 
-Alternatively, if you have pytest installed, an easier way to compile all models is to use the build test:
-
-```
-python -m pytest test/test_build.py
-```
-
 Now check that the executables exist:
 
 ```{bash}
@@ -100,9 +100,9 @@ ls $ACCESS_OM_DIR/src/matm/build_jra55/matm_jra55.exe
 These then need to be copied to the bin directory created above. Also, as an added complication, they need to be renamed to match the names used in the experiment configuration file `config.yaml`. The name of each executable is changed to include the hash/id of the git commit from which they were built. The following should do the trick:
 
 ```{bash}
-ls $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x $ACCESS_OM_DIR/bin/fms_ACCESS-OM_55a1bd92.x
-ls $ACCESS_OM_DIR/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe $ACCESS_OM_DIR/bin/cice_auscom_360x300_24p_fb3693fe.exe
-ls $ACCESS_OM_DIR/src/matm/build_jra55/matm_jra55.exe $ACCESS_OM_DIR/bin/matm_jra55_77ca58ce.exe
+cp $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x $ACCESS_OM_DIR/bin/fms_ACCESS-OM_f6f4e4ae.x
+cp $ACCESS_OM_DIR/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe $ACCESS_OM_DIR/bin/cice_auscom_360x300_24p_fb3693fe.exe
+cp $ACCESS_OM_DIR/src/matm/build_jra55/matm_jra55.exe $ACCESS_OM_DIR/bin/matm_jra55_5d6cd7eb.exe
 ```
 
 ## Run
@@ -120,7 +120,13 @@ These models and the standard experiments are tested routinely. The test status 
 
 ## Problems?
 
-Please contact post an issue describing your problem at: https://github.com/OceansAus/access-om2/issues
+Please post an issue describing your problem at: https://github.com/OceansAus/access-om2/issues
+
+## Releases
+
+- pre-release: 5a1f28d56ab06c12a495c21af10cb55913bdba0b
+- pre-release bugfix: 8fe4429a46de61c27b74736300cad5998cdc9836
+    Containing, among others, the following changes/fixes: https://github.com/mom-ocean/MOM5/issues/175, https://github.com/mom-ocean/MOM5/issues/183, https://github.com/mom-ocean/MOM5/issues/184, https://github.com/OceansAus/access-om2/issues/13, https://github.com/OceansAus/access-om2/issues/12, https://github.com/OceansAus/access-om2/issues/11, https://github.com/mom-ocean/MOM5/issues/187
 
 ## References
 

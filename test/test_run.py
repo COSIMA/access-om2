@@ -1,7 +1,6 @@
 
-from exp_test_helper import ExpTestHelper
+from exp_test_helper import run_exp
 
-import subprocess as sp
 import pytest
 
 class TestRun():
@@ -11,25 +10,8 @@ class TestRun():
 
     @pytest.mark.fast
     def test_run(self):
-
-        ret = sp.call(['./get_input_data.py'])
-        assert ret == 0
-
-        helper = ExpTestHelper('1deg_jra55_ryf')
-        assert helper.build() == 0
-        ret, qso, qse, qsub_files = helper.run()
-
-        assert ret == 0
-
+        run_exp('1deg_jra55_ryf')
 
     @pytest.mark.slow
     def test_slow_run(self):
-
-        ret = sp.call(['./get_input_data.py'])
-        assert ret == 0
-
-        helper = ExpTestHelper('025deg_jra55_ryf')
-        assert helper.build() == 0
-        ret, qso, qse, qsub_files = helper.run()
-
-        assert ret == 0
+        run_exp('025deg_jra55_ryf')

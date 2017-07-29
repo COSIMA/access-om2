@@ -20,7 +20,8 @@ class ExpTestHelper(object):
         self.lab_path = os.path.realpath(os.path.join(self.my_path, '../'))
         self.input_path = os.path.realpath(os.path.join(self.lab_path, 'input'))
         self.bin_path = os.path.join(self.lab_path, 'bin')
-        self.exp_path = os.path.join(self.lab_path, 'control', exp_name)
+        self.control_path = os.path.join(self.lab_path, 'control')
+        self.exp_path = os.path.join(self.control_path, exp_name)
         self.archive = os.path.join(self.lab_path, 'archive', exp_name)
         self.src = os.path.join(self.lab_path, 'src')
 
@@ -198,10 +199,19 @@ class ExpTestHelper(object):
     def run(self):
         """
         Run the experiment using payu and check output.
+
+        Don't do any work if it has already run.
         """
 
         if self.has_run():
-            return 0
+            return 0, None, None, None
+        else:
+            return self.force_run()        
+
+    def force_run(self):
+        """
+        Always try to run.
+        """
 
         # Change to experiment directory and run.
         try:
@@ -258,3 +268,20 @@ class ExpTestHelper(object):
         output_files += glob.glob(collate_files)
 
         return 0, stdout, stderr, output_files
+
+
+def run_exp(exp_name, force=False):
+    my_path = os.path.dirname(os.path.realpath(__file__))
+    ret = sp.call([os.path.join(my_path, '../', 'get_input_data.py')])
+    assert ret == 0
+
+    helper = ExpTestHelper(exp_name)
+    assert helper.build() == 0
+    if force:
+        ret, qso, qse, qsub_files = helper.force_run()
+    else:
+        ret, qso, qse, qsub_files = helper.run()
+
+    assert ret == 0
+
+    return helper
