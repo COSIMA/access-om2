@@ -4,7 +4,7 @@ MOM5 JRA-RYF
 "ocean",           12,  "months", 1, "days", "time",
 "ocean_daily",     24,  "hours",  1, "days", "time",
 "ocean_grid",      -1,  "months", 1, "days", "time",
-"ocean_scalar",     1,  "days", 1, "hours", "time",
+"ocean_scalar",     1,  "months", 1, "days", "time",
 "ocean_model","geolon_t","geolon_t", "ocean_grid","all",.false.,"none",2
 "ocean_model","geolat_t","geolat_t", "ocean_grid","all",.false.,"none",2
 "ocean_model","geolon_c","geolon_c", "ocean_grid","all",.false.,"none",2
