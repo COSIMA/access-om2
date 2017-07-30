@@ -28,6 +28,14 @@ git clone --recursive https://github.com/OceansAus/access-om2.git
 cd access-om2
 ```
 
+If you have an existing download and would like to update to the latest version:
+
+```{bash}
+cd access-om2
+git pull
+git submodule update
+```
+
 This should be downloaded to a place which has enough disk space for the model inputs and output. On raijin it should be downloaded to `/short/${PROJECT}/${USER}
 
 The next step is to create the 'lab' by downloading experiment input data and creating directories.
