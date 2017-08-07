@@ -19,20 +19,20 @@ submodels:
       model: mom
       exe: fms_ACCESS-OM_f6f4e4ae.x
       input: mom_01deg
-      timestep: 120
+      timestep: 300
       ncpus: 4394
 
     - name: ice
       model: cice5
       exe: cice_auscom_3600x2700_1200p_fa5b0bcf.exe
       input: cice_01deg
-      timestep: 120
+      timestep: 300
       ncpus: 1200
 
     - name: coupler
       model: oasis
       input: oasis_jra55_to_01deg
-      timestep: 120
+      timestep: 300
       ncpus: 0
 
 calendar:
