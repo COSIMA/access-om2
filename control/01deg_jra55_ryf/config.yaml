@@ -12,33 +12,33 @@ model: access-om2
 submodels:
     - name: atmosphere
       model: matm
-      exe: matm_jra55_5d6cd7eb.exe
+      exe: matm_jra55_2318e909.exe
       ncpus: 1
 
     - name: ocean
       model: mom
       exe: fms_ACCESS-OM_f6f4e4ae.x
       input: mom_01deg
-      timestep: 300
+      timestep: 450
       ncpus: 4394
 
     - name: ice
       model: cice5
       exe: cice_auscom_3600x2700_1200p_fa5b0bcf.exe
       input: cice_01deg
-      timestep: 300
+      timestep: 450
       ncpus: 1200
 
     - name: coupler
       model: oasis
       input: oasis_jra55_to_01deg
-      timestep: 300
+      timestep: 450
       ncpus: 0
 
 calendar:
     runtime:
         years: 0
-        months: 1
+        months: 3
         days: 0
 
     start:
