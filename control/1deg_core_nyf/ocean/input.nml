@@ -353,7 +353,7 @@
       salt_restore_tscale=60.0
       salt_restore_under_ice=.true.
       salt_restore_as_salt_flux=.true.
-      max_delta_salinity_restore=0.50 
+      max_delta_salinity_restore=0.50
       read_restore_mask=.false.
       restore_mask_gfdl=.false.
       max_ice_thickness=8.0
@@ -642,7 +642,7 @@
     dt_cpl=3600
     do_ice_once=.false.
     pop_icediag=.true.
-    kmxice=5 
+    kmxice=5
     fixmeltT=.false.
     Tmelt=-.216
     use_ioaice=.true.
