@@ -357,7 +357,6 @@
       zero_surface_stress=.false.
       runoff_salinity=0.0
       waterflux_tavg=.false.
-      ice_salt_concentration=0.004
 /
 
  &ocean_sbc_OFAM_nml
@@ -486,8 +485,6 @@
 
  &ocean_tracer_advect_nml
       debug_this_module=.false.
-      advect_sweby_all=.true.
-    async_domain_update=.true.
 /
 
  &ocean_tracer_diag_nml
@@ -525,8 +522,8 @@
       truncate_verbose=.true.
       truncate_velocity_value=2.0
       zero_tendency=.false.
-      adams_bashforth_third=.true.
       max_cgint=1.0
+      adams_bashforth_third=.true.
 /
 
  &ocean_vert_chen_nml

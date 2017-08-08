@@ -110,7 +110,7 @@ These then need to be copied to the bin directory created above. Also, as an add
 ```{bash}
 cp $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x $ACCESS_OM_DIR/bin/fms_ACCESS-OM_f6f4e4ae.x
 cp $ACCESS_OM_DIR/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe $ACCESS_OM_DIR/bin/cice_auscom_360x300_24p_fb3693fe.exe
-cp $ACCESS_OM_DIR/src/matm/build_jra55/matm_jra55.exe $ACCESS_OM_DIR/bin/matm_jra55_5d6cd7eb.exe
+cp $ACCESS_OM_DIR/src/matm/build_jra55/matm_jra55.exe $ACCESS_OM_DIR/bin/matm_jra55_2318e909.exe
 ```
 
 ## Run
@@ -135,6 +135,7 @@ Please post an issue describing your problem at: https://github.com/OceansAus/ac
 - pre-release: 5a1f28d56ab06c12a495c21af10cb55913bdba0b
 - pre-release bugfix: 8fe4429a46de61c27b74736300cad5998cdc9836
     Containing, among others, the following changes/fixes: https://github.com/mom-ocean/MOM5/issues/175, https://github.com/mom-ocean/MOM5/issues/183, https://github.com/mom-ocean/MOM5/issues/184, https://github.com/OceansAus/access-om2/issues/13, https://github.com/OceansAus/access-om2/issues/12, https://github.com/OceansAus/access-om2/issues/11, https://github.com/mom-ocean/MOM5/issues/187
+- pre-release runoff spread: 0588afcb3df1737ae04829609c272ef1e590b807
 
 ## References
 
