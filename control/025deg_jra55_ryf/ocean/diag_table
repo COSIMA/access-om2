@@ -34,6 +34,8 @@ MOM5 JRA-RYF
 "ocean_model","v","v",                  "ocean","all",.true.,"none",2
 "ocean_model","wt","wt",                "ocean","all",.true.,"none",2
 "ocean_model","dzt","dzt",              "ocean","all",.true.,"none",2
+"ocean_model","press","press",  "ocean","all",.true.,"none",2
+"ocean_model","rho","rho",  "ocean","all",.true.,"none",2
 "ocean_model","pot_rho_0","pot_rho_0",  "ocean","all",.true.,"none",2
 "ocean_model","pot_rho_2","pot_rho_2",  "ocean","all",.true.,"none",2
 "ocean_model","tx_trans","tx_trans",    "ocean","all",.true.,"none",2
@@ -51,6 +53,11 @@ MOM5 JRA-RYF
 "ocean_model","sea_level_sq","sea_levelsq",        "ocean_month","all",.true.,"none",2
 "ocean_model","mld","mld",                         "ocean_month","all",.true.,"none",2
 "ocean_model","pme_river","pme_river",             "ocean_month","all",.true.,"none",2
+"ocean_model","river","river",             "ocean_month","all",.true.,"none",2
+"ocean_model","runoff","runoff",             "ocean_month","all",.true.,"none",2
+"ocean_model","ice_calving","ice_calving",             "ocean_month","all",.true.,"none",2
+"ocean_model","evap","evap",             "ocean_month","all",.true.,"none",2
+"ocean_model","melt","melt",             "ocean_month","all",.true.,"none",2
 "ocean_model","sfc_salt_flux_restore","sfc_salt_flux_restore","ocean_month","all",.true.,"none",2
 "ocean_model","sfc_salt_flux_ice","sfc_salt_flux_ice","ocean_month","all",.true.,"none",2
 "ocean_model","sfc_salt_flux_coupler","sfc_salt_flux_coupler","ocean_month","all",.true.,"none",2
