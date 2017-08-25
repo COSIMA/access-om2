@@ -17,22 +17,22 @@ submodels:
 
     - name: ocean
       model: mom
-      exe: fms_ACCESS-OM_f6f4e4ae.x
+      exe: fms_ACCESS-OM_160db8a0.x
       input: mom_025deg
-      timestep: 600
+      timestep: 1800
       ncpus: 1455
 
     - name: ice
       model: cice5
-      exe: cice_auscom_1440x1080_480p_fa5b0bcf.exe
+      exe: cice_auscom_1440x1080_480p_fe730022.exe
       input: cice_025deg
-      timestep: 600
+      timestep: 1800
       ncpus: 480
 
     - name: coupler
       model: oasis
       input: oasis_jra55_to_025deg
-      timestep: 600
+      timestep: 1800
       ncpus: 0
 
 calendar:

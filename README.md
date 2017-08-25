@@ -125,9 +125,9 @@ ls $ACCESS_OM_DIR/src/cice5/build_auscom_3600x2700_1200p/cice_auscom_3600x2700_1
 
 You will also have a directory `$ACCESS_OM_DIR/control` whose subdirectories are model configurations at 1, 1/4 and 1/10 degree resolution. `config.yaml` within each of these subdirectories gives the PBS specification for the job, including executable names. Details are here: <http://payu.readthedocs.io/en/latest/config.html>
 
-**You will need to edit `config.yaml` to set  `project` and `shortpath` appropriately.** Service units are charged to `project` and output is saved in `shortpath`. 
+**You will need to edit `config.yaml` to set  `project` and `shortpath` appropriately.** Service units are charged to `project` and output is saved in `shortpath`.
 
-The executables then need to be copied to the directory `$ACCESS_OM_DIR/bin`. 
+The executables then need to be copied to the directory `$ACCESS_OM_DIR/bin`.
 
 First copy and rename mppnccombine:
 ```{bash}
@@ -135,34 +135,34 @@ mkdir -p $ACCESS_OM_DIR/bin
 cp $ACCESS_OM_DIR/src/mom/bin/mppnccombine.nci $ACCESS_OM_DIR/bin/mppnccombine
 ```
 
-Now for the model executables. As an added complication, they need to be renamed to match the `exe` names used in the experiment configuration file `config.yaml` --- check this with `grep exe $ACCESS_OM_DIR/control/*/config.yaml` (for uniqueness the name of each executable is changed to include the hash/id of the git commit from which they were built). 
+Now for the model executables. As an added complication, they need to be renamed to match the `exe` names used in the experiment configuration file `config.yaml` --- check this with `grep exe $ACCESS_OM_DIR/control/*/config.yaml` (for uniqueness the name of each executable is changed to include the hash/id of the git commit from which they were built).
 
 All three JRA55 models need this (but **you may need to update the hash/ids**):
 ```{bash}
-cp $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x $ACCESS_OM_DIR/bin/fms_ACCESS-OM_f6f4e4ae.x
+cp $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x $ACCESS_OM_DIR/bin/fms_ACCESS-OM_160db8a0.x
 cp $ACCESS_OM_DIR/src/matm/build_jra55/matm_jra55.exe $ACCESS_OM_DIR/bin/matm_jra55_2318e909.exe
 ```
 plus one of the following:
 
 For the 1 degree JRA55 model (but **you may need to update the hash/id**):
 ```{bash}
-cp $ACCESS_OM_DIR/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe $ACCESS_OM_DIR/bin/cice_auscom_360x300_24p_fa5b0bcf.exe
+cp $ACCESS_OM_DIR/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe $ACCESS_OM_DIR/bin/cice_auscom_360x300_24p_fe730022.exe
 ```
 
 For the 1/4 degree JRA55 model (but **you may need to update the hash/id**):
 ```{bash}
-cp $ACCESS_OM_DIR/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe $ACCESS_OM_DIR/bin/cice_auscom_1440x1080_480p_fa5b0bcf.exe
+cp $ACCESS_OM_DIR/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe $ACCESS_OM_DIR/bin/cice_auscom_1440x1080_480p_fe730022.exe
 ```
 
 For the 1/10 degree JRA55 model (but **you may need to update the hash/id**):
 ```{bash}
-cp $ACCESS_OM_DIR/src/cice5/build_auscom_3600x2700_1200p/cice_auscom_3600x2700_1200p.exe $ACCESS_OM_DIR/bin/cice_auscom_3600x2700_1200p_fa5b0bcf.exe
+cp $ACCESS_OM_DIR/src/cice5/build_auscom_3600x2700_1200p/cice_auscom_3600x2700_1200p.exe $ACCESS_OM_DIR/bin/cice_auscom_3600x2700_1200p_fe730022.exe
 ```
 
 For the 1 degree CORE2 model (but **you may need to update the hash/ids**):
 ```{bash}
-cp $ACCESS_OM_DIR/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe $ACCESS_OM_DIR/bin/cice_auscom_360x300_24p_29641b09.exe
-cp $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x $ACCESS_OM_DIR/bin/fms_ACCESS-OM_11b63cb3.x
+cp $ACCESS_OM_DIR/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe $ACCESS_OM_DIR/bin/cice_auscom_360x300_24p_fe730022.exe
+cp $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x $ACCESS_OM_DIR/bin/fms_ACCESS-OM_160db8a0.x
 cp $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe $ACCESS_OM_DIR/bin/matm_nt62_b3a80f3b.exe
 ```
 
@@ -202,6 +202,7 @@ Please post an issue describing your problem at: https://github.com/OceansAus/ac
 - pre-release bugfix: 8fe4429a46de61c27b74736300cad5998cdc9836
     Containing, among others, the following changes/fixes: https://github.com/mom-ocean/MOM5/issues/175, https://github.com/mom-ocean/MOM5/issues/183, https://github.com/mom-ocean/MOM5/issues/184, https://github.com/OceansAus/access-om2/issues/13, https://github.com/OceansAus/access-om2/issues/12, https://github.com/OceansAus/access-om2/issues/11, https://github.com/mom-ocean/MOM5/issues/187
 - pre-release runoff spread: 0588afcb3df1737ae04829609c272ef1e590b807
+- pre-release salt fix:
 
 ## References
 

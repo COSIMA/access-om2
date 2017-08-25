@@ -219,7 +219,7 @@
 	barotropic_split = 80
 	debug=.false.
     layout = 80, 75
-    io_layout = 80, 75
+    io_layout = 10, 15
 /
 
  &ocean_momentum_source_nml

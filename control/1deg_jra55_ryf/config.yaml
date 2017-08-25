@@ -1,6 +1,6 @@
 # PBS configuration
 queue: normal
-project: e14
+project: x77
 walltime: 3:00:00
 jobname: 1deg_jra55_ryf
 ncpus: 256
@@ -17,14 +17,14 @@ submodels:
 
     - name: ocean
       model: mom
-      exe: fms_ACCESS-OM_f6f4e4ae.x
+      exe: fms_ACCESS-OM_160db8a0.x
       input: mom_1deg
       timestep: 1800
       ncpus: 216
 
     - name: ice
       model: cice5
-      exe: cice_auscom_360x300_24p_fa5b0bcf.exe
+      exe: cice_auscom_360x300_24p_fe730022.exe
       input: cice_1deg
       timestep: 1800
       ncpus: 24
