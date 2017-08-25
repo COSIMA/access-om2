@@ -333,7 +333,7 @@
       salt_restore_as_salt_flux=.true.
       read_restore_mask=.false.
       restore_mask_gfdl=.false.
-      max_ice_thickness=8.0
+      max_ice_thickness=0.0
       zero_net_water_restore=.true.
       zero_net_water_coupler=.true.
       zero_net_water_couple_restore=.true.
