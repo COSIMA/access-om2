@@ -195,6 +195,7 @@
       cmip_units=.true.
       debug=.false.
       layout = 48,40
+      io_layout = 6,5
 /
 
  &ocean_momentum_source_nml
@@ -317,7 +318,10 @@
 
  &ocean_riverspread_nml
     use_this_module=.true.
-	debug_this_module=.false.
+    riverspread_diffusion = .true.
+    riverspread_diffusion_passes = 2
+    vel_micom_smooth = 0.2
+    debug_this_module=.false.
 /
 
  &ocean_rough_nml
