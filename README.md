@@ -202,7 +202,7 @@ Please post an issue describing your problem at: https://github.com/OceansAus/ac
 - pre-release bugfix: 8fe4429a46de61c27b74736300cad5998cdc9836
     Containing, among others, the following changes/fixes: https://github.com/mom-ocean/MOM5/issues/175, https://github.com/mom-ocean/MOM5/issues/183, https://github.com/mom-ocean/MOM5/issues/184, https://github.com/OceansAus/access-om2/issues/13, https://github.com/OceansAus/access-om2/issues/12, https://github.com/OceansAus/access-om2/issues/11, https://github.com/mom-ocean/MOM5/issues/187
 - pre-release runoff spread: 0588afcb3df1737ae04829609c272ef1e590b807
-- pre-release salt fix:
+- pre-release salt fix: f99aab40464a20aba22430e42cc3a0a0df3a5b81
 
 ## References
 
