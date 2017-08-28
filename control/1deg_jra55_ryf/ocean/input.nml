@@ -358,7 +358,6 @@
       zero_surface_stress=.false.
       runoff_salinity=0.0
       waterflux_tavg=.false.
-      ice_salt_concentration=0.004
 /
 
  &ocean_sbc_OFAM_nml
