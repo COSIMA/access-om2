@@ -317,11 +317,7 @@
 /
 
  &ocean_riverspread_nml
-    use_this_module=.true.
-    riverspread_diffusion = .true.
-    riverspread_diffusion_passes = 2
-    vel_micom_smooth = 0.2
-    debug_this_module=.false.
+    use_this_module=.false.
 /
 
  &ocean_rough_nml
