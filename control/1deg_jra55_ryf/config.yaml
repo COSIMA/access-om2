@@ -1,9 +1,9 @@
 # PBS configuration
-queue: normal
+queue: normalbw
 project: x77
 walltime: 3:00:00
 jobname: 1deg_jra55_ryf
-ncpus: 256
+ncpus: 252
 
 shortpath: /short/e14
 
@@ -46,6 +46,9 @@ calendar:
         year: 1
         month: 1
         days: 1
+
+platform:
+    nodesize: 28
 
 # Misc
 runlog: False
