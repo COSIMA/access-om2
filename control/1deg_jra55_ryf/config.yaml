@@ -4,6 +4,7 @@ project: x77
 walltime: 3:00:00
 jobname: 1deg_jra55_ryf
 ncpus: 252
+mem: 500GB
 
 shortpath: /short/e14
 
@@ -17,7 +18,7 @@ submodels:
 
     - name: ocean
       model: mom
-      exe: fms_ACCESS-OM_160db8a0.x
+      exe: fms_ACCESS-OM_030fb1f2.x
       input: mom_1deg
       timestep: 1800
       ncpus: 216
