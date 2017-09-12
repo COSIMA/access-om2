@@ -144,16 +144,14 @@ INSTANT
 rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
 CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 ##########
-# Field 06 : runoff
+# Field 06 : runoff. Runoff is passed on the destination grid.
 ##########
-runof_ai runof_i 297 21600 3 a2i.nc EXPORTED
-nt62 cice LAG=+3600 SEQ=+1
+runof_ai runof_i 297 21600 1 a2i.nc EXPORTED
+cice cice LAG=+3600 SEQ=+1
 P  0  P  0
-# 
-LOCTRANS MAPPING SCRIPR
+#
+LOCTRANS
 INSTANT
-rmp_nt62_to_cice_CONSERV_FRACNNEI.nc dst
-CONSERV LR SCALAR LATLON 10 FRACNNEI FIRST
 ##########
 # Field 07 : near surface (2m) air temp
 ##########

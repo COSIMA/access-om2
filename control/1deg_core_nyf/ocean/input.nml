@@ -20,7 +20,7 @@
 
  &ocean_adv_vel_diag_nml
       diag_step=4320
-      verbose_cfl=.false.
+      verbose_cfl=.true.
       max_cfl_value=100.0
       large_cfl_value=10.0
 /
@@ -113,16 +113,7 @@
       neutralrho_max=1030.0
       layer_nk=80
       eos_linear=.false.
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true. 
- eos_preteos10=.true.
+      eos_preteos10=.true. 
 /
 
  &ocean_domains_nml
@@ -221,6 +212,7 @@
       barotropic_split = 80
       cmip_units=.true.
       debug=.false.
+      io_layout = 4,3
 /
 
  &ocean_momentum_source_nml
@@ -368,7 +360,6 @@
       zero_surface_stress=.false.
       runoff_salinity=0.0
       waterflux_tavg=.false.
-      ice_salt_concentration=0.004
 /
 
  &ocean_sbc_OFAM_nml
@@ -497,7 +488,8 @@
 
  &ocean_tracer_advect_nml
       debug_this_module=.false.
-      advect_sweby_all=.false.
+      advect_sweby_all=.true.
+      async_domain_update=.true.
 /
 
  &ocean_tracer_diag_nml
@@ -653,9 +645,11 @@
     sign_stflx=1.0
     chk_i2o_fields=.false.
     chk_o2i_fields=.false.
+    redsea_gulfbay_sfix=.true.
 /
 
 &ocean_solo_nml
+    debug_this_module=.false.
     years = 0
     months = 0
     days   = 1460

@@ -1,41 +1,45 @@
 # PBS configuration
-queue: normal
+queue: normalbw
 project: x77
-walltime: 5:00:00
+walltime: 3:00:00
 jobname: 1deg_core_nyf
-ncpus: 304
+ncpus: 252
+mem: 500GB
 
 shortpath: /short/e14
 
 # Model configuration
-model: access
+model: access-om2
 submodels:
-    - name: coupler
-      model: oasis
-      input: oasis_core_to_1deg
-      ncpus: 0
-
     - name: atmosphere
       model: matm
-      exe: matm_nt62_b3a80f3b.exe
+      exe: matm_nt62_b1f482c3.exe
       input: core_nyf
       ncpus: 1
 
     - name: ocean
       model: mom
-      exe: fms_ACCESS-OM_11b63cb3.x
+      exe: fms_ACCESS-OM_030fb1f2.x
       input: mom_1deg
-      ncpus: 240
+      timestep: 1800
+      ncpus: 216
 
     - name: ice
       model: cice5
-      exe: cice_auscom_360x300_24p_29641b09.exe
+      exe: cice_auscom_360x300_24p_fe730022.exe
       input: cice_1deg
+      timestep: 1800
       ncpus: 24
+
+    - name: coupler
+      model: oasis
+      input: oasis_core_to_1deg
+      timestep: 1800
+      ncpus: 0
 
 calendar:
     runtime:
-        years: 10
+        years: 1
         months: 0
         days: 0
 
@@ -44,7 +48,15 @@ calendar:
         month: 1
         days: 1
 
+platform:
+    nodesize: 28
+
 # Misc
+runlog: False
 stacksize: unlimited
+collate_walltime: 1:00:00
+collate_queue: express
+collate_ncpus: 1
+collate_flags: -n4 -z -m -r
 mpirun: --mca orte_base_help_aggregate 0
 qsub_flags: -lother=hyperthread
