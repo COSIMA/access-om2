@@ -9,8 +9,12 @@ class TestRun():
     """
 
     @pytest.mark.fast
-    def test_run(self):
+    def test_1deg_jra55_run(self):
         run_exp('1deg_jra55_ryf')
+
+    @pytest.mark.slow
+    def test_1deg_core_run(self):
+        run_exp('1deg_core_nyf')
 
     @pytest.mark.slow
     def test_slow_run(self):
