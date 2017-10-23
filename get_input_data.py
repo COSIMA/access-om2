@@ -7,7 +7,7 @@ import shutil
 import subprocess as sp
 import argparse
 
-data_filename = 'input_f7a40d5b.tar.gz'
+data_filename = 'input_2c9db702.tar.gz'
 
 data_path = '/short/public/access-om2/' + data_filename
 data_url = 'http://s3-ap-southeast-2.amazonaws.com/dp-drop/access-om2/' + data_filename
