@@ -215,8 +215,8 @@ Output will be stored in `$ACCESS_OM_DIR/control/1deg_jra55_ryf/archive` if the 
 
 If the run crashes you can find diagnostics in `$ACCESS_OM_DIR/control/1deg_jra55_ryf/access-om2.err` and any output from the run will be in `$ACCESS_OM_DIR/control/1deg_jra55_ryf/work`. To rerun after a crash, do `payu sweep` before `payu run` to clear out all the debris from the crash.
 
-## NCI users only: Integration with cosima cookbook
-Here's how you can automatically copy your model output to `/g/data3/` to make it available for analysis via the [cosima cookbook](http://cosima-cookbook.readthedocs.io/en/).
+## NCI users only: Integration with COSIMA Cookbook
+Here's how you can automatically copy your model output to `/g/data3/` to make it available for analysis via the [COSIMA Cookbook](http://cosima-cookbook.readthedocs.io/en/latest).
 
 You will need write access to `/g/data3/hh5/tmp/cosima/`.
 
@@ -227,36 +227,29 @@ First check the existing directories in `/g/data3/hh5/tmp/cosima/access-om2/` an
 mkdir /g/data3/hh5/tmp/cosima/access-om2/1deg_jra55_ryf_spinupN/
 ```
 
-Then copy ``sync_to_gdata.sh`` to your control directory, e.g.
-```
-cp /short/v45/amh157/access-om2/control/1deg_jra55_ryf/sync_to_gdata.sh $ACCESS_OM_DIR/control/1deg_jra55_ryf/sync_to_gdata.sh
-```
-*TODO: source `sync_to_gdata.sh` from somewhere else?*
-
-Now edit ``$ACCESS_OM_DIR/control/1deg_jra55_ryf/sync_to_gdata.sh`` to set ``GDATADIR`` to the directory in `g/data3` you created above, e.g.
+Now edit ``$ACCESS_OM_DIR/control/1deg_jra55_ryf/sync_output_to_gdata.sh`` to set ``GDATADIR`` to the directory in `g/data3` you created above, e.g.
 ```
 GDATADIR=/g/data3/hh5/tmp/cosima/access-om2/1deg_jra55_ryf_spinupN/
 ```
 
-Finally, edit ``$ACCESS_OM_DIR/control/1deg_jra55_ryf/config.yaml`` to add 
+Finally, edit `$ACCESS_OM_DIR/control/1deg_jra55_ryf/config.yaml` to uncomment the line 
 ```
-postscript: sync_to_gdata.sh
+postscript: sync_output_to_gdata.sh
 ``` 
-as the final line.
-This will run ``sync_to_gdata.sh`` after each run, automatically rsynching collated output from all previous runs to ``/g/data3/hh5/tmp/cosima/access-om2/1deg_jra55_ryf_spinupN/``, where cosima cookbook can find it and add it to the cookbook database.
+This will run `sync_output_to_gdata.sh` after each run, automatically rsynching collated output from all previous runs to `/g/data3/hh5/tmp/cosima/access-om2/1deg_jra55_ryf_spinupN/`, where COSIMA Cookbook can find it and add it to the cookbook database.
 
-In python, you need to use `build_index` to update the cookbook index to see your new runs:
+In python, you then need to use `build_index` to update the cookbook index to see your new runs:
 ```{python}
 import cosima_cookbook as cc
 cc.build_index()
 ```
 
-The `/g/data3` directory you created above (e.g. `1deg_jra55_ryf_spinupN`) will be the experiment's name in cosima cookbook, i.e. in the list returned by `cc.get_experiments(configuration)`, where `configuration` is the parent directory name (e.g. `access-om2`):
+The `/g/data3` directory you created above (e.g. `1deg_jra55_ryf_spinupN`) will be the experiment's name in the COSIMA Cookbook, i.e. in the list returned by `cc.get_experiments(configuration)`, where `configuration` is the parent directory name (e.g. `access-om2`):
 ```{python}
 configuration = 'access-om2'
 expts = cc.get_experiments(configuration)
 ```
-For further cosima cookbook usage instructions and examples see <http://cosima-cookbook.readthedocs.io/en/>.
+For further COSIMA Cookbook usage instructions and examples see <http://cosima-cookbook.readthedocs.io/en/latest>.
 
 ## Testing
 

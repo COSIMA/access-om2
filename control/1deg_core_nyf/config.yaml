@@ -59,4 +59,5 @@ collate_queue: express
 collate_ncpus: 1
 collate_flags: -n4 -z -m -r
 mpirun: --mca orte_base_help_aggregate 0
-qsub_flags: -lother=hyperthread
+qsub_flags: -lother=hyperthread -W umask=027
+# postscript: sync_output_to_gdata.sh
