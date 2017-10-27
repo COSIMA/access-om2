@@ -74,7 +74,7 @@ The easiest is simply
 ```
 which should will build and install all models, at 1, 1/4 and 1/10th degree resolution, with JA55 forcing. You can then skip to the "Run" section below.
 
-### With payu **currently not working**
+### With payu (currently not working)
 Alternatively, if you have [pytest](https://docs.pytest.org) available, it can compile all models, at 1, 1/4 and 1/10th degree resolution. This is the easiest option if available.
 
 On NCI you can load pytest with: 
