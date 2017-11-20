@@ -22,3 +22,6 @@
 [submodule "control/1deg_core_nyf"]
 	path = control/1deg_core_nyf
 	url = git@github.com:OceansAus/1deg_core_nyf.git
+[submodule "tools/esmgrids"]
+	path = tools/esmgrids
+	url = https://github.com/DoublePrecision/esmgrids.git
