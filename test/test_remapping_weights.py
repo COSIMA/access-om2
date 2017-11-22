@@ -7,6 +7,8 @@ import numpy as np
 import numba
 import netCDF4 as nc
 
+from util import wait_for_qsub
+
 EARTH_RADIUS = 6370997.0
 
 def calc_regridding_err(weights, src, dest):
@@ -101,8 +103,7 @@ def remap(src_data, weights, dest_shape):
                                        n_s, n_b, row, col, s)
     return dest_data
 
-
-class TestBuild():
+class TestRemap():
 
     def test_jra55_to_01deg(self):
 
@@ -127,4 +128,47 @@ class TestBuild():
 
     def test_jra55_to_025deg(self):
         pass
+
+
+class TestCreateWeights():
+    """
+    Create weights and compare to existing.
+    """
+
+    def test_build_esmf(self):
+        """
+        Build ESMF
+        """
+
+        curdir = os.getcwd()
+        contrib_dir = os.path.join(curdir, 'tools', 'contrib')
+        os.chdir(contrib_dir)
+        ret = sp.call('build_esmf_on_raijin.sh')
+        os.chdir(curdir)
+
+        assert ret == 0
+        assert os.path.exists(os.path.join(contrib_dir, 'bin', ESMF_RegridWeightGen)
+
+
+    def test_create_weights(self):
+        """
+        Create weights
+        """
+
+        cmd = os.path.join('tools', 'make_remap_weights.sh'))
+        qsub_id = sp.check_output(['qsub', cmd])
+
+        # Wait for job to complete.
+        wait_for_qsub(qsub_id.strip())
+
+        # Check that weights files have been created.
+        ocn = ['MOM1', 'MOM025', 'MOM01']
+        atm = ['JRA55', 'JRA55_runoff', 'CORE2']
+        method = ['patch', 'conserve2nd']
+
+        for o in ocn:
+            for a in atm:
+                for m in method:
+                    filename = '{}_{}_{}.nc'.format(a, o, m)
+                    assert os.path.exists(os.path.join('tools', filename))
 

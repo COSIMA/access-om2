@@ -30,7 +30,7 @@ Run example:
 def convert_to_scrip_output(weights):
 
     _, new_weights = tempfile.mkstemp(suffix='.nc')
-    # FIXME: So that ncrename doesn't prompt for overwrite.
+    # So that ncrename doesn't prompt for overwrite.
     os.remove(new_weights)
 
     cmd = 'ncrename -d n_a,src_grid_size -d n_b,dst_grid_size -d n_s,num_links -d nv_a,src_grid_corners -d nv_b,dst_grid_corners -v yc_a,src_grid_center_lat -v yc_b,dst_grid_center_lat -v xc_a,src_grid_center_lon -v xc_b,dst_grid_center_lon -v yv_a,src_grid_corner_lat -v xv_a,src_grid_corner_lon -v yv_b,dst_grid_corner_lat -v xv_b,dst_grid_corner_lon -v mask_a,src_grid_imask -v mask_b,dst_grid_imask -v area_a,src_grid_area -v area_b,dst_grid_area -v frac_a,src_grid_frac -v frac_b,dst_grid_frac -v col,src_address -v row,dst_address {} {}'.format(weights, new_weights)
@@ -50,44 +50,42 @@ def convert_to_scrip_output(weights):
     return new_weights
 
 
-def create_weights(src_grid, dest_grid, method='conserve',
+def create_weights(src_grid, dest_grid, npes, method,
                    ignore_unmapped=False,
                    unmasked_src=True, unmasked_dest=False):
 
-    _, src_grid_scrip = tempfile.mkstemp(suffix='.nc')
-    _, dest_grid_scrip = tempfile.mkstemp(suffix='.nc')
-    _, regrid_weights = tempfile.mkstemp(suffix='.nc')
+    my_dir = os.path.dirname(os.path.realpath(__file__))
+
+    _, src_grid_scrip = tempfile.mkstemp(suffix='.nc', dir=my_dir)
+    _, dest_grid_scrip = tempfile.mkstemp(suffix='.nc', dir=my_dir)
+    _, regrid_weights = tempfile.mkstemp(suffix='.nc', dir=my_dir)
 
     if unmasked_src:
-        src_grid.write_scrip(src_grid_scrip,
+        src_grid.write_scrip(src_grid_scrip, write_test_scrip=False,
                             mask=np.zeros_like(src_grid.mask_t, dtype=int))
     else:
-        src_grid.write_scrip(src_grid_scrip)
+        src_grid.write_scrip(src_grid_scrip, write_test_scrip=False)
 
     if unmasked_dest:
-        dest_grid.write_scrip(dest_grid_scrip,
+        dest_grid.write_scrip(dest_grid_scrip, write_test_scrip=False,
                               mask=np.zeros_like(dest_grid.mask_t, dtype=int))
     else:
-        dest_grid.write_scrip(dest_grid_scrip)
+        dest_grid.write_scrip(dest_grid_scrip, write_test_scrip=False)
 
     if ignore_unmapped:
         ignore_unmapped = ['--ignore_unmapped']
     else:
         ignore_unmapped = []
 
-    mpirun = ['mpirun', '-np', str(mp.cpu_count() // 2)]
-
-    my_dir = os.path.dirname(os.path.realpath(__file__))
     esmf = os.path.join(my_dir, 'contrib', 'bin', 'ESMF_RegridWeightGen')
     if not os.path.exists(esmf):
         esmf = 'ESMF_RegridWeightGen'
 
     try:
-        cmd = mpirun + [esmf] + [
-                        '-s', src_grid_scrip,
-                        '-d', dest_grid_scrip, '-m', method,
-                        '-w', regrid_weights] + ignore_unmapped
-        print(cmd)
+        cmd = ['mpirun', '-np', npes] + [esmf] + \
+              ['-s', src_grid_scrip,
+               '-d', dest_grid_scrip, '-m', method,
+               '-w', regrid_weights] + ignore_unmapped
         sp.check_output(cmd)
     except sp.CalledProcessError as e:
         print("Error: ESMF_RegridWeightGen failed ret {}".format(e.returncode),
@@ -112,11 +110,11 @@ def find_grid_defs(input_dir, jra55_input):
     """
 
     d = {}
-    d['MOM1'] = (os.path.join(input_dir, 'mom_1deg', 'ocean_hgrid.nc'), 
+    d['MOM1'] = (os.path.join(input_dir, 'mom_1deg', 'ocean_hgrid.nc'),
                  os.path.join(input_dir, 'mom_1deg', 'ocean_mask.nc'))
-    d['MOM025'] = (os.path.join(input_dir, 'mom_025deg', 'ocean_hgrid.nc'), 
+    d['MOM025'] = (os.path.join(input_dir, 'mom_025deg', 'ocean_hgrid.nc'),
                    os.path.join(input_dir, 'mom_025deg', 'ocean_mask.nc'))
-    d['MOM01'] = (os.path.join(input_dir, 'mom_01deg', 'ocean_hgrid.nc'), 
+    d['MOM01'] = (os.path.join(input_dir, 'mom_01deg', 'ocean_hgrid.nc'),
                   os.path.join(input_dir, 'mom_01deg', 'ocean_mask.nc'))
     d['CORE2'] = os.path.join(input_dir, 'core_nyf', 't_10.0001.nc')
     d['JRA55'] = os.path.join(jra55_input, 'RYF.t_10.1990_1991.nc')
@@ -134,16 +132,18 @@ def main():
                         The JRA55 input directory.""")
     parser.add_argument('--atm', default=None, help="""
                         Atmosphere grid to regrid from, can be one of:
-                        CORE2, JRA55, JRA55_river""")
+                        CORE2, JRA55, JRA55_runoff""")
     parser.add_argument('--ocean', default=None, help="""
                         Ocean grid to regrid to, can be one of:
                         MOM1, MOM01, MOM025""")
     parser.add_argument('--method', default=None, help="""
                         The interpolation method to use.""")
+    parser.add_argument('--npes', default=1, help="""
+                        The number of PEs to use.""")
 
     args = parser.parse_args()
-    atm_options = ['CORE2', 'JRA55', 'JRA55_runoff']
-    ocean_options = ['MOM1', 'MOM01', 'MOM025']
+    atm_options = ['JRA55', 'JRA55_runoff', 'CORE2']
+    ocean_options = ['MOM1', 'MOM025', 'MOM01']
     method_options = ['patch', 'conserve2nd']
 
     if args.atm is None:
@@ -171,8 +171,8 @@ def main():
 
     grid_file_dict = find_grid_defs(args.input_dir, args.jra55_input)
 
-    for atm in args.atm:
-        for ocean in args.ocean:
+    for ocean in args.ocean:
+        for atm in args.atm:
             for method in args.method:
 
                 if atm == 'CORE2':
@@ -180,12 +180,12 @@ def main():
                 elif atm == 'JRA55':
                     src_grid = Jra55Grid(grid_file_dict[atm])
                 else:
-                    src_grid = Jra552RiverGrid(grid_file_dict[atm])
+                    src_grid = Jra55RiverGrid(grid_file_dict[atm])
 
-                dest_grid = MomGrid.fromfile(grid_file_dict[ocean][0], 
-                                             mask_file=grid_file_dict[ocean][1]) 
+                dest_grid = MomGrid.fromfile(grid_file_dict[ocean][0],
+                                             mask_file=grid_file_dict[ocean][1])
 
-                weights = create_weights(src_grid, dest_grid, method=method)
+                weights = create_weights(src_grid, dest_grid, args.npes, method)
                 weights = convert_to_scrip_output(weights)
 
                 shutil.move(weights, '{}_{}_{}.nc'.format(atm, ocean, method))

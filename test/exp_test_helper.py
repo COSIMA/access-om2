@@ -9,6 +9,8 @@ import os
 import glob
 import time
 
+from util import wait_for_qsub, get_git_hash
+
 class ExpTestHelper(object):
 
     def __init__(self, exp_name):
@@ -111,39 +113,12 @@ class ExpTestHelper(object):
                 assert('********** End of MATM **********' in s)
 
 
-    def wait(self, run_id):
-        """
-        Wait for the qsub job to terminate.
-        """
-
-        while True:
-            time.sleep(5)
-            qsub_out = ''
-            try:
-                qsub_out = sp.check_output(['qstat', run_id], stderr=sp.STDOUT)
-            except sp.CalledProcessError as err:
-                qsub_out = err.output
-
-            if 'Job has finished' in qsub_out:
-                break
-
-    def git_hash(self, src_dir):
-        """
-        Get the git hash of src_dir.
-        """
-        mydir = os.getcwd()
-        os.chdir(src_dir)
-        ghash = sp.check_output(['git', 'rev-parse', 'HEAD'])[:8]
-        os.chdir(mydir)
-
-        return ghash
-
     def copy_to_bin(self, src_dir, wildcard):
         exes = glob.glob(wildcard)
         if exes == []:
             return 1
 
-        ghash = self.git_hash(src_dir)
+        ghash = get_git_hash(src_dir)
 
         for e in exes:
             eb = os.path.basename(e)
@@ -225,7 +200,7 @@ class ExpTestHelper(object):
             print('Error: call to payu-run failed.', file=sys.stderr)
             return 1, None, None, None
 
-        self.wait(run_id)
+        wait_for_qsub(run_id)
         run_id = run_id.split('.')[0]
 
         output_files = []
@@ -261,7 +236,7 @@ class ExpTestHelper(object):
 
         # Wait for the collate to complete.
         run_id = m.group(1)
-        self.wait(run_id)
+        wait_for_qsub(run_id)
 
         # Return files created by qsub so caller can read or delete.
         collate_files = os.path.join(self.exp_path, '*.[oe]{}'.format(run_id))
