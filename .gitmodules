@@ -12,16 +12,16 @@
 	url = https://github.com/OceansAus/cice5.git
 [submodule "control/1deg_jra55_ryf"]
 	path = control/1deg_jra55_ryf
-	url = git@github.com:OceansAus/1deg_jra55_ryf.git
+	url = https://github.com/OceansAus/1deg_jra55_ryf.git
 [submodule "control/01deg_jra55_ryf"]
 	path = control/01deg_jra55_ryf
-	url = git@github.com:OceansAus/01deg_jra55_ryf.git
+	url = https://github.com/OceansAus/01deg_jra55_ryf.git
 [submodule "control/025deg_jra55_ryf"]
 	path = control/025deg_jra55_ryf
-	url = git@github.com:OceansAus/025deg_jra55_ryf.git
+	url = https://github.com/OceansAus/025deg_jra55_ryf.git
 [submodule "control/1deg_core_nyf"]
 	path = control/1deg_core_nyf
-	url = git@github.com:OceansAus/1deg_core_nyf.git
+	url = https://github.com/OceansAus/1deg_core_nyf.git
 [submodule "tools/esmgrids"]
 	path = tools/esmgrids
 	url = https://github.com/DoublePrecision/esmgrids.git
