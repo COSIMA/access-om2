@@ -3,7 +3,6 @@
 # Copy ACCESS-OM2 JRA55 executables to bin with githash in name, and config.yaml to match.
 # All changes to config.yaml are reported.
 # NB: requires ACCESS_OM_DIR environment variable.
-# NB: doesn't handle CORE2 experiments (though this could easily be added).
 # Andrew Kiss https://github.com/aekiss
 
 set -e
@@ -15,6 +14,7 @@ cice025path=${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1
 cice010path=${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_1200p/cice_auscom_3600x2700_1200p.exe
 mppnccombinepath=${ACCESS_OM_DIR}/src/mom/bin/mppnccombine.nci
 
+config1corepath=${ACCESS_OM_DIR}/control/1deg_core_nyf/config.yaml
 config1path=${ACCESS_OM_DIR}/control/1deg_jra55_ryf/config.yaml
 config025path=${ACCESS_OM_DIR}/control/025deg_jra55_ryf/config.yaml
 config010path=${ACCESS_OM_DIR}/control/01deg_jra55_ryf/config.yaml
@@ -57,6 +57,14 @@ echo "  cp ${cice010path} ${bindir}/${cice010hashexe}"
 echo "  cp ${mppnccombinepath} ${bindir}/mppnccombine"
 		cp ${mppnccombinepath} ${bindir}/mppnccombine # no hash for mppnccombine
 
+
+echo "Fixing exe in "${config1corepath}" to match executable names..."
+sed "s/${matmbn%.*}.*/${matmhashexe}/g" < ${config1corepath} > ${config1corepath}-tmp
+sed "s/${fmsbn%.*}.*/${fmshashexe}/g" < ${config1corepath}-tmp > ${config1corepath}-tmp2
+sed "s/${cice1bn%.*}.*/${cice1hashexe}/g" < ${config1corepath}-tmp2 > ${config1corepath}-tmp3
+diff ${config1corepath} ${config1corepath}-tmp3 || true
+mv ${config1corepath}-tmp3 ${config1corepath}
+rm ${config1corepath}-tmp*
 
 echo "Fixing exe in "${config1path}" to match executable names..."
 sed "s/${matmbn%.*}.*/${matmhashexe}/g" < ${config1path} > ${config1path}-tmp
