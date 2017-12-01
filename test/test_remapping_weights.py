@@ -101,8 +101,7 @@ def remap(src_data, weights, dest_shape):
                                        n_s, n_b, row, col, s)
     return dest_data
 
-
-class TestBuild():
+class TestRemap():
 
     def test_jra55_to_01deg(self):
 
@@ -128,3 +127,54 @@ class TestBuild():
     def test_jra55_to_025deg(self):
         pass
 
+
+class TestCreateWeights():
+    """
+    Create weights and compare to existing.
+    """
+
+    def test_build_esmf(self):
+        """
+        Build ESMF
+        """
+
+        curdir = os.getcwd()
+        contrib_dir = os.path.join(curdir, 'tools', 'contrib')
+        os.chdir(contrib_dir)
+        ret = sp.call('build_esmf_on_raijin.sh')
+        os.chdir(curdir)
+
+        assert ret == 0
+        assert os.path.exists(os.path.join(contrib_dir, 'bin', 'ESMF_RegridWeightGen')
+
+
+    def test_create_weights(self):
+        """
+        Create weights
+        """
+
+        # Build ESMF_RegridWeightGen if it doesn't already exist
+        if not os.path.exists(os.path.join(contrib_dir, 'bin', 'ESMF_RegridWeightGen'):
+            self.test_build_esmf()
+
+        ret = sp.call(['./get_input_data.py'])
+        assert ret == 0
+
+        cmd = os.path.join(os.getcwd(), 'tools', 'make_remap_weights.py'))
+        input_dir = os.path.join(os.getcwd(), 'input')
+        jra55_dir = '/g/data1/ua8/JRA55-do/RYF/v1-3/'
+        ret = sp.call([cmd, input_dir, jra55_dir, '--ocean', 'MOM1'])
+        assert ret == 0
+
+        # Check that weights files have been created.
+        ocn = ['MOM1']
+        # We do not test the more expensive weight creation.
+        # ocn = ['MOM1', 'MOM025', 'MOM01']
+        atm = ['JRA55', 'JRA55_runoff', 'CORE2']
+        method = ['patch', 'conserve2nd']
+
+        for o in ocn:
+            for a in atm:
+                for m in method:
+                    filename = '{}_{}_{}.nc'.format(a, o, m)
+                    assert os.path.exists(os.path.join('tools', filename))
