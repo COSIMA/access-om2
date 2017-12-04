@@ -7,6 +7,7 @@
 
 set -e
 
+matmcorepath=${ACCESS_OM_DIR}/src/matm/build_nt62/matm_nt62.exe
 matmpath=${ACCESS_OM_DIR}/src/matm/build_jra55/matm_jra55.exe
 fmspath=${ACCESS_OM_DIR}/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
 cice1path=${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe
@@ -24,11 +25,18 @@ bindir=${ACCESS_OM_DIR}/bin
 mkdir -p ${bindir}
 
 echo "Getting executable hashes..."
-cd $(dirname "${matmpath}") && matmhash=`git rev-parse --short=8 HEAD`
+
+cd $(dirname "${matmpath}") && matmhash=`git rev-parse --short=8 HEAD` # NB same matm hash for core and jra55
 cd $(dirname "${fmspath}") && fmshash=`git rev-parse --short=8 HEAD`
 cd $(dirname "${cice1path}") && cicehash=`git rev-parse --short=8 HEAD` # NB only one hash for all three cice builds
 
 echo "Copying executables to "${bindir}" with hashes added to names..."
+
+matmcorebn=$(basename "${matmcorepath}")
+matmcorehashexe="${matmcorebn%.*}"_${matmhash}."${matmcorepath##*.}"
+echo "  cp ${matmcorepath} ${bindir}/${matmcorehashexe}"
+        cp ${matmcorepath} ${bindir}/${matmcorehashexe}
+                                                                             
 matmbn=$(basename "${matmpath}")
 matmhashexe="${matmbn%.*}"_${matmhash}."${matmpath##*.}"
 echo "  cp ${matmpath} ${bindir}/${matmhashexe}"
@@ -59,7 +67,7 @@ echo "  cp ${mppnccombinepath} ${bindir}/mppnccombine"
 
 
 echo "Fixing exe in "${config1corepath}" to match executable names..."
-sed "s/${matmbn%.*}.*/${matmhashexe}/g" < ${config1corepath} > ${config1corepath}-tmp
+sed "s/${matmcorebn%.*}.*/${matmcorehashexe}/g" < ${config1corepath} > ${config1corepath}-tmp
 sed "s/${fmsbn%.*}.*/${fmshashexe}/g" < ${config1corepath}-tmp > ${config1corepath}-tmp2
 sed "s/${cice1bn%.*}.*/${cice1hashexe}/g" < ${config1corepath}-tmp2 > ${config1corepath}-tmp3
 diff ${config1corepath} ${config1corepath}-tmp3 || true

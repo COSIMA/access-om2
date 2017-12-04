@@ -29,12 +29,17 @@ make 025deg
 echo "Compiling CICE5.1 at 1/10 degree..."
 make 01deg
 
+echo "Compiling MATM CORE file-based atmosphere... "
+cd ${ACCESS_OM_DIR}/src/matm
+make core
+
 echo "Compiling MATM JRA-55 file-based atmosphere... "
 cd ${ACCESS_OM_DIR}/src/matm
 make jra55
 
 echo "Checking all executables have been built..."
 ls ${ACCESS_OM_DIR}/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
+ls ${ACCESS_OM_DIR}/src/matm/build_nt62/matm_nt62.exe
 ls ${ACCESS_OM_DIR}/src/matm/build_jra55/matm_jra55.exe
 ls ${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe
 ls ${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe

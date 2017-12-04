@@ -4,7 +4,7 @@ ACCESS-OM2 is a coupled ice and ocean global model. It is being developed throug
 
 The model consists of [MOM5.1](http://mom-ocean.science), [CICE5.1](http://oceans11.lanl.gov/trac/CICE), and a file-based atmosphere. The models are coupled together using the [OASIS3-MCT](https://portal.enes.org/oasis) coupler and regridding is done using ESMF_RegridWeightGen from [ESMF](https://www.earthsystemcog.org/projects/esmf/) and [KDTREE2](https://github.com/jmhodges/kdtree2).
 
-ACCESS-OM2 comes with a number of standard experiments. These configurations include ice and ocean at 1, 1/4 and 1/10th degree resolution. [JRA-55](http://jra.kishou.go.jp/JRA-55/index_en.html) and [CORE2](http://www.clivar.org/clivar-panels/omdp/core-2) forcing datasets are supported. These instruction are to build and run the 1 degree configration with JRA-55 repeat-year forcing forcing (RYF).
+ACCESS-OM2 comes with a number of standard experiments. These configurations include ice and ocean at 1, 1/4 and 1/10th degree resolution. [JRA-55 v1.3](http://jra.kishou.go.jp/JRA-55/index_en.html) forcing is supported at all three resolutions and [CORE2](http://www.clivar.org/clivar-panels/omdp/core-2) forcing is supported at 1 degree resolution. JRA-55 repeat-year forcing forcing (RYF) and CORE normal-year forcing (NYF) are currently supported, but interannual forcing will be supported soon.
 
 This document describes how to download, compile and run the model. The instructions have only been tested on the [NCI](http://www.nci.org.au) raijin supercomputer.
 
