@@ -201,7 +201,7 @@ Also check that the line
 # postscript: sync_output_to_gdata.sh
 ```
 is commented out in `$ACCESS_OM_DIR/control/1deg_jra55_ryf/config.yaml`, or if not, that `GDATADIR` in `sync_output_to_gdata.sh` that is in fact where you want output and restarts to be written.
-**WARNING: double-check check in `GDATADIR` so you don't overwrite existing output** - see below.
+**WARNING: double-check `GDATADIR` so you don't overwrite existing output!** - see below.
 
 For example, to run the 1 degree JRA-55 RYF experiment:
 ```{bash}
