@@ -4,7 +4,7 @@ ACCESS-OM2 is a coupled ice and ocean global model. It is being developed throug
 
 The model consists of [MOM5.1](http://mom-ocean.science), [CICE5.1](http://oceans11.lanl.gov/trac/CICE), and a file-based atmosphere. The models are coupled together using the [OASIS3-MCT](https://portal.enes.org/oasis) coupler and regridding is done using ESMF_RegridWeightGen from [ESMF](https://www.earthsystemcog.org/projects/esmf/) and [KDTREE2](https://github.com/jmhodges/kdtree2).
 
-ACCESS-OM2 comes with a number of standard experiments. These configurations include ice and ocean at 1, 1/4 and 1/10th degree resolution. [JRA-55 v1.3](http://jra.kishou.go.jp/JRA-55/index_en.html) forcing is supported at all three resolutions and [CORE2](http://www.clivar.org/clivar-panels/omdp/core-2) forcing is supported at 1 degree resolution. JRA-55 repeat-year forcing forcing (RYF) and CORE normal-year forcing (NYF) are currently supported, but interannual forcing will be supported soon.
+ACCESS-OM2 comes with a number of standard experiments. These configurations include ice and ocean at 1, 1/4 and 1/10th degree resolution. [JRA-55 v1.3](http://jra.kishou.go.jp/JRA-55/index_en.html) forcing is supported at all three resolutions and [CORE2](http://www.clivar.org/clivar-panels/omdp/core-2) forcing is supported at 1 degree resolution. JRA-55 repeat-year forcing forcing (RYF) and CORE normal-year forcing (NYF) are currently supported, and interannual forcing will be supported soon.
 
 This document describes how to download, compile and run the model. The instructions have only been tested on the [NCI](http://www.nci.org.au) raijin supercomputer.
 
@@ -196,6 +196,12 @@ Each of the model configurations is run by payu from within its respective direc
 
 **You will need to edit `config.yaml` to set  `project` and `shortpath` appropriately.** Service units are charged to `project` and output is saved in `shortpath`.
 
+Also check that the line 
+```
+# postscript: sync_output_to_gdata.sh
+```
+is commented out in `$ACCESS_OM_DIR/control/1deg_jra55_ryf/config.yaml`, or if not, that `GDATADIR` in `sync_output_to_gdata.sh` that is in fact where you want output and restarts to be written.
+**WARNING: double-check check in `GDATADIR` so you don't overwrite existing output** - see below.
 
 For example, to run the 1 degree JRA-55 RYF experiment:
 ```{bash}
@@ -236,7 +242,7 @@ You will need write access to `/g/data3/hh5/tmp/cosima/`, or at least to the sub
 
 **This example is for `1deg_jra55_ryf`; you'll need to make the obvious changes for other models.**
 
-First check the existing directories in `/g/data3/hh5/tmp/cosima/access-om2/` and create a new one with a unique name, e.g.
+First check the existing directories in `/g/data3/hh5/tmp/cosima/access-om2/` and **create a new one** with a **new, unique name**, e.g.
 ```
 mkdir /g/data3/hh5/tmp/cosima/access-om2/1deg_jra55_ryf_spinupN/
 ```
@@ -247,6 +253,7 @@ Now edit ``$ACCESS_OM_DIR/control/1deg_jra55_ryf/sync_output_to_gdata.sh`` to se
 GDATADIR=/g/data3/hh5/tmp/cosima/access-om2/1deg_jra55_ryf_spinupN/
 ```
 and also set an appropriate project for the PBS -P flag.
+**WARNING: it is crucial that ``GDATADIR`` is the new, empty directory you created above! If it is already exists you may overwrite output and restarts from previous experiments** (see [here](https://github.com/OceansAus/access-om2/issues/59)). **PLEASE DOUBLE-CHECK!**
 
 Finally, edit `$ACCESS_OM_DIR/control/1deg_jra55_ryf/config.yaml` to uncomment the line 
 ```
