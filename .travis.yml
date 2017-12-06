@@ -18,4 +18,4 @@ install:
   - source activate accessom
 
 script: 
-  - python -m pytest --pep8 -m pep8
+  - python -m pytest --pep8 -m pep8 --ignore=src
