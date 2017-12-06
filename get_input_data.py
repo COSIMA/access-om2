@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import sys
-import os, errno
+import os
+import errno
 import shlex
 import shutil
 import subprocess as sp
@@ -10,7 +11,9 @@ import argparse
 data_filename = 'input_154112e8.tar.gz'
 
 data_path = '/short/public/access-om2/' + data_filename
-data_url = 'http://s3-ap-southeast-2.amazonaws.com/dp-drop/access-om2/' + data_filename
+furl = 'http://s3-ap-southeast-2.amazonaws.com/dp-drop/access-om2/%s'
+data_url = furl % data_filename
+
 
 def main():
 
