@@ -6,16 +6,16 @@ import os
 import filecmp
 from nose.plugins.attrib import attr
 
-from model_test_helper import ModelTestHelper
+from exp_test_helper import ExpTestHelper
 
-class TestStartUp(ModelTestHelper):
+
+class TestStartUp(ExpTestHelper):
 
     def test_coupling_restarts_change(self):
         """
         Check that the coupling restarts change between subsequent runs. If not
         they're not being regenerated properly.
         """
-
 
         exps = ['cm_360x300-test', 'om_360x300-test']
         cpl_restarts = ['a2i.nc', 'i2a.nc', 'o2i.nc', 'i2o.nc']
@@ -30,7 +30,6 @@ class TestStartUp(ModelTestHelper):
                 file1 = os.path.join(run1_paths['restart'], 'coupler', r)
 
                 assert(not filecmp.cmp(file0, file1))
-
 
     def test_coupling_restarts_loaded(self):
         """

@@ -8,6 +8,7 @@ import os
 import sys
 import re
 
+
 class TestBitReproducibility():
 
     def checksums_to_list(self, filename, cpl_chksum=False):
@@ -56,7 +57,8 @@ class TestBitReproducibility():
         exp = run_exp('1deg_jra55_ryf')
         exp.force_run()
 
-        # Now do a single 10 day run. Start by copying experiment and modifying the experiment.
+        # Do a single 10 day run
+        # Start by copying experiment and modifying the experiment.
         exp_10day = os.path.join(exp.control_path, '1deg_jra55_ryf_10day')
         if not os.path.exists(exp_10day):
             shutil.copytree(exp.exp_path, exp_10day, symlinks=True)
@@ -84,17 +86,16 @@ class TestBitReproducibility():
 
         # Now compare the output between our two short and one long run.
         stdout0 = os.path.join(exp.archive, 'output000', 'access-om2.out')
-        two_short = self.checksums_to_list(stdout0, cpl_chksum=True)
+        two_shrt = self.checksums_to_list(stdout0, cpl_chksum=True)
         stdout1 = os.path.join(exp.archive, 'output001', 'access-om2.out')
-        two_short = two_short + self.checksums_to_list(stdout1, cpl_chksum=True)
-        two_short.sort()
+        two_shrt = two_shrt + self.checksums_to_list(stdout1, cpl_chksum=True)
+        two_shrt.sort()
 
         stdout = os.path.join(exp_10day.archive, 'output000', 'access-om2.out')
         one_long = self.checksums_to_list(stdout)
 
-        assert len(two_short) == len(one_long)
-        assert two_short == one_long
+        assert len(two_shrt) == len(one_long)
+        assert two_shrt == one_long
 
         # Additionally check that the temp and salt fields of the final restart
         # are identical
-
