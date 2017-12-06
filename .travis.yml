@@ -14,7 +14,7 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
 
-  - conda env create -f accesom.yml
+  - conda env create -f accessom.yml
   - source activate accessom
 
 script: 
