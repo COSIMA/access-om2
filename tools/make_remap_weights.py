@@ -29,14 +29,30 @@ Run example:
 
 def convert_to_scrip_output(weights):
 
-    _, new_weights = tempfile.mkstemp(suffix='.nc')
+    my_dir = os.path.dirname(os.path.realpath(__file__))
+
+    _, new_weights = tempfile.mkstemp(suffix='.nc', dir=my_dir)
+    _, tmp1 = tempfile.mkstemp(suffix='.nc', dir=my_dir)
+    _, tmp2 = tempfile.mkstemp(suffix='.nc', dir=my_dir)
     # So that ncrename doesn't prompt for overwrite.
     os.remove(new_weights)
+    os.remove(tmp1)
+    os.remove(tmp2)
 
-    cmd = 'ncrename -d n_a,src_grid_size -d n_b,dst_grid_size -d n_s,num_links -d nv_a,src_grid_corners -d nv_b,dst_grid_corners -v yc_a,src_grid_center_lat -v yc_b,dst_grid_center_lat -v xc_a,src_grid_center_lon -v xc_b,dst_grid_center_lon -v yv_a,src_grid_corner_lat -v xv_a,src_grid_corner_lon -v yv_b,dst_grid_corner_lat -v xv_b,dst_grid_corner_lon -v mask_a,src_grid_imask -v mask_b,dst_grid_imask -v area_a,src_grid_area -v area_b,dst_grid_area -v frac_a,src_grid_frac -v frac_b,dst_grid_frac -v col,src_address -v row,dst_address {} {}'.format(weights, new_weights)
+    # Rename is horrible so we need to convert to netCDF3 64 bit offset and back.
+    try:
+        sp.check_output(['nccopy', '-k', '64-bit offset', weights, tmp1])
+    except sp.CalledProcessError as e:
+        print(e.output, file=sys.stderr)
 
+    cmd = 'ncrename -d n_a,src_grid_size -d n_b,dst_grid_size -d n_s,num_links -d nv_a,src_grid_corners -d nv_b,dst_grid_corners -v yc_a,src_grid_center_lat -v yc_b,dst_grid_center_lat -v xc_a,src_grid_center_lon -v xc_b,dst_grid_center_lon -v yv_a,src_grid_corner_lat -v xv_a,src_grid_corner_lon -v yv_b,dst_grid_corner_lat -v xv_b,dst_grid_corner_lon -v mask_a,src_grid_imask -v mask_b,dst_grid_imask -v area_a,src_grid_area -v area_b,dst_grid_area -v frac_a,src_grid_frac -v frac_b,dst_grid_frac -v col,src_address -v row,dst_address {} {}'.format(tmp1, tmp2)
     try:
         sp.check_output(shlex.split(cmd))
+    except sp.CalledProcessError as e:
+        print(e.output, file=sys.stderr)
+
+    try:
+        sp.check_output(['nccopy', '-k', 'netCDF-4', tmp2, new_weights])
     except sp.CalledProcessError as e:
         print(e.output, file=sys.stderr)
 
@@ -45,6 +61,8 @@ def convert_to_scrip_output(weights):
         remap_matrix = f_new.createVariable('remap_matrix', 'f8', ('num_links', 'num_wgts'))
         remap_matrix[:, 0] = f_old.variables['S'][:]
 
+    os.remove(tmp1)
+    os.remove(tmp2)
     os.remove(weights)
 
     return new_weights
@@ -77,15 +95,13 @@ def create_weights(src_grid, dest_grid, npes, method,
     else:
         ignore_unmapped = []
 
-    esmf = os.path.join(my_dir, 'contrib', 'bin', 'ESMF_RegridWeightGen')
-    if not os.path.exists(esmf):
-        esmf = 'ESMF_RegridWeightGen'
-
     try:
-        cmd = ['mpirun', '-np', npes] + [esmf] + \
-              ['-s', src_grid_scrip,
+        cmd = ['mpirun', '-np', npes, 'ESMF_RegridWeightGen'] + \
+              ['--netcdf4',
+               '-s', src_grid_scrip,
                '-d', dest_grid_scrip, '-m', method,
                '-w', regrid_weights] + ignore_unmapped
+        print(cmd)
         sp.check_output(cmd)
     except sp.CalledProcessError as e:
         print("Error: ESMF_RegridWeightGen failed ret {}".format(e.returncode),
@@ -172,18 +188,18 @@ def main():
     grid_file_dict = find_grid_defs(args.input_dir, args.jra55_input)
 
     for ocean in args.ocean:
+        dest_grid = MomGrid.fromfile(grid_file_dict[ocean][0],
+                                     mask_file=grid_file_dict[ocean][1])
         for atm in args.atm:
+
+            if atm == 'CORE2':
+                src_grid = Core2Grid(grid_file_dict[atm])
+            elif atm == 'JRA55':
+                src_grid = Jra55Grid(grid_file_dict[atm])
+            else:
+                src_grid = Jra55RiverGrid(grid_file_dict[atm], calc_areas=False)
+
             for method in args.method:
-
-                if atm == 'CORE2':
-                    src_grid = Core2Grid(grid_file_dict[atm])
-                elif atm == 'JRA55':
-                    src_grid = Jra55Grid(grid_file_dict[atm])
-                else:
-                    src_grid = Jra55RiverGrid(grid_file_dict[atm])
-
-                dest_grid = MomGrid.fromfile(grid_file_dict[ocean][0],
-                                             mask_file=grid_file_dict[ocean][1])
 
                 weights = create_weights(src_grid, dest_grid, args.npes, method)
                 weights = convert_to_scrip_output(weights)

@@ -145,8 +145,7 @@ class TestCreateWeights():
         os.chdir(curdir)
 
         assert ret == 0
-        assert os.path.exists(os.path.join(contrib_dir, 'bin', 'ESMF_RegridWeightGen')
-
+        assert os.path.exists(os.path.join(contrib_dir, 'bin', 'ESMF_RegridWeightGen'))
 
     def test_create_weights(self):
         """
@@ -154,13 +153,13 @@ class TestCreateWeights():
         """
 
         # Build ESMF_RegridWeightGen if it doesn't already exist
-        if not os.path.exists(os.path.join(contrib_dir, 'bin', 'ESMF_RegridWeightGen'):
+        if not os.path.exists(os.path.join(contrib_dir, 'bin', 'ESMF_RegridWeightGen')):
             self.test_build_esmf()
 
         ret = sp.call(['./get_input_data.py'])
         assert ret == 0
 
-        cmd = os.path.join(os.getcwd(), 'tools', 'make_remap_weights.py'))
+        cmd = os.path.join(os.getcwd(), 'tools', 'make_remap_weights.py')
         input_dir = os.path.join(os.getcwd(), 'input')
         jra55_dir = '/g/data1/ua8/JRA55-do/RYF/v1-3/'
         ret = sp.call([cmd, input_dir, jra55_dir, '--ocean', 'MOM1'])
