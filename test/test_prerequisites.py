@@ -2,6 +2,7 @@
 import subprocess as sp
 import os
 
+
 class TestPrerequisites():
 
     def test_payu(self):
@@ -15,7 +16,6 @@ class TestPrerequisites():
 
         ret = sp.call(['which', 'payu'])
         assert ret == 0
-
 
     def test_inputs(self):
         """

@@ -4,9 +4,10 @@ from __future__ import print_function
 import os
 import netCDF4 as nc
 
-from model_test_helper import ModelTestHelper
+from exp_test_helper import ExpTestHelper
 
-class TestCouplingFields(ModelTestHelper):
+
+class TestCouplingFields(ExpTestHelper):
 
     def __init__(self):
         super(TestCouplingFields, self).__init__()

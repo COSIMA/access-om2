@@ -1,0 +1,58 @@
+name: accessom
+channels:
+- conda-forge
+- defaults
+dependencies:
+- asn1crypto=0.22.0=py36_0
+- cffi=1.11.2=py36_0
+- chardet=3.0.4=py36_0
+- ckanapi=4.1=py_0
+- cryptography=2.0.3=py36_0
+- docopt=0.6.2=py36_0
+- idna=2.6=py36_1
+- pycparser=2.18=py36_0
+- pyopenssl=17.4.0=py36_0
+- pysocks=1.6.7=py36_0
+- requests=2.18.4=py36_1
+- simplejson=3.11.1=py36_0
+- six=1.11.0=py36_1
+- urllib3=1.22=py36_0
+- ca-certificates=2017.08.26=h1d4fec5_0
+- certifi=2017.11.5=py36hf29ccca_0
+- libedit=3.1=heed3624_0
+- libffi=3.2.1=hd88cf55_4
+- libgcc-ng=7.2.0=h7cc24e2_2
+- libstdcxx-ng=7.2.0=h7a57d05_2
+- ncurses=6.0=h9df7e31_2
+- openssl=1.0.2m=h26d622b_1
+- pip=9.0.1=py36h6c6f9ce_4
+- python=3.6.3=h6c0c0dc_5
+- readline=7.0=ha6073c6_4
+- setuptools=36.5.0=py36he42e2e1_0
+- sqlite=3.20.1=hb898158_2
+- tk=8.6.7=hc745277_3
+- wheel=0.30.0=py36hfd4bba0_1
+- xz=5.2.3=h55aa19d_2
+- zlib=1.2.11=ha838bed_2
+- pip:
+  - apipkg==1.4
+  - attrs==17.3.0
+  - execnet==1.5.0
+  - llvmlite==0.20.0
+  - netcdf4==1.3.1
+  - nose==1.3.7
+  - numba==0.35.0
+  - numpy==1.13.3
+  - pep8==1.7.1
+  - pluggy==0.6.0
+  - py==1.5.2
+  - pyproj==1.9.5.1
+  - pytest==3.3.0
+  - pytest-cache==1.0
+  - pytest-pep8==1.0.6
+  - pyyaml==3.12
+  - scipy==1.0.0
+  - sh==1.12.14
+  - shapely==1.6.2.post1
+prefix: /short/ir04/ap4626/anaconda3/envs/accessom
+
