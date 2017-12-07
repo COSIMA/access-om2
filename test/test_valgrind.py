@@ -4,12 +4,13 @@ from __future__ import print_function
 import shutil
 import os
 
-from model_test_helper import ModelTestHelper
+from exp_test_helper import ExpTestHelper
 
-tests = {'om_360x300-valgrind' : ('om'),
-         'om_1440x1080-valgrind' : ('om')}
+tests = {'om_360x300-valgrind': ('om'),
+         'om_1440x1080-valgrind': ('om')}
 
-class TestValgrind(ModelTestHelper):
+
+class TestValgrind(ExpTestHelper):
     """
     Run the model in valgrind.
     """
@@ -24,7 +25,7 @@ class TestValgrind(ModelTestHelper):
         try:
             shutil.rmtree(paths['archive'])
             os.remove(paths['archive_link'])
-        except OSError, e:
+        except OSError as e:
             if not e.strerror == 'No such file or directory':
                 raise e
 
