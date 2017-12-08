@@ -1,6 +1,7 @@
 
 import load_dump
 
+
 def test_wind_rotation():
     """
     Test that winds are being rotated correctly.
@@ -12,16 +13,16 @@ def test_wind_rotation():
 
     pass
 
-    #load_dump.load_coupling_fields('om_360x300-unit_test', ['uwnd', 'vwnd'])
-    #routine = 'atmo_boundar_layer'
-    #inputs = ['uatm', 'vatm']
-    #inputs, _ = load_dump.load('om_360x300-unit_test', routine, inputs, [])
+    # load_dump.load_coupling_fields('om_360x300-unit_test', ['uwnd', 'vwnd'])
+    # routine = 'atmo_boundar_layer'
+    # inputs = ['uatm', 'vatm']
+    # inputs, _ = load_dump.load('om_360x300-unit_test', routine, inputs, [])
 
     # Choose our point, should be a place where grid cells are going to have
     # different rotations.
 
-    #lat = 1.22317
-    #lon = -1.77761
+    # lat = 1.22317
+    # lon = -1.77761
 
     # Check that there is a non-zero angle at this point.
 

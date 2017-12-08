@@ -8,6 +8,7 @@ import pytest
 
 from exp_test_helper import ExpTestHelper
 
+
 class TestBuild():
 
     def test_build_oasis(self):

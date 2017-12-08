@@ -9,6 +9,7 @@ import netCDF4 as nc
 
 EARTH_RADIUS = 6370997.0
 
+
 def calc_regridding_err(weights, src, dest):
     """
     Calculate the regirdding error.
@@ -65,7 +66,8 @@ def apply_weights(src, dest_shape, n_s, n_b, row, col, s):
 
     print('src.shape: {}'.format(src.shape))
     print('n_s, n_b: {} {}'.format(n_s, n_b))
-    print('sum(row[:]) = {}, sum(col[:]) = {}, sum(S[:]) = {}'.format(np.sum(row[:]), np.sum(col[:]), np.sum(s[:])))
+    fstring = 'sum(row[:]) = {}, sum(col[:]) = {}, sum(S[:]) = {}'
+    print(fstring.format(np.sum(row[:]), np.sum(col[:]), np.sum(s[:])))
 
     return dest.reshape(dest_shape)
 
@@ -98,13 +100,12 @@ def remap(src_data, weights, dest_shape):
         s = wf.variables['S'][:]
 
     dest_data[:, :] = apply_weights(src_data[:, :], dest_data.shape,
-                                       n_s, n_b, row, col, s)
+                                    n_s, n_b, row, col, s)
     return dest_data
 
+
 class TestRemap():
-
     def test_jra55_to_01deg(self):
-
         ret = sp.call(['./get_input_data.py'])
         assert ret == 0
 
@@ -119,7 +120,6 @@ class TestRemap():
         print('relative error {}'.format(rel_err))
 
         assert rel_err < 1e-14
-
 
     def test_jra55_to_1deg(self):
         pass
@@ -145,8 +145,7 @@ class TestCreateWeights():
         os.chdir(curdir)
 
         assert ret == 0
-        assert os.path.exists(os.path.join(contrib_dir, 'bin', 'ESMF_RegridWeightGen')
-
+        assert os.path.exists(os.path.join(contrib_dir, 'bin', 'ESMF_RegridWeightGen'))
 
     def test_create_weights(self):
         """
@@ -154,13 +153,14 @@ class TestCreateWeights():
         """
 
         # Build ESMF_RegridWeightGen if it doesn't already exist
-        if not os.path.exists(os.path.join(contrib_dir, 'bin', 'ESMF_RegridWeightGen'):
+        bpath = os.path.join(contrib_dir, 'bin', 'ESMF_RegridWeightGen')
+        if not os.path.exists(bpath):
             self.test_build_esmf()
 
         ret = sp.call(['./get_input_data.py'])
         assert ret == 0
 
-        cmd = os.path.join(os.getcwd(), 'tools', 'make_remap_weights.py'))
+        cmd = os.path.join(os.getcwd(), 'tools', 'make_remap_weights.py')
         input_dir = os.path.join(os.getcwd(), 'input')
         jra55_dir = '/g/data1/ua8/JRA55-do/RYF/v1-3/'
         ret = sp.call([cmd, input_dir, jra55_dir, '--ocean', 'MOM1'])
