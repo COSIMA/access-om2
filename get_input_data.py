@@ -20,7 +20,8 @@ def main():
     my_dir = os.path.dirname(os.path.realpath(__file__))
     tarball = os.path.join(my_dir, data_filename)
 
-    if os.path.exists('input'):
+    # POTENTIAL BUG: assumes 'input' was produced from data_filename - TODO: also check timestamp?
+    if os.path.exists('input') and os.path.exists(data_filename):
         return 0
 
     # Download input data.
