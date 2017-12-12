@@ -36,6 +36,8 @@ cd access-om2
 ```
 
 or if you have an existing download and would like to update to the latest version:
+**WARNING:** `git submodule update` will overwrite existing configurations in `control` - see [issue 42](https://github.com/OceansAus/access-om2/issues/42#issuecomment-346602379)
+
 ```{bash}
 cd /short/${PROJECT}/${USER}
 cd access-om2
@@ -69,7 +71,7 @@ tar zxvf input_b8053e87.tar.gz
 
 ## Compile
 
-Now to build each model. There several ways to do this. 
+Now to build each model. There are several ways to do this. 
 
 ### The easy way
 The easiest is simply
