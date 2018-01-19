@@ -1,0 +1,8 @@
+# Common list to set the same module versions across all model components on NCI
+module purge
+module load intel-fc/17.0.1.132
+module load intel-cc/17.0.1.132
+# module load netcdf/4.2.1.1
+module load netcdf/4.4.1.1
+# module load openmpi/1.10.2
+module load openmpi/3.0.0

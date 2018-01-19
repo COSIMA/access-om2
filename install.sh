@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 # Compile ACCESS-OM2 at 1, 1/4 and 1/10 degree resolution wth JRA-55 forcing
+# and with CORE forcing at 1 degree resolution.
 # NB: requires ACCESS_OM_DIR environment variable.
 # Andrew Kiss https://github.com/aekiss
 
