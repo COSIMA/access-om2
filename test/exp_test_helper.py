@@ -9,6 +9,9 @@ import os
 import glob
 import time
 
+from util import wait_for_qsub, get_git_hash
+
+
 class ExpTestHelper(object):
 
     def __init__(self, exp_name):
@@ -18,7 +21,7 @@ class ExpTestHelper(object):
 
         self.my_path = os.path.dirname(os.path.realpath(__file__))
         self.lab_path = os.path.realpath(os.path.join(self.my_path, '../'))
-        self.input_path = os.path.realpath(os.path.join(self.lab_path, 'input'))
+        self.inp_path = os.path.realpath(os.path.join(self.lab_path, 'input'))
         self.bin_path = os.path.join(self.lab_path, 'bin')
         self.control_path = os.path.join(self.lab_path, 'control')
         self.exp_path = os.path.join(self.control_path, exp_name)
@@ -51,7 +54,6 @@ class ExpTestHelper(object):
 
         return os.path.exists(self.archive)
 
-
     def make_paths(self, exp_name, run_num=0):
         paths = {}
         run_num = str(run_num).zfill(3)
@@ -77,7 +79,7 @@ class ExpTestHelper(object):
 
     def get_most_recent_run_num(self, archive_path):
         """
-        Look in the archive directory to find which build this is. 
+        Look in the archive directory to find which build this is.
         """
 
         dirs = glob.glob(archive_path + '/output*')
@@ -85,14 +87,15 @@ class ExpTestHelper(object):
 
         return int(dirs[-1][-3:])
 
-
     def do_basic_access_run(self, exp, model='cm'):
-
         paths = self.make_paths(exp)
         ret, qso, qse, qsub_files = self.run(paths['exp'], self.lab_path)
         if ret != 0:
-            self.print_output([qso, qse, paths['stdout_runtime'], paths['stderr_runtime']])
-            print('Run {} failed with code {}.'.format(exp, ret), file=sys.stderr)
+            self.print_output([qso, qse,
+                               paths['stdout_runtime'],
+                               paths['stderr_runtime']])
+            fstring = 'Run {} failed with code {}.'
+            print(fstring.format(exp, ret), file=sys.stderr)
         assert(ret == 0)
 
         run_num = self.get_most_recent_run_num(paths['archive'])
@@ -110,44 +113,16 @@ class ExpTestHelper(object):
             if model == 'om':
                 assert('********** End of MATM **********' in s)
 
-
-    def wait(self, run_id):
-        """
-        Wait for the qsub job to terminate.
-        """
-
-        while True:
-            time.sleep(5)
-            qsub_out = ''
-            try:
-                qsub_out = sp.check_output(['qstat', run_id], stderr=sp.STDOUT)
-            except sp.CalledProcessError as err:
-                qsub_out = err.output
-
-            if 'Job has finished' in qsub_out:
-                break
-
-    def git_hash(self, src_dir):
-        """
-        Get the git hash of src_dir.
-        """
-        mydir = os.getcwd()
-        os.chdir(src_dir)
-        ghash = sp.check_output(['git', 'rev-parse', 'HEAD'])[:8]
-        os.chdir(mydir)
-
-        return ghash
-
     def copy_to_bin(self, src_dir, wildcard):
         exes = glob.glob(wildcard)
         if exes == []:
             return 1
 
-        ghash = self.git_hash(src_dir)
+        ghash = get_git_hash(src_dir)
 
         for e in exes:
             eb = os.path.basename(e)
-            new_name = '{}_{}.{}'.format(eb.split('.')[0], ghash, 
+            new_name = '{}_{}.{}'.format(eb.split('.')[0], ghash,
                                          eb.split('.')[1])
             shutil.copy(e, os.path.join(self.bin_path, new_name))
 
@@ -206,7 +181,7 @@ class ExpTestHelper(object):
         if self.has_run():
             return 0, None, None, None
         else:
-            return self.force_run()        
+            return self.force_run()
 
     def force_run(self):
         """
@@ -225,7 +200,7 @@ class ExpTestHelper(object):
             print('Error: call to payu-run failed.', file=sys.stderr)
             return 1, None, None, None
 
-        self.wait(run_id)
+        wait_for_qsub(run_id)
         run_id = run_id.split('.')[0]
 
         output_files = []
@@ -244,7 +219,7 @@ class ExpTestHelper(object):
 
         # Read qsub stderr file
         stderr_filename = glob.glob(os.path.join(self.exp_path,
-                                                '*.e{}'.format(run_id)))
+                                                 '*.e{}'.format(run_id)))
         stderr = ''
         if len(stderr_filename) == 1:
             stderr_filename = stderr_filename[0]
@@ -261,7 +236,7 @@ class ExpTestHelper(object):
 
         # Wait for the collate to complete.
         run_id = m.group(1)
-        self.wait(run_id)
+        wait_for_qsub(run_id)
 
         # Return files created by qsub so caller can read or delete.
         collate_files = os.path.join(self.exp_path, '*.[oe]{}'.format(run_id))

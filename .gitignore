@@ -7,6 +7,11 @@ access-om2.err
 access-om2.out
 pbs_logs
 
+tools/PET*
+tools/*.nc
+tools/contrib/esmf
+tools/contrib/bin
+
 *.swp
 input_*.tar.gz
 input

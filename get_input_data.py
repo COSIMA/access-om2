@@ -1,23 +1,27 @@
 #!/usr/bin/env python
 
 import sys
-import os, errno
+import os
+import errno
 import shlex
 import shutil
 import subprocess as sp
 import argparse
 
-data_filename = 'input_486a8dd0.tar.gz'
+data_filename = 'input_d4d65b11.tar.gz'
 
 data_path = '/short/public/access-om2/' + data_filename
-data_url = 'http://s3-ap-southeast-2.amazonaws.com/dp-drop/access-om2/' + data_filename
+furl = 'http://s3-ap-southeast-2.amazonaws.com/dp-drop/access-om2/%s'
+data_url = furl % data_filename
+
 
 def main():
 
     my_dir = os.path.dirname(os.path.realpath(__file__))
     tarball = os.path.join(my_dir, data_filename)
 
-    if os.path.exists('input'):
+    # POTENTIAL BUG: assumes 'input' was produced from data_filename - TODO: also check timestamp?
+    if os.path.exists('input') and os.path.exists(data_filename):
         return 0
 
     # Download input data.
