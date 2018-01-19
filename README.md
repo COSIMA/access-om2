@@ -128,10 +128,15 @@ make 025deg
 make 01deg
 ```
 
-For atmosphere:
+For atmosphere with JRA-55 forcing:
 ```{bash}
 cd $ACCESS_OM_DIR/src/matm
 make jra55
+```
+or CORE forcing:
+```{bash}
+cd ${ACCESS_OM_DIR}/src/matm
+make core
 ```
 
 ## Pre-run setup and checks:
@@ -139,13 +144,17 @@ You should skip this if you built the model using `install.sh`.
 
 First check that the executables exist:
 
+MOM:
 ```{bash}
 ls $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
+```
+
+JRA atmosphere
+```{bash}
 ls $ACCESS_OM_DIR/src/matm/build_jra55/matm_jra55.exe
 ```
-*TODO: also look for CORE2?*
+or CORE atmosphere
 ```{bash}
-ls $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
 ls $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe
 ```
 
@@ -164,39 +173,7 @@ mkdir -p $ACCESS_OM_DIR/bin
 cp $ACCESS_OM_DIR/src/mom/bin/mppnccombine.nci $ACCESS_OM_DIR/bin/mppnccombine
 ```
 
-Now for the model executables. As an added complication, they need to be renamed to match the `exe` names used in the experiment configuration file `config.yaml` --- check this with `grep exe $ACCESS_OM_DIR/control/*/config.yaml` (for uniqueness the name of each executable is changed to include the hash/id of the git commit from which they were built). 
-
-*TODO: automate this? -  see <https://github.com/OceansAus/access-om2/issues/10>*
-
-All three JRA-55 models need this (but **you may need to update the hash/ids**):
-```{bash}
-cp $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x $ACCESS_OM_DIR/bin/fms_ACCESS-OM_160db8a0.x
-cp $ACCESS_OM_DIR/src/matm/build_jra55/matm_jra55.exe $ACCESS_OM_DIR/bin/matm_jra55_2318e909.exe
-```
-plus one of the following:
-
-For the 1 degree JRA-55 model (but **you may need to update the hash/id**):
-```{bash}
-cp $ACCESS_OM_DIR/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe $ACCESS_OM_DIR/bin/cice_auscom_360x300_24p_fe730022.exe
-```
-
-For the 1/4 degree JRA-55 model (but **you may need to update the hash/id**):
-```{bash}
-cp $ACCESS_OM_DIR/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe $ACCESS_OM_DIR/bin/cice_auscom_1440x1080_480p_fe730022.exe
-```
-
-For the 1/10 degree JRA-55 model (but **you may need to update the hash/id**):
-```{bash}
-cp $ACCESS_OM_DIR/src/cice5/build_auscom_3600x2700_1200p/cice_auscom_3600x2700_1200p.exe $ACCESS_OM_DIR/bin/cice_auscom_3600x2700_1200p_fe730022.exe
-```
-
-For the 1 degree CORE2 model (but **you may need to update the hash/ids**):
-```{bash}
-cp $ACCESS_OM_DIR/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe $ACCESS_OM_DIR/bin/cice_auscom_360x300_24p_fe730022.exe
-cp $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x $ACCESS_OM_DIR/bin/fms_ACCESS-OM_160db8a0.x
-cp $ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe $ACCESS_OM_DIR/bin/matm_nt62_b3a80f3b.exe
-```
-**BUG** `$ACCESS_OM_DIR/src/matm/build_nt62/matm_nt62.exe` not created by the non-pytest compilation (although it *does* create `$ACCESS_OM_DIR/control/1deg_core_nyf`)
+Now for the model executables. In order to track versions, MOM, CICE and MATM executables are renamed to include the git hash of the commit from which they were built, and these renamed executables need to be specified as `exe:` in the relevant `config.yaml`. If you built the easy way, `install.sh` runs `hashexe.sh` to do all this automatically. However `hashexe.sh` assumes that executables have been built for all CICE resolutions and also with CORE forcing at 1 deg. If you've only built one version you'll need to have a look at `hashexe.sh` to see how to rename your executables and edit `config.yaml`.
 
 ## Run
 [payu](http://payu.readthedocs.io)  needs to be available. On NCI you just do:
@@ -218,7 +195,7 @@ is commented out in `$ACCESS_OM_DIR/control/1deg_jra55_ryf/config.yaml`, or if n
 
 For example, to run the 1 degree JRA-55 RYF experiment:
 ```{bash}
-cd $ACCESS_OM_DIR/control/025deg_jra55_ryf/
+cd $ACCESS_OM_DIR/control/1deg_jra55_ryf/
 payu run
 ```
 
