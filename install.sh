@@ -7,6 +7,11 @@
 
 set -e
 
+if [[ -z "${ACCESS_OM_DIR}" ]]; then
+    echo "You need to set ACCESS_OM_DIR. This should be the path to the root directory for ACCESS-OM2."
+    exit 1
+fi
+
 export OASIS_ROOT=${ACCESS_OM_DIR}/src/oasis3-mct/
 
 cd ${ACCESS_OM_DIR}
