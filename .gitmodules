@@ -13,6 +13,7 @@
 [submodule "control/1deg_jra55_ryf"]
 	path = control/1deg_jra55_ryf
 	url = https://github.com/OceansAus/1deg_jra55_ryf.git
+	branch = master
 [submodule "control/01deg_jra55_ryf"]
 	path = control/01deg_jra55_ryf
 	url = https://github.com/OceansAus/01deg_jra55_ryf.git
