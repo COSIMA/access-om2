@@ -1,4 +1,9 @@
-# Common list to set the same module versions across all model components on NCI
+# Common list to set the same module versions across all model components on NCI.
+# NOTE: you should also edit config.yaml to set a consistent openmpi version
+# for payu to load at runtime, e.g.
+# mpi:
+#     module: openmpi/3.0.0
+
 module purge
 module load intel-fc/17.0.1.132
 module load intel-cc/17.0.1.132
