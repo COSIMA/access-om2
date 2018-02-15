@@ -20,7 +20,7 @@ The ACCESS-OM2 depends on the following software:
 * an MPI implementation such as OpenMPI.
 * Python and [pytest](https://docs.pytest.org) to run the tests (optional).
 
-To use JRA-55 on NCI you need to be a member of the ua8 project - apply via <https://my.nci.org.au>
+To use JRA-55 on NCI you need to request access via email to <climate_help@nci.nf.org.au>
 
 ## Install
 
