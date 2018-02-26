@@ -50,12 +50,10 @@ Now set environment variables. This depends on the shell you're using (type `ech
 In bash:
 ```{bash}
 export ACCESS_OM_DIR=$(pwd)
-export OASIS_ROOT=$ACCESS_OM_DIR/src/oasis3-mct/
 ```
 or in tcsh:
 ```{tcsh}
 setenv ACCESS_OM_DIR `pwd`
-setenv OASIS_ROOT $ACCESS_OM_DIR/src/oasis3-mct/
 ```
 
 The next step is to create the payu 'laboratory' by downloading experiment input data and creating directories.
@@ -79,7 +77,7 @@ The easiest is simply
 ```{bash}
 ./install.sh
 ```
-which should will build and install all models, at 1, 1/4 and 1/10th degree resolution, with JA55 forcing. You can then skip to the "Run" section below.
+which should build and install model configurations at 1, 1/4 and 1/10th degree resolution with JA55 forcing and also at 1 degree resolution with CORE forcing. You can then skip to the "Run" section below.
 
 ### With pytest (currently not working)
 Alternatively, if you have [pytest](https://docs.pytest.org) available, it can compile all models, at 1, 1/4 and 1/10th degree resolution. This is the easiest option if available.
