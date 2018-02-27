@@ -8,16 +8,16 @@
 set -e
 
 if [[ -z "${ACCESS_OM_DIR}" ]]; then
-    echo "You need to set ACCESS_OM_DIR. This should be the path to the root directory for ACCESS-OM2."
-    exit 1
+    echo "Installing ACCESS-OM2 in $(pwd)"
+    export ACCESS_OM_DIR=$(pwd)
 fi
 
 export OASIS_ROOT=${ACCESS_OM_DIR}/src/oasis3-mct/
 
 cd ${ACCESS_OM_DIR}
 
-# echo "Downloading experiment input data and creating directories..."
-# ./get_input_data.py
+echo "Downloading experiment input data and creating directories..."
+source ${ACCESS_OM_DIR}/get_input_data.py
 
 echo "Compiling OASIS3-MCT..."
 cd ${OASIS_ROOT}
@@ -52,6 +52,9 @@ ls ${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_
 ls ${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_1200p/cice_auscom_3600x2700_1200p.exe
 
 source ${ACCESS_OM_DIR}/hashexe.sh
+
+echo "Executables were built using these library versions:"
+source ${ACCESS_OM_DIR}/libcheck.sh
 
 echo "Success."
 echo "You will need to edit project, shortpath and possibly timestep in ${ACCESS_OM_DIR}/control/*/config.yaml"
