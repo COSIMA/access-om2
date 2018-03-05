@@ -56,7 +56,7 @@ source ${ACCESS_OM_DIR}/hashexe.sh
 echo "Executables were built using these library versions:"
 source ${ACCESS_OM_DIR}/libcheck.sh
 
-echo "Success."
+echo "$(basename $BASH_SOURCE) completed."
 echo "You will need to edit project, shortpath and possibly timestep in ${ACCESS_OM_DIR}/control/*/config.yaml"
 
 exit 0

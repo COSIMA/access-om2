@@ -98,6 +98,6 @@ diff ${config010path} ${config010path}-tmp3 || true
 mv ${config010path}-tmp3 ${config010path}
 rm ${config010path}-tmp*
 
-echo "Success."
+echo "$(basename $BASH_SOURCE) completed."
 exit 0
 
