@@ -17,7 +17,7 @@ export OASIS_ROOT=${ACCESS_OM_DIR}/src/oasis3-mct/
 cd ${ACCESS_OM_DIR}
 
 echo "Downloading experiment input data and creating directories..."
-source ${ACCESS_OM_DIR}/get_input_data.py
+${ACCESS_OM_DIR}/get_input_data.py
 
 echo "Compiling OASIS3-MCT..."
 cd ${OASIS_ROOT}
