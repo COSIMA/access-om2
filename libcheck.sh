@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# Report library versions used in model components
+# Report library versions used in model components of ACCESS-OM2
 # Andrew Kiss https://github.com/aekiss
 
 declare -a libs=(openmpi netcdf)
@@ -13,6 +13,5 @@ do
         grep -H $l $p
     done
 done
-echo "Installing ACCESS-OM2 in $(pwd)"
 
 exit 0
