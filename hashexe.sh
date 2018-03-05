@@ -2,10 +2,13 @@
 
 # Copy ACCESS-OM2 JRA55 executables to bin with githash in name, and config.yaml to match.
 # All changes to config.yaml are reported.
-# NB: requires ACCESS_OM_DIR environment variable.
 # Andrew Kiss https://github.com/aekiss
 
 set -e
+
+if [[ -z "${ACCESS_OM_DIR}" ]]; then
+    export ACCESS_OM_DIR=$(pwd)
+fi
 
 matmcorepath=${ACCESS_OM_DIR}/src/matm/build_nt62/matm_nt62.exe
 matmpath=${ACCESS_OM_DIR}/src/matm/build_jra55/matm_jra55.exe
