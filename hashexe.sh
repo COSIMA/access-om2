@@ -39,7 +39,7 @@ matmcorebn=$(basename "${matmcorepath}")
 matmcorehashexe="${matmcorebn%.*}"_${matmhash}."${matmcorepath##*.}"
 echo "  cp ${matmcorepath} ${bindir}/${matmcorehashexe}"
         cp ${matmcorepath} ${bindir}/${matmcorehashexe}
-                                                                             
+
 matmbn=$(basename "${matmpath}")
 matmhashexe="${matmbn%.*}"_${matmhash}."${matmpath##*.}"
 echo "  cp ${matmpath} ${bindir}/${matmhashexe}"
@@ -102,5 +102,4 @@ mv ${config010path}-tmp3 ${config010path}
 rm ${config010path}-tmp*
 
 echo "$(basename $BASH_SOURCE) completed."
-exit 0
 

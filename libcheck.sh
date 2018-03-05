@@ -13,5 +13,3 @@ do
         grep -H $l $p
     done
 done
-
-exit 0
