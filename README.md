@@ -20,7 +20,7 @@ The ACCESS-OM2 depends on the following software:
 * an MPI implementation such as OpenMPI.
 * Python and [pytest](https://docs.pytest.org) to run the tests (optional).
 
-To use JRA-55 on NCI you need to request access via email to <climate_help@nci.nf.org.au>
+The JRA-55-do forcing set is in `/g/data1/ua8/JRA55-do/` on NCI. If you are not a member of the `ua8` or `access` modelling group you will need to email <climate_help@nci.nf.org.au>
 
 ## Install
 
