@@ -1,12 +1,6 @@
 [submodule "src/mom"]
 	path = src/mom
     url = https://github.com/mom-ocean/MOM5.git
-[submodule "src/oasis3-mct"]
-	path = src/oasis3-mct
-	url = https://github.com/OceansAus/oasis3-mct.git
-[submodule "src/matm"]
-	path = src/matm
-	url = https://github.com/OceansAus/matm.git
 [submodule "src/cice5"]
 	path = src/cice5
 	url = https://github.com/OceansAus/cice5.git
