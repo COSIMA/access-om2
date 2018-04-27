@@ -25,3 +25,6 @@
 [submodule "tools/esmgrids"]
 	path = tools/esmgrids
 	url = https://github.com/DoublePrecision/esmgrids.git
+[submodule "src/libaccessom2"]
+	path = src/libaccessom2
+	url = git@github.com:OceansAus/libaccessom2.git
