@@ -1,15 +1,15 @@
 [submodule "src/mom"]
 	path = src/mom
-    url = https://github.com/aekiss/MOM5.git
+    url = https://github.com/mom-ocean/MOM5.git
 [submodule "src/oasis3-mct"]
 	path = src/oasis3-mct
-	url = https://github.com/aekiss/oasis3-mct.git
+	url = https://github.com/OceansAus/oasis3-mct.git
 [submodule "src/matm"]
 	path = src/matm
-	url = https://github.com/aekiss/matm.git
+	url = https://github.com/OceansAus/matm.git
 [submodule "src/cice5"]
 	path = src/cice5
-	url = https://github.com/aekiss/cice5.git
+	url = https://github.com/OceansAus/cice5.git
 [submodule "control/1deg_jra55_ryf"]
 	path = control/1deg_jra55_ryf
 	url = https://github.com/OceansAus/1deg_jra55_ryf.git
