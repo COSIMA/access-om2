@@ -22,3 +22,6 @@
 [submodule "src/libaccessom2"]
 	path = src/libaccessom2
 	url = git@github.com:OceansAus/libaccessom2.git
+[submodule "control/1deg_jra55_iaf"]
+	path = control/1deg_jra55_iaf
+	url = git@github.com:OceansAus/1deg_jra55_iaf.git
