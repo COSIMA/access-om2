@@ -61,7 +61,7 @@ echo "  cp ${mppnccombinepath} ${bindir}/mppnccombine"
 
 
 echo "Fixing exe in "${config1path}" to match executable names..."
-sed "s/${yatmbn%.*}.*/${yatmhashexe}/g" < ${config1path} > ${config1path}-tmp
+sed "s/exe:\s+${yatmbn%.*}.*/exe: ${yatmhashexe}/g" < ${config1path} > ${config1path}-tmp
 sed "s/${fmsbn%.*}.*/${fmshashexe}/g" < ${config1path}-tmp > ${config1path}-tmp2
 sed "s/${cice1bn%.*}.*/${cice1hashexe}/g" < ${config1path}-tmp2 > ${config1path}-tmp3
 diff ${config1path} ${config1path}-tmp3 || true
@@ -69,7 +69,7 @@ mv ${config1path}-tmp3 ${config1path}
 rm ${config1path}-tmp*
 
 echo "Fixing exe in "${config025path}" to match executable names..."
-sed "s/${yatmbn%.*}.*/${yatmhashexe}/g" < ${config025path} > ${config025path}-tmp
+sed "s/exe:\s+${yatmbn%.*}.*/exe: ${yatmhashexe}/g" < ${config025path} > ${config025path}-tmp
 sed "s/${fmsbn%.*}.*/${fmshashexe}/g" < ${config025path}-tmp > ${config025path}-tmp2
 sed "s/${cice025bn%.*}.*/${cice025hashexe}/g" < ${config025path}-tmp2 > ${config025path}-tmp3
 diff ${config025path} ${config025path}-tmp3 || true
@@ -77,7 +77,7 @@ mv ${config025path}-tmp3 ${config025path}
 rm ${config025path}-tmp*
 
 echo "Fixing exe in "${config010path}" to match executable names..."
-sed "s/${yatmbn%.*}.*/${yatmhashexe}/g" < ${config010path} > ${config010path}-tmp
+sed "s/exe:\s+${yatmbn%.*}.*/exe: ${yatmhashexe}/g" < ${config010path} > ${config010path}-tmp
 sed "s/${fmsbn%.*}.*/${fmshashexe}/g" < ${config010path}-tmp > ${config010path}-tmp2
 sed "s/${cice010bn%.*}.*/${cice010hashexe}/g" < ${config010path}-tmp2 > ${config010path}-tmp3
 diff ${config010path} ${config010path}-tmp3 || true
