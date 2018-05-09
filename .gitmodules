@@ -1,12 +1,6 @@
 [submodule "src/mom"]
 	path = src/mom
     url = https://github.com/mom-ocean/MOM5.git
-[submodule "src/oasis3-mct"]
-	path = src/oasis3-mct
-	url = https://github.com/OceansAus/oasis3-mct.git
-[submodule "src/matm"]
-	path = src/matm
-	url = https://github.com/OceansAus/matm.git
 [submodule "src/cice5"]
 	path = src/cice5
 	url = https://github.com/OceansAus/cice5.git
@@ -25,3 +19,9 @@
 [submodule "tools/esmgrids"]
 	path = tools/esmgrids
 	url = https://github.com/DoublePrecision/esmgrids.git
+[submodule "src/libaccessom2"]
+	path = src/libaccessom2
+	url = git@github.com:OceansAus/libaccessom2.git
+[submodule "control/1deg_jra55_iaf"]
+	path = control/1deg_jra55_iaf
+	url = git@github.com:OceansAus/1deg_jra55_iaf.git
