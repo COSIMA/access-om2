@@ -15,7 +15,8 @@ matmpath=${ACCESS_OM_DIR}/src/matm/build_jra55/matm_jra55.exe
 fmspath=${ACCESS_OM_DIR}/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
 cice1path=${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe
 cice025path=${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe
-cice010path=${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_1200p/cice_auscom_3600x2700_1200p.exe
+# cice010path=${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_1200p/cice_auscom_3600x2700_1200p.exe
+cice010path=${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_2700p/cice_auscom_3600x2700_2700p.exe
 mppnccombinepath=${ACCESS_OM_DIR}/src/mom/bin/mppnccombine.nci
 
 config1corepath=${ACCESS_OM_DIR}/control/1deg_core_nyf/config.yaml
