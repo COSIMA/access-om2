@@ -3,13 +3,9 @@ from exp_test_helper import ExpTestHelper
 
 class TestBuild():
 
-    def test_build_oasis(self):
+    def test_build_libaccessom2(self):
         helper = ExpTestHelper('1deg_jra55_ryf')
-        assert helper.build_oasis() == 0
-
-    def test_build_matm(self):
-        helper = ExpTestHelper('1deg_jra55_ryf')
-        assert helper.build_matm() == 0
+        assert helper.build_libaccessom2() == 0
 
     def test_build_cice(self):
         helper = ExpTestHelper('1deg_jra55_ryf')
