@@ -12,9 +12,10 @@ if [[ -z "${ACCESS_OM_DIR}" ]]; then
 fi
 export OASIS_ROOT=${ACCESS_OM_DIR}/src/oasis3-mct/
 
-declare -a exepaths=(${ACCESS_OM_DIR}/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x ${ACCESS_OM_DIR}/src/matm/build_nt62/matm_nt62.exe ${ACCESS_OM_DIR}/src/matm/build_jra55/matm_jra55.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_1440p/cice_auscom_3600x2700_1440p.exe)
+declare -a exepaths=(${ACCESS_OM_DIR}/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x ${ACCESS_OM_DIR}/src/matm/build_nt62/matm_nt62.exe ${ACCESS_OM_DIR}/src/matm/build_jra55/matm_jra55.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_2000p/cice_auscom_3600x2700_2000p.exe)
 # ${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_1200p/cice_auscom_3600x2700_1200p.exe)
 # ${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_2700p/cice_auscom_3600x2700_2700p.exe)
+# ${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_1440p/cice_auscom_3600x2700_1440p.exe)
 
 cd ${ACCESS_OM_DIR}
 
