@@ -6,6 +6,12 @@
 
 set -e
 
+# Disable user gitconfig
+export GIT_CONFIG_NOGLOBAL=yes
+
+# Assign a default root directory if unset
+export ACCESS_OM_DIR=${ACCESS_OM_DIR:-$(pwd)}
+
 export LIBACCESSOM2_ROOT=$ACCESS_OM_DIR/src/libaccessom2
 
 cd ${ACCESS_OM_DIR}
