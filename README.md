@@ -10,6 +10,27 @@ ACCESS-OM2 comes with a number of standard experiments. These configurations inc
 
 This document describes how to download, compile and run the model. The instructions have only been tested on the [NCI](http://www.nci.org.au) raijin supercomputer.
 
+## Quick start for NCI Raijin users
+
+The following 8 steps will run the 0.25 degree JRA55 RYF experiment.
+
+```{bash}
+cd /short/${PROJECT}/${USER}/
+mkdir -p access-om2/control
+cd access-om2/control
+git clone https://github.com/OceansAus/025deg_jra55_ryf.git
+cd 025deg_jra55_ryf
+```
+
+Edit the `shortpath` line in the `config.yaml` to reflect your ${PROJECT}. Then:
+
+```{bash}
+module load payu/dev
+payu run
+```
+
+It may be necessary to add the `module load payu/dev' to your .bashrc
+
 ## Prerequisites
 
 The ACCESS-OM2 depends on the following software:
@@ -287,11 +308,12 @@ Please post an issue describing your problem at: https://github.com/OceansAus/ac
 
 ## Releases
 
-- pre-release: 5a1f28d56ab06c12a495c21af10cb55913bdba0b
-- pre-release bugfix: 8fe4429a46de61c27b74736300cad5998cdc9836
+1. pre-release: 5a1f28d56ab06c12a495c21af10cb55913bdba0b
+2. pre-release bugfix: 8fe4429a46de61c27b74736300cad5998cdc9836
     Containing, among others, the following changes/fixes: https://github.com/mom-ocean/MOM5/issues/175, https://github.com/mom-ocean/MOM5/issues/183, https://github.com/mom-ocean/MOM5/issues/184, https://github.com/OceansAus/access-om2/issues/13, https://github.com/OceansAus/access-om2/issues/12, https://github.com/OceansAus/access-om2/issues/11, https://github.com/mom-ocean/MOM5/issues/187
-- pre-release runoff spread: 0588afcb3df1737ae04829609c272ef1e590b807
-- pre-release salt fix: 71ee4a47b581bbd08a401dce3b063f581c584ddd
+3. pre-release runoff spread: 0588afcb3df1737ae04829609c272ef1e590b807
+4. pre-release salt fix: 71ee4a47b581bbd08a401dce3b063f581c584ddd
+5. pre-release YATM and libaccessom2: 1b47ad6ce3f8b98047e5328a26c38229f3f083f0
 
 ## References
 
