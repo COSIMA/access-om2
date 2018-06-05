@@ -26,11 +26,11 @@ class ExpTestHelper(object):
         self.control_path = os.path.join(self.lab_path, 'control')
         self.exp_path = os.path.join(self.control_path, exp_name)
         self.archive = os.path.join(self.lab_path, 'archive', exp_name)
+        self.output000 = os.path.join(self.archive, 'output000')
         self.src = os.path.join(self.lab_path, 'src')
 
-        self.oasis_src = os.path.join(self.src, 'oasis3-mct')
+        self.libaccessom2_src = os.path.join(self.src, 'libaccessom2')
         self.mom_src = os.path.join(self.src, 'mom')
-        self.matm_src = os.path.join(self.src, 'matm')
         self.cice5_src = os.path.join(self.src, 'cice5')
 
         if not os.path.exists(self.bin_path):
@@ -52,7 +52,7 @@ class ExpTestHelper(object):
         See wether this experiment has been run.
         """
 
-        return os.path.exists(self.archive)
+        return os.path.exists(os.path.join(self.output000, 'access-om2.out'))
 
     def make_paths(self, exp_name, run_num=0):
         paths = {}
@@ -128,25 +128,18 @@ class ExpTestHelper(object):
 
         return 0
 
-    def build_oasis(self):
-        return sp.call(['make', '-C', self.oasis_src])
-
-    def build_matm(self):
-        os.environ['OASIS_ROOT'] = os.path.join(self.oasis_src)
-        ret = sp.call(['make', '-C', self.matm_src])
-        ret += self.copy_to_bin(self.matm_src,
-                                self.matm_src + '/build_*/*.exe')
-        return ret
+    def build_libaccessom2(self):
+        return sp.call([os.path.join(self.libaccessom2_src, 'build_on_raijin.sh')])
 
     def build_cice5(self):
-        os.environ['OASIS_ROOT'] = os.path.join(self.oasis_src)
+        os.environ['LIBACCESSOM2_ROOT'] = os.path.join(self.libaccessom2_src)
         ret = sp.call(['make', '-C', self.cice5_src, self.res])
         ret += self.copy_to_bin(self.cice5_src,
                                 self.cice5_src + '/build_*/*.exe')
         return ret
 
     def build_mom(self):
-        os.environ['OASIS_ROOT'] = os.path.join(self.oasis_src)
+        os.environ['LIBACCESSOM2_ROOT'] = os.path.join(self.libaccessom2_src)
         mydir = os.getcwd()
         os.chdir(os.path.join(self.mom_src, 'exp'))
         ret = sp.call(['./MOM_compile.csh', '--type', 'ACCESS-OM',
@@ -162,10 +155,9 @@ class ExpTestHelper(object):
         if self.has_built():
             return 0
 
-        ret = self.build_oasis()
+        ret = self.build_libaccessom2()
         if ret != 0:
             return ret
-        ret += self.build_matm()
         ret += self.build_cice5()
         ret += self.build_mom()
 

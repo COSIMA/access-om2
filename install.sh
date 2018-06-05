@@ -32,6 +32,7 @@ echo "Compiling YATM file-based atmosphere and libaccessom2... "
 mkdir -p ${LIBACCESSOM2_ROOT}/build
 cd ${LIBACCESSOM2_ROOT}/build
 
+module purge
 module load cmake/3.6.2
 module load netcdf/4.4.1.1
 module load intel-fc/17.0.1.132

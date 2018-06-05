@@ -34,8 +34,7 @@ class TestPrerequisites():
         inputs = ['cice_01deg', 'cice_025deg', 'cice_1deg',
                   'core_nyf', 'mom_01deg', 'mom_025deg',
                   'mom_1deg', 'oasis_core_to_1deg',
-                  'oasis_jra55_to_01deg', 'oasis_jra55_to_025deg',
-                  'oasis_jra55_to_1deg']
+                  'yatm_1deg', 'yatm_025deg', 'yatm_01deg']
 
         for i in inputs:
             assert os.path.exists(os.path.join('input', i))
