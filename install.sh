@@ -69,8 +69,11 @@ cd ${ACCESS_OM_DIR}
 echo "Executables were built using these library versions:"
 source ${ACCESS_OM_DIR}/libcheck.sh
 
-echo "$(basename $BASH_SOURCE) completed."
-echo "You will need to edit project, shortpath and possibly timestep in ${ACCESS_OM_DIR}/control/*/config.yaml"
+echo
+echo "$(basename "$0") completed."
+echo
+echo "You will need to edit project, shortpath and possibly timestep in" 
+ls -1 ${ACCESS_OM_DIR}/control/*/config.yaml
 
 exit 0
 
