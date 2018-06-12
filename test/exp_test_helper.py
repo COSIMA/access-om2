@@ -3,6 +3,7 @@ from __future__ import print_function
 
 import subprocess as sp
 import sys
+import stat
 import shutil
 import re
 import os
@@ -10,7 +11,6 @@ import glob
 import time
 
 from util import wait_for_qsub, get_git_hash
-
 
 class ExpTestHelper(object):
 
@@ -23,6 +23,8 @@ class ExpTestHelper(object):
         self.lab_path = os.path.realpath(os.path.join(self.my_path, '../'))
         if not bin_path:
             self.bin_path = os.path.join(self.lab_path, 'bin')
+        else:
+            self.bin_path = bin_path
         self.control_path = os.path.join(self.lab_path, 'control')
         self.exp_path = os.path.join(self.control_path, exp_name)
         self.payu_config = os.path.join(self.exp_path, 'config.yaml')
@@ -32,24 +34,13 @@ class ExpTestHelper(object):
 
         self.libaccessom2_src = os.path.join(self.src, 'libaccessom2')
         self.mom_src = os.path.join(self.src, 'mom')
-        self.cice5_src = os.path.join(self.src, 'cice5')
+        self.cice_src = os.path.join(self.src, 'cice5')
         self.yatm_exe = None
         self.mom_exe = None
-        self.cice5_exe = None
+        self.cice_exe = None
 
         if not os.path.exists(self.bin_path):
             os.mkdir(self.bin_path)
-
-    def has_built(self):
-        """
-        See wether this experiment has been built.
-        """
-
-        exes = glob.glob(self.bin_path + '/*.exe')
-        exes += glob.glob(self.bin_path + '/*.x')
-
-        # 3 cice, atm and mom
-        return len(exes) >= 3
 
     def has_run(self):
         """
@@ -145,19 +136,22 @@ class ExpTestHelper(object):
                                        self.libaccessom2_src + '/build/bin/yatm.exe')
         return exename, r1 + r2
 
-    def build_cice5(self):
+    def build_cice(self):
+        os.environ['ACCESS_OM_DIR'] = os.path.join(self.lab_path)
         os.environ['LIBACCESSOM2_ROOT'] = os.path.join(self.libaccessom2_src)
-        r1 = sp.call(['make', '-C', self.cice5_src, self.res])
+        r1 = sp.call(['make', '-C', self.cice_src, self.res])
 
-        if self.res == '025':
+        if self.res == '025deg':
             exe_res = '1440x1080'
-        elif self.res == '01':
+        elif self.res == '01deg':
             exe_res = '3600x2700'
-        else:
+        elif self.res == '1deg':
             exe_res = '360x300'
+        else:
+            assert False
 
-        build_dir_wildcard = self.cice5_src + '/build_*_' + exe_res + '_*/*.exe'
-        exename, r2 = self.copy_to_bin(self.cice5_src, build_dir_wildcard)
+        build_dir_wildcard = self.cice_src + '/build_*_' + exe_res + '_*/*.exe'
+        exename, r2 = self.copy_to_bin(self.cice_src, build_dir_wildcard)
 
         return exename, r1 + r2
 
@@ -169,19 +163,16 @@ class ExpTestHelper(object):
                       '--platform', 'nci'])
         os.chdir(mydir)
 
-        exename, r2 += self.copy_to_bin(self.mom_src,
+        exename, r2 = self.copy_to_bin(self.mom_src,
                                         self.mom_src + '/exec/nci/ACCESS-OM/*.x')
         return exename, r1 + r2
 
     def build(self):
 
-        if self.has_built():
-            return [self.yatm_exe, self.cice_exe, self.mom_exe], 0
-
         self.yatm_exe, r1 = self.build_libaccessom2()
-        if ret != 0:
-            return ret
-        self.cice_exe, r2 = self.build_cice5()
+        if r1 != 0:
+            return r1
+        self.cice_exe, r2 = self.build_cice()
         self.mom_exe, r3 = self.build_mom()
 
         return [self.yatm_exe, self.cice_exe, self.mom_exe], r1 + r2 + r3
