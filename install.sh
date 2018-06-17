@@ -6,6 +6,9 @@
 
 set -e
 
+# Supported platforms: nci, scorep
+export platform=nci
+
 # Disable user gitconfig
 export GIT_CONFIG_NOGLOBAL=yes
 
@@ -27,15 +30,21 @@ cd ${LIBACCESSOM2_ROOT}/build
 module purge
 module load cmake/3.6.2
 module load netcdf/4.4.1.1
+module load intel-cc/17.0.1.132
 module load intel-fc/17.0.1.132
 module load openmpi/1.10.2
-cmake ../
+if [ ${platform} = "scorep" ]; then
+    module load scorep/3.1
+    SCOREP_WRAPPER=off cmake ../ -DCMAKE_FC_COMPILER=scorep-mpif90
+else
+    cmake ../
+fi
 make
 
 echo "Compiling MOM5.1..."
-rm -f $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
+rm -f $ACCESS_OM_DIR/src/mom/exec/${platform}/ACCESS-OM/fms_ACCESS-OM.x
 cd ${ACCESS_OM_DIR}/src/mom/exp
-./MOM_compile.csh --type ACCESS-OM --platform nci
+./MOM_compile.csh --type ACCESS-OM --platform ${platform}
 
 echo "Compiling CICE5.1 at 1 degree..."
 rm -f $ACCESS_OM_DIR/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe
@@ -50,7 +59,7 @@ echo "Compiling CICE5.1 at 1/10 degree..."
 make 01deg
 
 echo "Checking all executables have been built..."
-ls ${ACCESS_OM_DIR}/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
+ls ${ACCESS_OM_DIR}/src/mom/exec/${platform}/ACCESS-OM/fms_ACCESS-OM.x
 ls ${LIBACCESSOM2_ROOT}/build/bin/yatm.exe
 ls ${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe
 ls ${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe
