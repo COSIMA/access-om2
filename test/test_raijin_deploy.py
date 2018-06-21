@@ -29,7 +29,7 @@ def update_payu_config(exp_name, res, payu_config, input_dir, yatm_exe, cice_exe
 
             m_exe = re.search('^\s*exe:\s+\S+', line)
             m_input = re.search('^\s*input:\s+\S+', line)
-    
+
             if m_exe:
                 assert cur_model
                 if cur_model == 'atmosphere':
@@ -85,13 +85,16 @@ def calc_checksum(dirname):
 
 def set_input_perms_recursively(path):
 
+    dirperms = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH  | stat.S_IXUSR \
+               | stat.S_IXGRP | stat.S_IXOTH
+    shutil.chown(path, group='v45')
+    os.chmod(path, dirperms)
+
     for root, dirs, files in os.walk(path):
         for d in dirs:
             dirname = os.path.join(root, d)
             shutil.chown(dirname, group='v45')
-            perms = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH  | stat.S_IXUSR \
-                     | stat.S_IXGRP | stat.S_IXOTH
-            os.chmod(dirname, perms)
+            os.chmod(dirname, dirperms)
         for f in files:
             fname = os.path.join(root, f)
             shutil.chown(fname, group='v45')
@@ -130,5 +133,3 @@ def test_raijin_deploy():
         assert ret == 0
 
         update_payu_config(exp.exp_name, exp.res, exp.payu_config, input_dir, *exes)
-
-    # Check that these modifications 
