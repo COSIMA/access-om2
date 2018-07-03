@@ -7,6 +7,7 @@ import stat
 import shutil
 import re
 import os
+import sys
 import glob
 import time
 
@@ -150,7 +151,7 @@ class ExpTestHelper(object):
         else:
             assert False
 
-        build_dir_wildcard = self.cice_src + '/build_*_' + exe_res + '_*/*.exe'
+        build_dir_wildcard = self.cice_src + '/build_*_' + exe_res + '_*p/*.exe'
         exename, r2 = self.copy_to_bin(self.cice_src, build_dir_wildcard)
 
         return exename, r1 + r2
@@ -171,9 +172,18 @@ class ExpTestHelper(object):
 
         self.yatm_exe, r1 = self.build_libaccessom2()
         if r1 != 0:
+            print('YATM build failed for exp {}'.format(self.exp_name),
+                  file=sys.stderr)
             return r1
         self.cice_exe, r2 = self.build_cice()
+        if r2 != 0:
+            print('CICE build failed for exp {}'.format(self.exp_name),
+                  file=sys.stderr)
+
         self.mom_exe, r3 = self.build_mom()
+        if r3 != 0:
+            print('MOM build failed for exp {}'.format(self.exp_name),
+                  file=sys.stderr)
 
         return [self.yatm_exe, self.cice_exe, self.mom_exe], r1 + r2 + r3
 

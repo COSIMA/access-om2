@@ -3,6 +3,7 @@ from __future__ import print_function
 
 from exp_test_helper import ExpTestHelper
 import os
+import sys
 import re
 import shutil
 import stat
@@ -11,7 +12,8 @@ import tempfile
 import tarfile
 import hashlib
 
-EXP_NAMES = ['1deg_jra55_ryf', '1deg_jra55_iaf', '1deg_core_nyf', '025deg_jra55_ryf', '01deg_jra55_ryf']
+EXP_NAMES = ['1deg_jra55_ryf', '1deg_jra55_iaf', '1deg_core_nyf', '025deg_jra55_ryf',
+             '01deg_jra55_ryf', '025deg_jra55_iaf', '01deg_jra55_iaf']
 
 def update_payu_config(exp_name, res, payu_config, input_dir, yatm_exe, cice_exe, mom_exe):
     """
@@ -130,6 +132,8 @@ def test_raijin_deploy():
         # Build new exes.
         exp = ExpTestHelper(exp_name, bin_path='/short/public/access-om2/bin/')
         exes, ret = exp.build()
+        if ret != 0:
+            print('Build failed for exp {}'.format(exp_name), file=sys.stderr)
         assert ret == 0
 
         update_payu_config(exp.exp_name, exp.res, exp.payu_config, input_dir, *exes)

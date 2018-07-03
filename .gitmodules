@@ -25,3 +25,9 @@
 [submodule "control/1deg_jra55_iaf"]
 	path = control/1deg_jra55_iaf
 	url = https://github.com/OceansAus/1deg_jra55_iaf.git
+[submodule "control/01deg_jra55_iaf"]
+	path = control/01deg_jra55_iaf
+	url = https://github.com/OceansAus/01deg_jra55_iaf.git
+[submodule "control/025deg_jra55_iaf"]
+	path = control/025deg_jra55_iaf
+	url = https://github.com/OceansAus/025deg_jra55_iaf.git
