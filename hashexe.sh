@@ -64,25 +64,25 @@ echo "  cp ${mppnccombinepath} ${bindir}/mppnccombine"
 
 
 echo "Fixing exe in "${config1path}" to match executable names..."
-sed "s/exe:\s+${yatmbn%.*}.*/exe: ${yatmhashexe}/g" < ${config1path} > ${config1path}-tmp
-sed "s/${fmsbn%.*}.*/${fmshashexe}/g" < ${config1path}-tmp > ${config1path}-tmp2
-sed "s/${cice1bn%.*}.*/${cice1hashexe}/g" < ${config1path}-tmp2 > ${config1path}-tmp3
+sed "s|exe:.*${yatmbn%.*}_.*|exe: ${bindir}/${yatmhashexe}|g" < ${config1path} > ${config1path}-tmp
+sed "s|exe:.*${fmsbn%.*}_.*|exe: ${bindir}/${fmshashexe}|g" < ${config1path}-tmp > ${config1path}-tmp2
+sed "s|exe:.*${cice1bn%.*}_.*|exe: ${bindir}/${cice1hashexe}|g" < ${config1path}-tmp2 > ${config1path}-tmp3
 diff ${config1path} ${config1path}-tmp3 || true
 mv ${config1path}-tmp3 ${config1path}
 rm ${config1path}-tmp*
 
 echo "Fixing exe in "${config025path}" to match executable names..."
-sed "s/exe:\s+${yatmbn%.*}.*/exe: ${yatmhashexe}/g" < ${config025path} > ${config025path}-tmp
-sed "s/${fmsbn%.*}.*/${fmshashexe}/g" < ${config025path}-tmp > ${config025path}-tmp2
-sed "s/${cice025bn%.*}.*/${cice025hashexe}/g" < ${config025path}-tmp2 > ${config025path}-tmp3
+sed "s|exe:.*${yatmbn%.*}_.*|exe: ${bindir}/${yatmhashexe}|g" < ${config025path} > ${config025path}-tmp
+sed "s|exe:.*${fmsbn%.*}_.*|exe: ${bindir}/${fmshashexe}|g" < ${config025path}-tmp > ${config025path}-tmp2
+sed "s|exe:.*${cice025bn%.*}_.*|exe: ${bindir}/${cice025hashexe}|g" < ${config025path}-tmp2 > ${config025path}-tmp3
 diff ${config025path} ${config025path}-tmp3 || true
 mv ${config025path}-tmp3 ${config025path}
 rm ${config025path}-tmp*
 
 echo "Fixing exe in "${config010path}" to match executable names..."
-sed "s/exe:\s+${yatmbn%.*}.*/exe: ${yatmhashexe}/g" < ${config010path} > ${config010path}-tmp
-sed "s/${fmsbn%.*}.*/${fmshashexe}/g" < ${config010path}-tmp > ${config010path}-tmp2
-sed "s/${cice010bn%.*}.*/${cice010hashexe}/g" < ${config010path}-tmp2 > ${config010path}-tmp3
+sed "s|exe:.*${yatmbn%.*}_.*|exe: ${bindir}/${yatmhashexe}|g" < ${config010path} > ${config010path}-tmp
+sed "s|exe:.*${fmsbn%.*}_.*|exe: ${bindir}/${fmshashexe}|g" < ${config010path}-tmp > ${config010path}-tmp2
+sed "s|exe:.*${cice010bn%.*}_.*|exe: ${bindir}/${cice010hashexe}|g" < ${config010path}-tmp2 > ${config010path}-tmp3
 diff ${config010path} ${config010path}-tmp3 || true
 mv ${config010path}-tmp3 ${config010path}
 rm ${config010path}-tmp*
