@@ -2,16 +2,19 @@
 
 # Copy ACCESS-OM2 executables to bin with githash in name, and config.yaml to match.
 # All changes to config.yaml are reported.
-# NB: requires ACCESS_OM_DIR environment variable.
 # Andrew Kiss https://github.com/aekiss
 
 set -e
+
+if [[ -z "${ACCESS_OM_DIR}" ]]; then
+    export ACCESS_OM_DIR=$(pwd)
+fi
 
 yatmpath=${ACCESS_OM_DIR}/src/libaccessom2/build/bin/yatm.exe
 fmspath=${ACCESS_OM_DIR}/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
 cice1path=${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe
 cice025path=${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe
-cice010path=${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_1200p/cice_auscom_3600x2700_1200p.exe
+cice010path=${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_2000p/cice_auscom_3600x2700_2000p.exe
 mppnccombinepath=${ACCESS_OM_DIR}/src/mom/bin/mppnccombine.nci
 
 config1corepath=${ACCESS_OM_DIR}/control/1deg_core_nyf/config.yaml
@@ -25,9 +28,9 @@ mkdir -p ${bindir}
 
 echo "Getting executable hashes..."
 
-cd $(dirname "${yatmpath}") && yatmhash=`git rev-parse --short=8 HEAD`
-cd $(dirname "${fmspath}") && fmshash=`git rev-parse --short=8 HEAD`
-cd $(dirname "${cice1path}") && cicehash=`git rev-parse --short=8 HEAD` # NB only one hash for all three cice builds
+cd $(dirname "${yatmpath}") && yatmhash=`git rev-parse --short=7 HEAD`
+cd $(dirname "${fmspath}") && fmshash=`git rev-parse --short=7 HEAD`
+cd $(dirname "${cice1path}") && cicehash=`git rev-parse --short=7 HEAD` # NB only one hash for all three cice builds
 
 echo "Copying executables to "${bindir}" with hashes added to names..."
 
@@ -84,6 +87,5 @@ diff ${config010path} ${config010path}-tmp3 || true
 mv ${config010path}-tmp3 ${config010path}
 rm ${config010path}-tmp*
 
-echo "Success."
-exit 0
+echo "$(basename $BASH_SOURCE) completed."
 
