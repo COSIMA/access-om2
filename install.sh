@@ -20,6 +20,13 @@ cd ${ACCESS_OM_DIR}
 # echo "Downloading experiment input data and creating directories..."
 # ${ACCESS_OM_DIR}/get_input_data.py
 
+echo "Saving version info..."
+cd ${ACCESS_OM_DIR}/src/mom/src; source ${ACCESS_OM_DIR}/version_info.sh
+cd ${LIBACCESSOM2_ROOT}/atm/src; source ${ACCESS_OM_DIR}/version_info.sh
+cd ${ACCESS_OM_DIR}/src/cice5/source; source ${ACCESS_OM_DIR}/version_info.sh
+
+cd ${ACCESS_OM_DIR}
+
 echo "Removing previous executables (if any)..."
 for p in "${exepaths[@]}"
 do
