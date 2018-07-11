@@ -37,8 +37,10 @@ cd $(dirname "${yatmpath}") && yatmhash=`git rev-parse --short=7 HEAD`
 test -z "$(git status --porcelain)" || yatmhash=${yatmhash}-modified # uncommitted changes or untracked files
 cd $(dirname "${fmspath}") && fmshash=`git rev-parse --short=7 HEAD`
 test -z "$(git status --porcelain)" || fmshash=${fmshash}-modified # uncommitted changes or untracked files
+fmshash=${fmshash}_libaccessom2_${yatmhash} # also track libaccessom2
 cd $(dirname "${cice1path}") && cicehash=`git rev-parse --short=7 HEAD` # NB only one hash for all three cice builds
 test -z "$(git status --porcelain)" || cicehash=${cicehash}-modified # uncommitted changes or untracked files
+cicehash=${cicehash}_libaccessom2_${yatmhash} # also track libaccessom2
 
 echo "Copying executables to "${bindir}" with hashes added to names..."
 
