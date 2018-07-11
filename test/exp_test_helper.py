@@ -140,6 +140,7 @@ class ExpTestHelper(object):
     def build_cice(self):
         os.environ['ACCESS_OM_DIR'] = os.path.join(self.lab_path)
         os.environ['LIBACCESSOM2_ROOT'] = os.path.join(self.libaccessom2_src)
+        r1 = sp.call(['make', '-C', self.cice_src, 'clean'])
         r1 = sp.call(['make', '-C', self.cice_src, self.res])
 
         if self.res == '025deg':
