@@ -28,9 +28,9 @@ mkdir -p ${bindir}
 
 echo "Getting executable hashes..."
 
-cd $(dirname "${yatmpath}") && yatmhash=`git rev-parse --short=8 HEAD`
-cd $(dirname "${fmspath}") && fmshash=`git rev-parse --short=8 HEAD`
-cd $(dirname "${cice1path}") && cicehash=`git rev-parse --short=8 HEAD` # NB only one hash for all three cice builds
+cd $(dirname "${yatmpath}") && yatmhash=`git rev-parse --short=7 HEAD`
+cd $(dirname "${fmspath}") && fmshash=`git rev-parse --short=7 HEAD`
+cd $(dirname "${cice1path}") && cicehash=`git rev-parse --short=7 HEAD` # NB only one hash for all three cice builds
 
 echo "Copying executables to "${bindir}" with hashes added to names..."
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
 # Compile ACCESS-OM2 at 1, 1/4 and 1/10 degree resolution wth JRA-55 forcing
-# and with CORE forcing at 1 degree resolution.
 # Andrew Kiss https://github.com/aekiss
 
 set -e
@@ -18,8 +17,8 @@ declare -a exepaths=(${ACCESS_OM_DIR}/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
 
 cd ${ACCESS_OM_DIR}
 
-echo "Downloading experiment input data and creating directories..."
-${ACCESS_OM_DIR}/get_input_data.py
+# echo "Downloading experiment input data and creating directories..."
+# ${ACCESS_OM_DIR}/get_input_data.py
 
 echo "Removing previous executables (if any)..."
 for p in "${exepaths[@]}"
@@ -41,16 +40,11 @@ cmake ../
 make
 
 echo "Compiling MOM5.1..."
-rm -f $ACCESS_OM_DIR/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
 cd ${ACCESS_OM_DIR}/src/mom/exp
 ./MOM_compile.csh --type ACCESS-OM --platform nci
 
-echo "Compiling CICE5.1 at 1 degree..."
-rm -f $ACCESS_OM_DIR/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe
-rm -f $ACCESS_OM_DIR/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe
-rm -f $ACCESS_OM_DIR/src/cice5/build_auscom_3600x2700_1200p/cice_auscom_3600x2700_1200p.exe
-
 cd ${ACCESS_OM_DIR}/src/cice5
+echo "Compiling CICE5.1 at 1 degree..."
 make # 1 degree
 echo "Compiling CICE5.1 at 1/4 degree..."
 make 025deg
@@ -60,7 +54,7 @@ make 01deg
 echo "Checking all executables have been built..."
 for p in "${exepaths[@]}"
 do
-    ls ${p}
+    ls ${p} || { echo "Build failed!"; exit 1; }
 done
 
 source ${ACCESS_OM_DIR}/hashexe.sh

@@ -29,4 +29,4 @@ def get_git_hash(src_dir):
     ghash = sp.check_output(['git', 'rev-parse', 'HEAD'])[:8]
     os.chdir(mydir)
 
-    return ghash
+    return ghash.decode('utf-8')
