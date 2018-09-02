@@ -5,6 +5,9 @@
 
 set -e
 
+# Disable user gitconfig
+export GIT_CONFIG_NOGLOBAL=yes
+
 if [[ -z "${ACCESS_OM_DIR}" ]]; then
     echo "Installing ACCESS-OM2 in $(pwd)"
     export ACCESS_OM_DIR=$(pwd)
