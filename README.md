@@ -304,15 +304,6 @@ These models and the standard experiments are tested routinely. The test status 
 
 Please post an issue describing your problem at: https://github.com/OceansAus/access-om2/issues
 
-## Releases
-
-1. pre-release: 5a1f28d56ab06c12a495c21af10cb55913bdba0b
-2. pre-release bugfix: 8fe4429a46de61c27b74736300cad5998cdc9836
-    Containing, among others, the following changes/fixes: https://github.com/mom-ocean/MOM5/issues/175, https://github.com/mom-ocean/MOM5/issues/183, https://github.com/mom-ocean/MOM5/issues/184, https://github.com/OceansAus/access-om2/issues/13, https://github.com/OceansAus/access-om2/issues/12, https://github.com/OceansAus/access-om2/issues/11, https://github.com/mom-ocean/MOM5/issues/187
-3. pre-release runoff spread: 0588afcb3df1737ae04829609c272ef1e590b807
-4. pre-release salt fix: 71ee4a47b581bbd08a401dce3b063f581c584ddd
-5. pre-release YATM and libaccessom2: 1b47ad6ce3f8b98047e5328a26c38229f3f083f0
-
 ## References
 
 [1] "ACCESS-OM: the Ocean and Sea ice Core of the ACCESS Coupled Model" https://publications.csiro.au/rpr/pub?pid=csiro:EP125880
