@@ -31,9 +31,6 @@ payu run
 
 It may be necessary to add the `module load payu/dev' to your .bashrc
 
-## Testing
-
-These models and the standard experiments are tested routinely. The test status can be seen here: https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/
 
 ## Problems?
 
