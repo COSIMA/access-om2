@@ -158,7 +158,9 @@ class ExpTestHelper(object):
         return exename, r1 + r2
 
     def build_mom(self):
+        os.environ['ACCESS_OM_DIR'] = os.path.join(self.lab_path)
         os.environ['LIBACCESSOM2_ROOT'] = os.path.join(self.libaccessom2_src)
+
         mydir = os.getcwd()
         os.chdir(os.path.join(self.mom_src, 'exp'))
         r1 = sp.call(['./MOM_compile.csh', '--type', 'ACCESS-OM',
