@@ -5,7 +5,7 @@
 
 # ACCESS-OM2
 
-ACCESS-OM2 is a global coupled ice ocean model. It is being developed through a collaboration with [COSIMA](http://www.cosima.org.au), [ARCCSS](http://www.arccss.org.au) and [CSIRO](http://www.csiro.au). It builds on the [ACCESS-OM](https://publications.csiro.au/rpr/pub?pid=csiro:EP125880) model originally developed at CSIRO.
+ACCESS-OM2 is a global coupled ice ocean model. It is being developed by [COSIMA](http://www.cosima.org.au). It builds on the [ACCESS-OM](https://publications.csiro.au/rpr/pub?pid=csiro:EP125880) model originally developed at [CSIRO](http://www.csiro.au).
 
 The model consists of the [MOM](https://mom-ocean.github.io) ocean model, [CICE](http://oceans11.lanl.gov/trac/CICE) ice model, and a file-based atmosphere called [YATM](https://github.com/OceansAus/libaccessom2) coupled together using the [OASIS3-MCT](https://portal.enes.org/oasis) coupler. Regridding is done using [ESMF](https://www.earthsystemcog.org/projects/esmf/) and [KDTREE2](https://github.com/jmhodges/kdtree2).
 
