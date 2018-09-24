@@ -268,7 +268,8 @@ def run_exp(exp_name, force=False):
     my_path = os.path.dirname(os.path.realpath(__file__))
 
     helper = ExpTestHelper(exp_name)
-    assert helper.build() == 0
+    exes, ret = helper.build()
+    assert ret == 0
     if force:
         ret, qso, qse, qsub_files = helper.force_run()
     else:
