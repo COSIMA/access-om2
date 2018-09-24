@@ -266,8 +266,6 @@ class ExpTestHelper(object):
 
 def run_exp(exp_name, force=False):
     my_path = os.path.dirname(os.path.realpath(__file__))
-    ret = sp.call([os.path.join(my_path, '../', 'get_input_data.py')])
-    assert ret == 0
 
     helper = ExpTestHelper(exp_name)
     assert helper.build() == 0

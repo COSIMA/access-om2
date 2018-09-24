@@ -24,3 +24,7 @@ class TestRun():
     @pytest.mark.slow
     def test_slow_run(self):
         run_exp('025deg_jra55_ryf')
+
+    @pytest.mark.slow
+    def test_slow_run(self):
+        run_exp('025deg_jra55_iaf')
