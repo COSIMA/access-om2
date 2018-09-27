@@ -248,7 +248,7 @@ class ExpTestHelper(object):
 
         # Read the qsub id of the collate job from the stdout.
         # Payu puts this here.
-        m = re.search(r'(\d{7}.r-man2)\n', stdout)
+        m = re.search(r'(\d+.r-man2)\n', stdout)
         if m is None:
             print('Error: qsub id of collate job.', file=sys.stderr)
             return 3, stdout, stderr, output_files
