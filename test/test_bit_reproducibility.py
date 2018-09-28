@@ -1,5 +1,5 @@
 
-from exp_test_helper import run_exp
+from exp_test_helper import ExpTestHelper
 
 import pytest
 import yaml
@@ -36,12 +36,15 @@ class TestBitReproducibility():
         Test that a run reproduces saved checksums.
         """
 
-        exp = run_exp('1deg_jra55_ryf')
+        exp = ExpTestHelper('1deg_jra55_ryf')
 
         # Compare expected to produced.
-        mom_chksums = os.path.join(exp.exp_path, 'ocean', 'checksums.txt')
-        expected = self.checksums_to_list(mom_chksums)
+        test_stdout = os.path.join(exp.exp_path, 'test', 'access-om2.out')
+        assert os.path.exists(test_stdout)
+        expected = self.checksums_to_list(test_stdout)
+
         stdout = os.path.join(exp.archive, 'output000', 'access-om2.out')
+        assert os.path.exists(stdout)
         produced = self.checksums_to_list(stdout)
 
         assert len(produced) == len(expected)
