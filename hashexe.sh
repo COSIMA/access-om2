@@ -14,7 +14,7 @@ yatmpath=${ACCESS_OM_DIR}/src/libaccessom2/build/bin/yatm.exe
 fmspath=${ACCESS_OM_DIR}/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
 cice1path=${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe
 cice025path=${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe
-cice010path=${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_2000p/cice_auscom_3600x2700_2000p.exe
+cice010path=${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_1392p/cice_auscom_3600x2700_1392p.exe
 mppnccombinepath=${ACCESS_OM_DIR}/src/mom/bin/mppnccombine.nci
 
 config1corepath=${ACCESS_OM_DIR}/control/1deg_core_nyf/config.yaml  # TODO: do this
