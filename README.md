@@ -1,7 +1,7 @@
 
-| Build | Fast Run | Full Run | Release | PEP8 |
-|:-------:|:--------:|:--------:|:--------:|:--------:|
-| [![Build Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/build)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/build/) | [![Fast Run Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/fast_run)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/fast_run/) | [![Slow Run Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/slow_run)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/slow_run/) | [![Build Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/release)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/release/) | [![PEP8](https://travis-ci.org/a-parkinson/access-om2.svg?branch=master)](https://travis-ci.org/a-parkinson/access-om2) |
+| Build | Fast Run | Full Run | Fast Repro | Release | PEP8 |
+|:-------:|:--------:|:--------:|:--------:|:--------:|:--------:|
+| [![Build Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/build)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/build/) | [![Fast Run Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/fast_run)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/fast_run/) | [![Slow Run Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/slow_run)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/slow_run/) | [![Fast Repro](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/fast_reproducibility)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/fast_reproducibility/) | [![Release Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/release)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/release/) | [![PEP8](https://travis-ci.org/a-parkinson/access-om2.svg?branch=master)](https://travis-ci.org/a-parkinson/access-om2) |
 
 # ACCESS-OM2
 
@@ -9,7 +9,7 @@ ACCESS-OM2 is a global coupled ice ocean model. It is being developed by [COSIMA
 
 The model consists of the [MOM](https://mom-ocean.github.io) ocean model, [CICE](http://oceans11.lanl.gov/trac/CICE) ice model, and a file-based atmosphere called [YATM](https://github.com/OceansAus/libaccessom2) coupled together using the [OASIS3-MCT](https://portal.enes.org/oasis) coupler. Regridding is done using [ESMF](https://www.earthsystemcog.org/projects/esmf/) and [KDTREE2](https://github.com/jmhodges/kdtree2).
 
-ACCESS-OM2 comes with a number of standard configurations. These include ice and ocean at 1, 1/4 and 1/10th degree resolution forced by [JRA-55](http://jra.kishou.go.jp/JRA-55/index_en.html)
+ACCESS-OM2 comes with a number of standard configurations. These include ice and ocean at 1.0, 0.25 and 0.1 degree resolution forced by [JRA-55](http://jra.kishou.go.jp/JRA-55/index_en.html)
 and [CORE2](http://www.clivar.org/clivar-panels/omdp/core-2) atmospheric reanalyses.
 
 # Where to find information
