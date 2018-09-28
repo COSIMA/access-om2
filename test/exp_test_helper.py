@@ -210,8 +210,8 @@ class ExpTestHelper(object):
         # Change to experiment directory and run.
         try:
             os.chdir(self.exp_path)
-            sp.check_output(['payu', 'sweep'])
-            run_id = sp.check_output(['payu', 'run'])
+            sp.check_output(['payu', 'sweep', '--lab', self.lab_path])
+            run_id = sp.check_output(['payu', 'run', '--lab', self.lab_path])
             run_id = run_id.decode().splitlines()[0]
             os.chdir(self.my_path)
         except sp.CalledProcessError as err:
