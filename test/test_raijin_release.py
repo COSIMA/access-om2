@@ -123,7 +123,7 @@ def update_input_data():
     return input_chksum
 
 
-def test_raijin_deploy():
+def test_raijin_release():
 
     input_dir = update_input_data()
 
