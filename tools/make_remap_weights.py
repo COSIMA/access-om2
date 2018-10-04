@@ -175,7 +175,7 @@ def main():
     parser.add_argument('--ocean', default=None, help="""
                         Ocean grid to regrid to, can be one of:
                         MOM1, MOM01, MOM025""")
-    parser.add_argument('--method', default='conserve2nd', help="""
+    parser.add_argument('--method', default=None, help="""
                         The interpolation method to use, can be patch or conserve2nd""")
     parser.add_argument('--npes', default=1, help="""
                         The number of PEs to use.""")

@@ -39,6 +39,7 @@ class ExpTestHelper(object):
         self.yatm_exe = None
         self.mom_exe = None
         self.cice_exe = None
+        self.input_path = '/short/public/access-om2/input_rc'
 
         if not os.path.exists(self.bin_path):
             os.mkdir(self.bin_path)

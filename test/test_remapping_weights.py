@@ -6,6 +6,7 @@ import os
 import numpy as np
 import numba
 import netCDF4 as nc
+import subprocess as sp
 
 EARTH_RADIUS = 6370997.0
 
@@ -106,12 +107,9 @@ def remap(src_data, weights, dest_shape):
 
 class TestRemap():
     def test_jra55_to_01deg(self):
-        ret = sp.call(['./get_input_data.py'])
-        assert ret == 0
 
         helper = ExpTestHelper('01deg_jra55_ryf')
-
-        weights = os.path.join(helper.input_path, 'oasis_jra55_to_01deg',
+        weights = os.path.join(helper.input_path, 'yatm_01deg',
                                'rmp_jrar_to_cict_CONSERV.nc')
         src = np.random.rand(1440, 720)
         dest = remap(src, weights, (3600, 2700))
@@ -138,11 +136,12 @@ class TestCreateWeights():
         Build ESMF
         """
 
-        curdir = os.getcwd()
-        contrib_dir = os.path.join(curdir, 'tools', 'contrib')
+        helper = ExpTestHelper('01deg_jra55_ryf')
+
+        contrib_dir = os.path.join(helper.lab_path, 'tools', 'contrib')
         os.chdir(contrib_dir)
         ret = sp.call('build_esmf_on_raijin.sh')
-        os.chdir(curdir)
+        os.chdir(helper.lab_path)
 
         assert ret == 0
         assert os.path.exists(os.path.join(contrib_dir, 'bin', 'ESMF_RegridWeightGen'))
@@ -152,29 +151,35 @@ class TestCreateWeights():
         Create weights
         """
 
+        helper = ExpTestHelper('01deg_jra55_ryf')
+
         # Build ESMF_RegridWeightGen if it doesn't already exist
+        contrib_dir = os.path.join(helper.lab_path, 'tools', 'contrib')
         bpath = os.path.join(contrib_dir, 'bin', 'ESMF_RegridWeightGen')
         if not os.path.exists(bpath):
             self.test_build_esmf()
 
-        ret = sp.call(['./get_input_data.py'])
-        assert ret == 0
-
         cmd = os.path.join(os.getcwd(), 'tools', 'make_remap_weights.py')
-        input_dir = os.path.join(os.getcwd(), 'input')
         jra55_dir = '/g/data1/ua8/JRA55-do/RYF/v1-3/'
-        ret = sp.call([cmd, input_dir, jra55_dir, '--ocean', 'MOM1'])
+        core_dir = os.path.join(helper.input_path, 'yatm_1deg')
+
+        # Change to contrib bin dir to use ESMF_RegridWeightGen
+        bin_dir = os.path.join(contrib_dir, 'bin')
+        os.chdir(bin_dir)
+        ret = sp.call([cmd, helper.input_path, jra55_dir, core_dir,
+                       '--ocean', 'MOM1'])
+        os.chdir(helper.lab_path)
         assert ret == 0
 
         # Check that weights files have been created.
         ocn = ['MOM1']
         # We do not test the more expensive weight creation.
         # ocn = ['MOM1', 'MOM025', 'MOM01']
-        atm = ['JRA55', 'JRA55_runoff', 'CORE2']
+        atm = ['JRA55', 'JRA55_runoff', 'CORE2', 'Daitren_runoff']
         method = ['patch', 'conserve2nd']
 
         for o in ocn:
             for a in atm:
                 for m in method:
                     filename = '{}_{}_{}.nc'.format(a, o, m)
-                    assert os.path.exists(os.path.join('tools', filename))
+                    assert os.path.exists(os.path.join(bin_dir, filename))
