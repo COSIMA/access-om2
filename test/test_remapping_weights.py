@@ -140,7 +140,7 @@ class TestCreateWeights():
 
         contrib_dir = os.path.join(helper.lab_path, 'tools', 'contrib')
         os.chdir(contrib_dir)
-        ret = sp.call('build_esmf_on_raijin.sh')
+        ret = sp.call('./build_esmf_on_raijin.sh')
         os.chdir(helper.lab_path)
 
         assert ret == 0
