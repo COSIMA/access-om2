@@ -18,7 +18,7 @@ class ExpTestHelper(object):
     def __init__(self, exp_name, bin_path=None):
 
         self.exp_name = exp_name
-        self.res = exp_name.split('_')[0]
+        self.res = exp_name.split('deg')[0].split('_')[-1] + 'deg'
 
         self.my_path = os.path.dirname(os.path.realpath(__file__))
         self.lab_path = os.path.realpath(os.path.join(self.my_path, '../'))
