@@ -13,7 +13,7 @@ import tarfile
 import hashlib
 
 EXP_NAMES = ['1deg_jra55_ryf', '1deg_jra55_iaf', '1deg_core_nyf',
-             '025deg_jra55_ryf', '025deg_jra55_iaf',
+             '025deg_jra55_ryf', '025deg_jra55_iaf', '025deg_core2_nyf',
              '01deg_jra55_ryf', '01deg_jra55_iaf',
              'minimal_01deg_jra55_ryf', 'minimal_01deg_jra55_iaf']
 

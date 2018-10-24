@@ -37,3 +37,6 @@
 [submodule "control/minimal_01deg_jra55_iaf"]
 	path = control/minimal_01deg_jra55_iaf
 	url = https://github.com/OceansAus/minimal_01deg_jra55_iaf.git
+[submodule "control/025deg_core2_nyf"]
+	path = control/025deg_core2_nyf
+	url = https://github.com/OceansAus/025deg_core2_nyf.git
