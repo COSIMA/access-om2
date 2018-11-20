@@ -10,6 +10,7 @@ import os
 import sys
 import glob
 import time
+import yaml
 
 from util import wait_for_qsub, get_git_hash
 
@@ -83,6 +84,25 @@ class ExpTestHelper(object):
         dirs.sort()
 
         return int(dirs[-1][-3:])
+
+    def setup_for_programmatic_run(self, exes):
+        """
+        Various config.yaml settings need to be modified in order to run in the
+        test environment.
+        """
+
+        yatm_exe, cice_exe, mom_exe = exes
+
+        with open(self.payu_config) as f:
+            doc = yaml.load(f)
+
+        doc['submodels'][0]['exe'] = yatm_exe
+        doc['submodels'][1]['exe'] = mom_exe
+        doc['submodels'][2]['exe'] = cice_exe
+        doc['runlog'] = False
+
+        with open(self.payu_config, 'w') as f:
+            yaml.dump(doc, f)
 
     def do_basic_access_run(self, exp, model='cm'):
         paths = self.make_paths(exp)
@@ -165,7 +185,7 @@ class ExpTestHelper(object):
         mydir = os.getcwd()
         os.chdir(os.path.join(self.mom_src, 'exp'))
         r1 = sp.call(['./MOM_compile.csh', '--type', 'ACCESS-OM',
-                      '--platform', 'nci'])
+                      '--platform', 'nci', '--repro'])
         os.chdir(mydir)
 
         exename, r2 = self.copy_to_bin(self.mom_src,
@@ -203,9 +223,9 @@ class ExpTestHelper(object):
         else:
             return self.force_run()
 
-    def force_run(self):
+    def force_qsub_run(self):
         """
-        Always try to run.
+        Run using qsub
         """
 
         # Change to experiment directory and run.
@@ -217,7 +237,7 @@ class ExpTestHelper(object):
             os.chdir(self.my_path)
         except sp.CalledProcessError as err:
             os.chdir(self.my_path)
-            print('Error: call to payu-run failed.', file=sys.stderr)
+            print('Error: call to payu run failed.', file=sys.stderr)
             return 1, None, None, None
 
         wait_for_qsub(run_id)
@@ -264,6 +284,42 @@ class ExpTestHelper(object):
 
         return 0, stdout, stderr, output_files
 
+    def force_interactive_run(self):
+        """
+        Already in a PBS session, run interactively
+        """
+
+        # Change to experiment directory and run.
+        try:
+            os.chdir(self.exp_path)
+            sp.check_output(['payu', 'sweep', '--lab', self.lab_path])
+            sp.check_output(['payu-run', '--lab', self.lab_path])
+        except sp.CalledProcessError as err:
+            os.chdir(self.my_path)
+            print('Error: call to payu run failed.', file=sys.stderr)
+            return 1, None, None, None
+
+        return 0, None, None, None
+
+    def force_run(self):
+        """
+        Always try to run.
+        """
+
+        try:
+            dont_care = os.environ['PBS_NODEFILE']
+            is_interactive = True
+        except:
+            is_interactive = False
+
+        # Check whether this is an interactive PBS session.
+        if is_interactive:
+            ret, stdout, stderr, output_files = self.force_interactive_run()
+        else:
+            ret, stdout, stderr, output_files = self.force_qsub_run()
+
+        return ret, stdout, stderr, output_files
+
 
 def run_exp(exp_name, force=False):
     my_path = os.path.dirname(os.path.realpath(__file__))
@@ -271,6 +327,8 @@ def run_exp(exp_name, force=False):
     helper = ExpTestHelper(exp_name)
     exes, ret = helper.build()
     assert ret == 0
+    helper.setup_for_programmatic_run(exes)
+
     if force:
         ret, qso, qse, qsub_files = helper.force_run()
     else:

@@ -1,31 +1,32 @@
 
-from exp_test_helper import ExpTestHelper
+from exp_test_helper import ExpTestHelper, run_exp
 
 import pytest
-import yaml
+import f90nml
 import shutil
 import os
 import sys
 import re
 
-
 class TestBitReproducibility():
 
-    def checksums_to_list(self, filename, cpl_chksum=False):
+    def checksums_to_list(self, filename):
         """
         Look at each line an make a list of checksums
         """
 
-        if cpl_chksum:
-            regex = re.compile(r'\[chksum\]\s+.*\s+-?[0-9]+$')
-        else:
-            regex = re.compile(r'\[chksum\] Ice_ocean_boundary.*\s+-?[0-9]+$')
+        regex_a = re.compile(r'\[chksum\]\s+.*\s+-?[0-9]+$')
+        regex_b = re.compile(r'\[chksum\] Ice_ocean_boundary.*\s+-?[0-9]+$')
         l = []
         with open(filename) as f:
             for line in f:
-                m = regex.match(line)
-                if m is not None:
+                m = regex_a.match(line)
+                if m:
                     l.append(line)
+                else:
+                    m = regex_b.match(line)
+                    if m:
+                        l.append(line)
         l.sort()
 
         return l
@@ -47,58 +48,103 @@ class TestBitReproducibility():
         assert os.path.exists(stdout)
         produced = self.checksums_to_list(stdout)
 
+        if produced != expected:
+            with open('checksums-produced-test_bit_repo.txt', 'w') as f:
+                f.write('\n'.join(produced))
+            with open('checksums-expected-test_bit_repo.txt', 'w') as f:
+                f.write('\n'.join(expected))
+
+        assert len(produced) > 0
         assert len(produced) == len(expected)
         assert produced == expected
 
-    @pytest.mark.slow
+    @pytest.mark.fast
     def test_restart_repro(self):
         """
         Test that a run reproduces across restarts.
         """
 
-        # First do two short (5 day) runs.
-        exp = run_exp('1deg_jra55_ryf')
-        exp.force_run()
+        exp_orig = ExpTestHelper('1deg_jra55_iaf')
 
-        # Do a single 10 day run
-        # Start by copying experiment and modifying the experiment.
-        exp_10day = os.path.join(exp.control_path, '1deg_jra55_ryf_10day')
-        if not os.path.exists(exp_10day):
-            shutil.copytree(exp.exp_path, exp_10day, symlinks=True)
+        # First do two short (1 day) runs.
+        exp_2x1day_path = os.path.join(exp_orig.control_path, '1deg_jra55_iaf_2x1day')
+        if os.path.exists(exp_2x1day_path):
+            shutil.rmtree(exp_2x1day_path)
+        archive_path = os.path.join(exp_orig.lab_path, 'archive',
+                                    '1deg_jra55_iaf_2x1day')
+        if os.path.exists(archive_path):
+            shutil.rmtree(archive_path)
+
+        shutil.copytree(exp_orig.exp_path, exp_2x1day_path, symlinks=True)
         try:
-            os.remove(os.path.join(exp_10day, 'archive'))
+            os.remove(os.path.join(exp_2x1day_path, 'archive'))
         except OSError:
             pass
         try:
-            os.remove(os.path.join(exp_10day, 'work'))
+            os.remove(os.path.join(exp_2x1day_path, 'work'))
         except OSError:
             pass
 
-        # Change to a 10 day run.
-        config = os.path.join(exp_10day, 'config.yaml')
+        # Reconfigure to a 1 day run.
+        config = os.path.join(exp_2x1day_path, 'accessom2.nml')
         with open(config) as f:
-            doc = yaml.load(f)
+            nml = f90nml.read(f)
 
-        doc['calendar']['runtime']['days'] = 10
-        doc['jobname'] = '1deg_jra55_ryf_10day'
+        nml['date_manager_nml']['restart_period'] = [0, 0, 86400]
+        nml.write(config, force=True)
 
-        with open(config, 'w') as f:
-            yaml.dump(doc, f)
+        # Now run twice.
+        exp_2x1day = run_exp('1deg_jra55_iaf_2x1day')
+        exp_2x1day.force_run()
 
-        exp_10day = run_exp('1deg_jra55_ryf_10day')
+        # Do a single 2 day run
+        exp_2day_path = os.path.join(exp_orig.control_path, '1deg_jra55_iaf_2day')
+        if os.path.exists(exp_2day_path):
+            shutil.rmtree(exp_2day_path)
+        archive_path = os.path.join(exp_orig.lab_path, 'archive',
+                                    '1deg_jra55_iaf_2day')
+        if os.path.exists(archive_path):
+            shutil.rmtree(archive_path)
+
+        shutil.copytree(exp_orig.exp_path, exp_2day_path, symlinks=True)
+        try:
+            os.remove(os.path.join(exp_2day_path, 'archive'))
+        except OSError:
+            pass
+        try:
+            os.remove(os.path.join(exp_2day_path, 'work'))
+        except OSError:
+            pass
+
+        # Reconfigure
+        config = os.path.join(exp_2day_path, 'accessom2.nml')
+        with open(config) as f:
+            nml = f90nml.read(f)
+
+        nml['date_manager_nml']['restart_period'] = [0, 0, 172800]
+        nml.write(config, force=True)
+
+        # Now run twice.
+        exp_2day = run_exp('1deg_jra55_iaf_2day')
+        exp_2day.force_run()
 
         # Now compare the output between our two short and one long run.
-        stdout0 = os.path.join(exp.archive, 'output000', 'access-om2.out')
-        two_shrt = self.checksums_to_list(stdout0, cpl_chksum=True)
-        stdout1 = os.path.join(exp.archive, 'output001', 'access-om2.out')
-        two_shrt = two_shrt + self.checksums_to_list(stdout1, cpl_chksum=True)
-        two_shrt.sort()
+        stdout0 = os.path.join(exp_2x1day.archive, 'output000', 'access-om2.out')
+        two_shrt = self.checksums_to_list(stdout0)
+        stdout1 = os.path.join(exp_2x1day.archive, 'output001', 'access-om2.out')
+        two_shrt = two_shrt + self.checksums_to_list(stdout1)
 
-        stdout = os.path.join(exp_10day.archive, 'output000', 'access-om2.out')
+        stdout = os.path.join(exp_2day.archive, 'output000', 'access-om2.out')
         one_long = self.checksums_to_list(stdout)
-
-        assert len(two_shrt) == len(one_long)
-        assert two_shrt == one_long
+        
+        assert len(one_long) > 0
+        for line in one_long:
+            if line not in two_shrt:
+                with open('checksums-two_short-test_restart_repo.txt', 'w') as f:
+                    f.write('\n'.join(two_shrt))
+                with open('checksums-one_long-test_restart_repo.txt', 'w') as f:
+                    f.write('\n'.join(one_long))
+                assert line in two_shrt
 
         # Additionally check that the temp and salt fields of the final restart
         # are identical
