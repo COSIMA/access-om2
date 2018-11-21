@@ -30,8 +30,13 @@ class ExpTestHelper(object):
         self.control_path = os.path.join(self.lab_path, 'control')
         self.exp_path = os.path.join(self.control_path, exp_name)
         self.payu_config = os.path.join(self.exp_path, 'config.yaml')
+        self.accessom2_config = os.path.join(self.exp_path, 'accessom2.nml')
         self.archive = os.path.join(self.lab_path, 'archive', exp_name)
         self.output000 = os.path.join(self.archive, 'output000')
+        self.output001 = os.path.join(self.archive, 'output001')
+        self.accessom2_out_000 = os.path.join(self.output000, 'access-om2.out')
+        self.accessom2_out_001 = os.path.join(self.output001, 'access-om2.out')
+
         self.src = os.path.join(self.lab_path, 'src')
 
         self.libaccessom2_src = os.path.join(self.src, 'libaccessom2')
@@ -142,26 +147,33 @@ class ExpTestHelper(object):
         new_name = '{}_{}.{}'.format(eb.split('.')[0], ghash,
                                      eb.split('.')[1])
         dest = os.path.join(self.bin_path, new_name)
-        if not os.path.exists(dest):
-            shutil.copy(exe, dest)
-            shutil.chown(dest, group='v45')
-            perms = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH  | stat.S_IXUSR \
-                     | stat.S_IXGRP | stat.S_IXOTH
-            os.chmod(dest, perms)
+        if os.path.exists(dest):
+            os.remove(dest)
+
+        shutil.copy(exe, dest)
+        shutil.chown(dest, group='v45')
+        perms = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH  | stat.S_IXUSR \
+                 | stat.S_IXGRP | stat.S_IXOTH
+        os.chmod(dest, perms)
 
         return dest, 0
 
 
-    def build_libaccessom2(self):
+    def build_libaccessom2(self, clean=False):
+        """
+        Note: the 'clean' arg does nothing. 
+        """
+
         r1 = sp.call([os.path.join(self.libaccessom2_src, 'build_on_raijin.sh')])
         exename, r2 = self.copy_to_bin(self.libaccessom2_src,
                                        self.libaccessom2_src + '/build/bin/yatm.exe')
         return exename, r1 + r2
 
-    def build_cice(self):
+    def build_cice(self, clean=False):
         os.environ['ACCESS_OM_DIR'] = os.path.join(self.lab_path)
         os.environ['LIBACCESSOM2_ROOT'] = os.path.join(self.libaccessom2_src)
-        r1 = sp.call(['make', '-C', self.cice_src, 'clean'])
+        if clean:
+            r1 = sp.call(['make', '-C', self.cice_src, 'clean'])
         r1 = sp.call(['make', '-C', self.cice_src, self.res])
 
         if self.res == '025deg':
@@ -178,7 +190,11 @@ class ExpTestHelper(object):
 
         return exename, r1 + r2
 
-    def build_mom(self):
+    def build_mom(self, clean=False):
+        """
+        Note: the 'clean' arg does nothing. 
+        """
+
         os.environ['ACCESS_OM_DIR'] = os.path.join(self.lab_path)
         os.environ['LIBACCESSOM2_ROOT'] = os.path.join(self.libaccessom2_src)
 
@@ -192,19 +208,19 @@ class ExpTestHelper(object):
                                         self.mom_src + '/exec/nci/ACCESS-OM/*.x')
         return exename, r1 + r2
 
-    def build(self):
+    def build(self, clean=False):
 
-        self.yatm_exe, r1 = self.build_libaccessom2()
+        self.yatm_exe, r1 = self.build_libaccessom2(clean)
         if r1 != 0:
             print('YATM build failed for exp {}'.format(self.exp_name),
                   file=sys.stderr)
             return r1
-        self.cice_exe, r2 = self.build_cice()
+        self.cice_exe, r2 = self.build_cice(clean)
         if r2 != 0:
             print('CICE build failed for exp {}'.format(self.exp_name),
                   file=sys.stderr)
 
-        self.mom_exe, r3 = self.build_mom()
+        self.mom_exe, r3 = self.build_mom(clean)
         if r3 != 0:
             print('MOM build failed for exp {}'.format(self.exp_name),
                   file=sys.stderr)
@@ -319,6 +335,42 @@ class ExpTestHelper(object):
             ret, stdout, stderr, output_files = self.force_qsub_run()
 
         return ret, stdout, stderr, output_files
+
+
+    def build_and_run(self):
+
+        exes, ret = self.build()
+        assert ret == 0
+        self.setup_for_programmatic_run(exes)
+        self.force_run()
+
+
+def setup_exp_from_base(base_exp_name, new_exp_name):
+    """
+    Create a new exp by copying the base config
+    """
+
+    base_exp = ExpTestHelper(base_exp_name)
+
+    new_exp_path = os.path.join(base_exp.control_path, new_exp_name)
+    if os.path.exists(new_exp_path):
+        shutil.rmtree(new_exp_path)
+    shutil.copytree(base_exp.exp_path, new_exp_path, symlinks=True)
+
+    new_exp = ExpTestHelper(new_exp_name)
+    if os.path.exists(new_exp.archive):
+        shutil.rmtree(new_exp.archive)
+
+    try:
+        os.remove(os.path.join(new_exp.control_path, 'archive'))
+    except OSError:
+        pass
+    try:
+        os.remove(os.path.join(new_exp.control_path, 'work'))
+    except OSError:
+        pass
+
+    return new_exp
 
 
 def run_exp(exp_name, force=False):
