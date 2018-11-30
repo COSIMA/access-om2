@@ -9,22 +9,22 @@ class TestRun():
     Run and check return code.
     """
 
-    @pytest.mark.1deg
+    @pytest.mark.fast
     def test_1deg_jra55_ryf_run(self):
         run_exp('1deg_jra55_ryf')
 
-    @pytest.mark.1deg
+    @pytest.mark.slow
     def test_1deg_jra55_iaf_run(self):
         run_exp('1deg_jra55_iaf')
 
-    @pytest.mark.1deg
+    @pytest.mark.slow
     def test_1deg_core_run(self):
         run_exp('1deg_core_nyf')
 
-    @pytest.mark.025deg
-    def test_025deg_jra55_ryf_run(self):
+    @pytest.mark.slow
+    def test_slow_run(self):
         run_exp('025deg_jra55_ryf')
 
-    @pytest.mark.025deg
-    def test_025deg_jra55_iaf_run(self):
+    @pytest.mark.slow
+    def test_slow_run(self):
         run_exp('025deg_jra55_iaf')

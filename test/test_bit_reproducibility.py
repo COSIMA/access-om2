@@ -29,7 +29,7 @@ class TestBitReproducibility():
                         l.append(line)
         return l
 
-    @pytest.mark.1deg
+    @pytest.mark.slow
     def test_bit_repro_repeat(self):
         """
         Test that a run reproduces saved checksums.
@@ -66,7 +66,7 @@ class TestBitReproducibility():
         assert len(produced) == len(expected)
         assert produced == expected
 
-    @pytest.mark.1deg
+    @pytest.mark.slow
     def test_bit_repro_historical(self):
         """
         Test that a run reproduces saved checksums.
@@ -99,7 +99,7 @@ class TestBitReproducibility():
                     f.write('\n'.join(expected))
 
 
-    @pytest.mark.1deg
+    @pytest.mark.fast
     def test_restart_repro(self):
         """
         Test that a run reproduces across restarts.
