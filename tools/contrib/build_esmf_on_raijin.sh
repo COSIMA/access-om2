@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git archive --remote=git://git.code.sf.net/p/esmf/esmf --format=tar --prefix=esmf/ ESMF_7_1_0_beta_snapshot_38 | tar xf -
+git archive --remote=git://git.code.sf.net/p/esmf/esmf --format=tar --prefix=esmf/ ESMF_7_1_0r | tar xf -
 module load netcdf/4.4.1.1
 module load intel-fc/17.0.1.132
 mkdir -p bin
