@@ -31,6 +31,7 @@ class ExpTestHelper(object):
         self.exp_path = os.path.join(self.control_path, exp_name)
         self.payu_config = os.path.join(self.exp_path, 'config.yaml')
         self.accessom2_config = os.path.join(self.exp_path, 'accessom2.nml')
+        self.ocean_config = os.path.join(self.exp_path, 'ocean', 'input.nml')
         self.archive = os.path.join(self.lab_path, 'archive', exp_name)
         self.output000 = os.path.join(self.archive, 'output000')
         self.output001 = os.path.join(self.archive, 'output001')

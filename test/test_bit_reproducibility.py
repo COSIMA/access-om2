@@ -115,6 +115,14 @@ class TestBitReproducibility():
         nml['date_manager_nml']['restart_period'] = [0, 0, 86400]
         nml.write(exp_2x1day.accessom2_config, force=True)
 
+        # Don't use Redsea fix - this breaks reproducibility
+        # https://github.com/OceansAus/access-om2/issues/124
+        with open(exp_2x1day.ocean_config) as f:
+            nml = f90nml.read(f)
+
+        nml['auscom_ice_nml']['redsea_gulfbay_sfix'] = False
+        nml.write(exp_2x1day.ocean_config, force=True)
+
         # Now run twice.
         exp_2x1day.build_and_run()
         exp_2x1day.force_run()
@@ -127,6 +135,14 @@ class TestBitReproducibility():
 
         nml['date_manager_nml']['restart_period'] = [0, 0, 172800]
         nml.write(exp_2day.accessom2_config, force=True)
+
+        # Don't use Redsea fix - this breaks reproducibility
+        # https://github.com/OceansAus/access-om2/issues/124
+        with open(exp_2day.ocean_config) as f:
+            nml = f90nml.read(f)
+
+        nml['auscom_ice_nml']['redsea_gulfbay_sfix'] = False
+        nml.write(exp_2day.ocean_config, force=True)
 
         # Run once.
         exp_2day.build_and_run()
