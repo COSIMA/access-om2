@@ -9,7 +9,7 @@ def wait_for_qsub(run_id):
     """
 
     while True:
-        time.sleep(5)
+        time.sleep(5*60)
         try:
             qsub_out = sp.check_output(['qstat', run_id], stderr=sp.STDOUT)
         except sp.CalledProcessError as err:
