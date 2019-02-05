@@ -159,7 +159,7 @@ def main():
                         MOM1, MOM01, MOM025""")
     parser.add_argument('--method', default=None, help="""
                         The interpolation method to use, can be patch or conserve2nd""")
-    parser.add_argument('--npes', default=1, help="""
+    parser.add_argument('--npes', default=None, help="""
                         The number of PEs to use.""")
 
     args = parser.parse_args()
@@ -189,6 +189,10 @@ def main():
         args.method = method_options
     else:
         args.method = [args.method]
+
+    if args.npes is None:
+        import multiprocessing as mp
+        args.npes = mp.cpu_count() // 2
 
     grid_file_dict = find_grid_defs(args.input_dir, args.jra55_input, args.core_input)
 

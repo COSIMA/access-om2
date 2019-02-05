@@ -8,6 +8,10 @@ import argparse
 import netCDF4 as nc
 import shutil
 from scipy.ndimage.filters import uniform_filter
+from make_remap_weights import create_weights
+
+from esmgrids.mom_grid import MomGrid  # noqa
+from esmgrids.woa_grid import WoaGrid  # noqa
 
 """
 Create MOM salt_sfc_restore.nc file from WOA
@@ -103,10 +107,6 @@ def remap(src_data, weights, dest_shape):
     return dest_data
 
 
-def create_weights():
-    raise NotImplementedError
-
-
 def smooth2d(src):
 
     tmp_src = np.ndarray((src.shape[0] + 6, src.shape[1]))
@@ -126,28 +126,33 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('woa_input', help='The WOA input file.')
-    parser.add_argument('resolution', help='Resolution of the output can be 1deg, 025deg or 01deg')
+    parser.add_argument('ocean_hgrid',
+                        help='The horizontal MOM grid definition to remap to')
     parser.add_argument('old_salt_sfc_restore',
                         help='The old salt sfc restoring file. Needed for metadata.')
     parser.add_argument('output', help='salt_sfc_restore.nc file for MOM5')
     parser.add_argument('--interpolation_weights', default=None,
                         help='Interpolation weights, file if not given this will be created.')
+    parser.add_argument('--method', default='patch', help="""
+                        Interpolation method, passed to ESMF_RegridWeightGen.""")
+    parser.add_argument('--npes', default=None, help="""
+                        The number of PEs to use. Default is 1/2 of available.""")
+
 
     args = parser.parse_args()
 
-    assert args.resolution in ['1deg', '025deg', '01deg']
+    if args.npes is None:
+        import multiprocessing as mp
+        args.npes = mp.cpu_count() // 2
+
+    src_grid = WoaGrid(args.woa_input, calc_areas=False)
+    dest_grid = MomGrid.fromfile(args.ocean_hgrid, calc_areas=False)
+    dest_res = (dest_grid.num_lat_points, dest_grid.num_lon_points)
 
     if args.interpolation_weights is None:
-        weights = create_weights()
+        weights = create_weights(src_grid, dest_grid, args.npes, 'conserve')
     else:
         weights = args.interpolation_weights
-
-    if args.resolution == '1deg':
-        dest_res = (300, 360)
-    elif args.resolution == '025deg':
-        dest_res = (1080, 1440)
-    else: 
-        dest_res = (2700, 3600)
 
     with nc.Dataset(args.woa_input) as f:
         src = f.variables['so'][:]
@@ -158,10 +163,10 @@ def main():
         smooth_src = smooth2d(src[t, :, :])
         dest[t, :, :] = remap(smooth_src, weights, dest_res)
 
-        rel_err = calc_regridding_err(weights, smooth_src, dest[t, :, :])
-        print('relative error {}'.format(rel_err))
-
-        assert rel_err < 1e-14
+        if 'conserve' in args.method:
+            rel_err = calc_regridding_err(weights, smooth_src, dest[t, :, :])
+            print('relative error {}'.format(rel_err))
+            assert rel_err < 1e-14
 
     shutil.copyfile(args.old_salt_sfc_restore, args.output)
     with nc.Dataset(args.output, 'r+') as f:
