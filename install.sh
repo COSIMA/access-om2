@@ -69,8 +69,6 @@ source ${ACCESS_OM_DIR}/libcheck.sh
 echo
 echo "$(basename "$0") completed."
 echo
-echo "You will need to edit project, shortpath and possibly timestep in" 
-ls -1 ${ACCESS_OM_DIR}/control/*/config.yaml
 
-exit 0
+# exit 0
 
