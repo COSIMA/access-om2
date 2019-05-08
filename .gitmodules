@@ -3,40 +3,40 @@
     url = https://github.com/mom-ocean/MOM5.git
 [submodule "src/cice5"]
 	path = src/cice5
-	url = https://github.com/OceansAus/cice5.git
+	url = https://github.com/COSIMA/cice5.git
 [submodule "control/1deg_jra55_ryf"]
 	path = control/1deg_jra55_ryf
-	url = https://github.com/OceansAus/1deg_jra55_ryf.git
+	url = https://github.com/COSIMA/1deg_jra55_ryf.git
 [submodule "control/01deg_jra55_ryf"]
 	path = control/01deg_jra55_ryf
-	url = https://github.com/OceansAus/01deg_jra55_ryf.git
+	url = https://github.com/COSIMA/01deg_jra55_ryf.git
 [submodule "control/025deg_jra55_ryf"]
 	path = control/025deg_jra55_ryf
-	url = https://github.com/OceansAus/025deg_jra55_ryf.git
+	url = https://github.com/COSIMA/025deg_jra55_ryf.git
 [submodule "control/1deg_core_nyf"]
 	path = control/1deg_core_nyf
-	url = https://github.com/OceansAus/1deg_core_nyf.git
+	url = https://github.com/COSIMA/1deg_core_nyf.git
 [submodule "tools/esmgrids"]
 	path = tools/esmgrids
 	url = https://github.com/DoublePrecision/esmgrids.git
 [submodule "src/libaccessom2"]
 	path = src/libaccessom2
-	url = https://github.com/OceansAus/libaccessom2.git
+	url = https://github.com/COSIMA/libaccessom2.git
 [submodule "control/1deg_jra55_iaf"]
 	path = control/1deg_jra55_iaf
-	url = https://github.com/OceansAus/1deg_jra55_iaf.git
+	url = https://github.com/COSIMA/1deg_jra55_iaf.git
 [submodule "control/01deg_jra55_iaf"]
 	path = control/01deg_jra55_iaf
-	url = https://github.com/OceansAus/01deg_jra55_iaf.git
+	url = https://github.com/COSIMA/01deg_jra55_iaf.git
 [submodule "control/025deg_jra55_iaf"]
 	path = control/025deg_jra55_iaf
-	url = https://github.com/OceansAus/025deg_jra55_iaf.git
+	url = https://github.com/COSIMA/025deg_jra55_iaf.git
 [submodule "control/minimal_01deg_jra55_ryf"]
 	path = control/minimal_01deg_jra55_ryf
-	url = https://github.com/OceansAus/minimal_01deg_jra55_ryf.git
+	url = https://github.com/COSIMA/minimal_01deg_jra55_ryf.git
 [submodule "control/minimal_01deg_jra55_iaf"]
 	path = control/minimal_01deg_jra55_iaf
-	url = https://github.com/OceansAus/minimal_01deg_jra55_iaf.git
+	url = https://github.com/COSIMA/minimal_01deg_jra55_iaf.git
 [submodule "control/025deg_core2_nyf"]
 	path = control/025deg_core2_nyf
-	url = https://github.com/OceansAus/025deg_core2_nyf.git
+	url = https://github.com/COSIMA/025deg_core2_nyf.git
