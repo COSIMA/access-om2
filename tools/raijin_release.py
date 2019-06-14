@@ -6,15 +6,19 @@ import sys
 import re
 import shutil
 import stat
+import argparse
 import distutils.dir_util
 import tempfile
 from calc_input_checksum import calc_checksum
+
+my_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(my_path, '../', 'test'))
 from exp_test_helper import ExpTestHelper
 
-EXP_NAMES = ['1deg_jra55_ryf', '1deg_jra55_iaf', '1deg_core_nyf',
-             '025deg_jra55_ryf', '025deg_jra55_iaf', '025deg_core2_nyf',
-             '01deg_jra55_ryf', '01deg_jra55_iaf',
-             'minimal_01deg_jra55_ryf', 'minimal_01deg_jra55_iaf']
+EXP_NAMES = ['01deg_jra55_ryf', '01deg_jra55_iaf',
+             'minimal_01deg_jra55_ryf', 'minimal_01deg_jra55_iaf',
+             '1deg_jra55_ryf', '1deg_jra55_iaf', '1deg_core_nyf',
+             '025deg_jra55_ryf', '025deg_jra55_iaf', '025deg_core2_nyf']
 
 def update_payu_config(exp_name, res, payu_config, yatm_exe, cice_exe, mom_exe, input_dir=None):
     """
@@ -121,7 +125,7 @@ def do_raijin_release(update_input_data=False):
             print('Build failed for exp {}'.format(exp_name), file=sys.stderr)
         assert ret == 0
 
-        update_payu_config(exp.exp_name, exp.res, exp.payu_config, yatm_exe, cice_exe, mom_exe, intput_dir)
+        update_payu_config(exp.exp_name, exp.res, exp.payu_config, yatm_exe, cice_exe, mom_exe, input_dir)
 
 def main():
 

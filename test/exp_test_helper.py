@@ -139,17 +139,26 @@ class ExpTestHelper(object):
             if model == 'om':
                 assert('********** End of MATM **********' in s)
 
-    def copy_to_bin(self, src_dir, wildcard):
+    def copy_to_bin(self, src_dir, wildcard, libaccessom2_src=None):
         exes = glob.glob(wildcard)
         if len(exes) != 1:
+            print("Error: copy_to_bin can't find one {}".format(wildcard), file=sys.stderr)
             return None, 1
         exe = exes[0]
 
         ghash = get_git_hash(src_dir)
+        if libaccessom2_src:
+            libaccessom2_hash = get_git_hash(libaccessom2_src)
+        else:
+            libaccessom2_hash = None
 
         eb = os.path.basename(exe)
-        new_name = '{}_{}.{}'.format(eb.split('.')[0], ghash,
-                                     eb.split('.')[1])
+        if libaccessom2_hash:
+            new_name = '{}_{}_libaccessom2_{}.{}'.format(eb.split('.')[0], ghash,
+                                                         libaccessom2_hash, eb.split('.')[1])
+        else:
+            new_name = '{}_{}.{}'.format(eb.split('.')[0], ghash,
+                                         eb.split('.')[1])
         dest = os.path.join(self.bin_path, new_name)
         if os.path.exists(dest):
             os.remove(dest)
@@ -190,7 +199,8 @@ class ExpTestHelper(object):
             assert False
 
         build_dir_wildcard = self.cice_src + '/build_*_' + exe_res + '_*p/*.exe'
-        exename, r2 = self.copy_to_bin(self.cice_src, build_dir_wildcard)
+        exename, r2 = self.copy_to_bin(self.cice_src, build_dir_wildcard,
+                                       self.libaccessom2_src)
 
         return exename, r1 + r2
 
@@ -209,7 +219,8 @@ class ExpTestHelper(object):
         os.chdir(mydir)
 
         exename, r2 = self.copy_to_bin(self.mom_src,
-                                        self.mom_src + '/exec/nci/ACCESS-OM/*.x')
+                                       self.mom_src + '/exec/nci/ACCESS-OM/*.x',
+                                       self.libaccessom2_src)
         return exename, r1 + r2
 
     def build(self, clean=False):
