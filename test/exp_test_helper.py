@@ -48,6 +48,9 @@ class ExpTestHelper(object):
         self.cice_exe = None
         self.input_path = '/short/public/access-om2/input_rc'
 
+        self.mom_input = os.path.join(self.input_path, 'mom_' + self.res)
+        self.cice_input = os.path.join(self.input_path, 'cice_' + self.res)
+
         if not os.path.exists(self.bin_path):
             os.mkdir(self.bin_path)
 

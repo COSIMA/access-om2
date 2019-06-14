@@ -9,8 +9,7 @@ import shutil
 import stat
 import distutils.dir_util
 import tempfile
-import tarfile
-import hashlib
+from calc_input_checksum import calc_checksum
 
 EXP_NAMES = ['1deg_jra55_ryf', '1deg_jra55_iaf', '1deg_core_nyf',
              '025deg_jra55_ryf', '025deg_jra55_iaf', '025deg_core2_nyf',
@@ -64,28 +63,6 @@ def update_payu_config(exp_name, res, payu_config, input_dir, yatm_exe, cice_exe
 
     shutil.copy(tmp, payu_config)
 
-def calc_checksum(dirname):
-    """
-    Calculate the checksum of a whole directory.
-
-    This is done but tarring the directory first to make sure that file names
-    and other metadata are included in the checksum.
-    """
-
-    _, tmp = tempfile.mkstemp(suffix='.tar')
-    with tarfile.open(tmp, "w") as tar:
-        tar.add(dirname)
-
-    h = hashlib.md5()
-
-    with open(tmp, "rb") as f:
-        for chunk in iter(lambda: f.read(4096), b""):
-            h.update(chunk)
-
-    # Delete tarball now that hash has been calculated.
-    os.remove(tmp)
-
-    return h.hexdigest()[:8]
 
 def set_input_perms_recursively(path):
 

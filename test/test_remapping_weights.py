@@ -7,9 +7,9 @@ import numpy as np
 import numba
 import netCDF4 as nc
 import subprocess as sp
+import multiprocessing as mp
 
 EARTH_RADIUS = 6370997.0
-
 
 def calc_regridding_err(weights, src, dest):
     """
@@ -166,15 +166,20 @@ class TestCreateWeights():
         # Change to contrib bin dir to use ESMF_RegridWeightGen
         bin_dir = os.path.join(contrib_dir, 'bin')
         os.chdir(bin_dir)
-        ret = sp.call([cmd, helper.input_path, jra55_dir, core_dir,
-                       '--ocean', 'MOM1'])
-        os.chdir(helper.lab_path)
-        assert ret == 0
 
-        # Check that weights files have been created.
-        ocn = ['MOM1']
-        # We do not test the more expensive weight creation.
-        # ocn = ['MOM1', 'MOM025', 'MOM01']
+        # We don't always test the more expensive weight creation.
+        if (mp.cpu_count() // 2) < 8:
+            ret = sp.call([cmd, helper.input_path, jra55_dir, core_dir,
+                           '--ocean', 'MOM1'])
+            os.chdir(helper.lab_path)
+            assert ret == 0
+            ocn = ['MOM1']
+        else:
+            ret = sp.call([cmd, helper.input_path, jra55_dir, core_dir])
+            os.chdir(helper.lab_path)
+            assert ret == 0
+            ocn = ['MOM1', 'MOM025', 'MOM01']
+
         atm = ['JRA55', 'JRA55_runoff', 'CORE2', 'Daitren_runoff']
         method = ['patch', 'conserve2nd']
 
