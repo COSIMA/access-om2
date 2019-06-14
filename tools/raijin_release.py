@@ -1,7 +1,6 @@
 
 from __future__ import print_function
 
-from exp_test_helper import ExpTestHelper
 import os
 import sys
 import re
@@ -10,13 +9,14 @@ import stat
 import distutils.dir_util
 import tempfile
 from calc_input_checksum import calc_checksum
+from exp_test_helper import ExpTestHelper
 
 EXP_NAMES = ['1deg_jra55_ryf', '1deg_jra55_iaf', '1deg_core_nyf',
              '025deg_jra55_ryf', '025deg_jra55_iaf', '025deg_core2_nyf',
              '01deg_jra55_ryf', '01deg_jra55_iaf',
              'minimal_01deg_jra55_ryf', 'minimal_01deg_jra55_iaf']
 
-def update_payu_config(exp_name, res, payu_config, input_dir, yatm_exe, cice_exe, mom_exe):
+def update_payu_config(exp_name, res, payu_config, yatm_exe, cice_exe, mom_exe, input_dir=None):
     """
     Set the new input_dirs and exes in payu config.yaml
     """
@@ -31,7 +31,10 @@ def update_payu_config(exp_name, res, payu_config, input_dir, yatm_exe, cice_exe
                 cur_model = m.group(1)
 
             m_exe = re.search('^\s*exe:\s+\S+', line)
-            m_input = re.search('^\s*input:\s+\S+', line)
+            if input_dir:
+                m_input = re.search('^\s*input:\s+\S+', line)
+            else:
+                m_input = None
 
             if m_exe:
                 assert cur_model
@@ -102,17 +105,36 @@ def update_input_data():
     return input_chksum
 
 
-def test_raijin_release():
+def do_raijin_release(update_input_data=False):
 
-    input_dir = update_input_data()
+    if update_input_data:
+        input_dir = update_input_data()
+    else:
+        input_dir = None
 
     for exp_name in EXP_NAMES:
 
         # Build new exes.
         exp = ExpTestHelper(exp_name, bin_path='/short/public/access-om2/bin/')
-        exes, ret = exp.build()
+        (yatm_exe, cice_exe, mom_exe), ret = exp.build()
         if ret != 0:
             print('Build failed for exp {}'.format(exp_name), file=sys.stderr)
         assert ret == 0
 
-        update_payu_config(exp.exp_name, exp.res, exp.payu_config, input_dir, *exes)
+        update_payu_config(exp.exp_name, exp.res, exp.payu_config, yatm_exe, cice_exe, mom_exe, intput_dir)
+
+def main():
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--update_input', default=False, action='store_true',
+                        help='Update experiment input directories as well.')
+
+    args = parser.parse_args()
+
+    do_raijin_release(update_input_data=args.update_input)
+
+
+if __name__ == '__main__':
+    sys.exit(main())
+
+
