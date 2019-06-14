@@ -2,12 +2,25 @@
 
 # Copy ACCESS-OM2 executables to bin with githash in name, and config.yaml to match.
 # All changes to config.yaml are reported.
+# This is basically the same as hashexe.sh but copies to a public bin dir (using non-clobbering copy for safety).
+#
 # Andrew Kiss https://github.com/aekiss
 
 set -e
 
 if [[ -z "${ACCESS_OM_DIR}" ]]; then
     export ACCESS_OM_DIR=$(pwd)
+fi
+
+if [[ -z "${public}" ]]; then
+    public=/short/public/access-om2/bin  # if not called from update-commit-push.sh
+fi
+
+if [ -w $public ]; then
+    bindir=$public                                                           
+else
+    echo "You don't have write access to $public. Exiting."
+    exit 1
 fi
 
 yatmpath=${ACCESS_OM_DIR}/src/libaccessom2/build/bin/yatm.exe
@@ -28,10 +41,6 @@ config1iafpath=${ACCESS_OM_DIR}/control/1deg_jra55_iaf/config.yaml
 config025iafpath=${ACCESS_OM_DIR}/control/025deg_jra55_iaf/config.yaml
 config010iafpath=${ACCESS_OM_DIR}/control/01deg_jra55_iaf/config.yaml
 
-bindir=${ACCESS_OM_DIR}/bin
-
-mkdir -p ${bindir}
-
 echo "Getting executable hashes..."
 
 cd $(dirname "${yatmpath}") && yatmhash=`git rev-parse --short=7 HEAD`
@@ -47,31 +56,37 @@ echo "Copying executables to "${bindir}" with hashes added to names..."
 
 yatmbn=$(basename "${yatmpath}")
 yatmhashexe="${yatmbn%.*}"_${yatmhash}."${yatmpath##*.}"
-echo "  cp ${yatmpath} ${bindir}/${yatmhashexe}"
-        cp ${yatmpath} ${bindir}/${yatmhashexe}
+echo "  cp -n ${yatmpath} ${bindir}/${yatmhashexe}"
+        cp -n ${yatmpath} ${bindir}/${yatmhashexe}
+        chmod o+x         ${bindir}/${yatmhashexe} || true
 
 fmsbn=$(basename "${fmspath}")
 fmshashexe="${fmsbn%.*}"_${fmshash}."${fmspath##*.}"
-echo "  cp ${fmspath} ${bindir}/${fmshashexe}"
-        cp ${fmspath} ${bindir}/${fmshashexe}
+echo "  cp -n ${fmspath} ${bindir}/${fmshashexe}"
+        cp -n ${fmspath} ${bindir}/${fmshashexe}
+        chmod o+x        ${bindir}/${fmshashexe} || true
 
 cice1bn=$(basename "${cice1path}")
 cice1hashexe="${cice1bn%.*}"_${cicehash}."${cice1path##*.}"
-echo "  cp ${cice1path} ${bindir}/${cice1hashexe}"
-        cp ${cice1path} ${bindir}/${cice1hashexe}
+echo "  cp -n ${cice1path} ${bindir}/${cice1hashexe}"
+        cp -n ${cice1path} ${bindir}/${cice1hashexe}
+        chmod o+x          ${bindir}/${cice1hashexe} || true
 
 cice025bn=$(basename "${cice025path}")
 cice025hashexe="${cice025bn%.*}"_${cicehash}."${cice025path##*.}"
-echo "  cp ${cice025path} ${bindir}/${cice025hashexe}"
-        cp ${cice025path} ${bindir}/${cice025hashexe}
+echo "  cp -n ${cice025path} ${bindir}/${cice025hashexe}"
+        cp -n ${cice025path} ${bindir}/${cice025hashexe}
+        chmod o+x            ${bindir}/${cice025hashexe} || true
 
 cice010bn=$(basename "${cice010path}")
 cice010hashexe="${cice010bn%.*}"_${cicehash}."${cice010path##*.}"
-echo "  cp ${cice010path} ${bindir}/${cice010hashexe}"
-        cp ${cice010path} ${bindir}/${cice010hashexe}
+echo "  cp -n ${cice010path} ${bindir}/${cice010hashexe}"
+        cp -n ${cice010path} ${bindir}/${cice010hashexe}
+        chmod o+x            ${bindir}/${cice010hashexe} || true
 
-echo "  cp ${mppnccombinepath} ${bindir}/mppnccombine"
-		cp ${mppnccombinepath} ${bindir}/mppnccombine # no hash for mppnccombine
+echo "  cp -n ${mppnccombinepath} ${bindir}/mppnccombine"
+        cp -n ${mppnccombinepath} ${bindir}/mppnccombine # no hash for mppnccombine
+        chmod o+x                 ${bindir}/mppnccombine || true # no hash for mppnccombine
 
 
 echo "Fixing exe in "${config1ryfpath}" to match executable names..."
