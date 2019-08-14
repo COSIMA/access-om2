@@ -116,7 +116,7 @@ class TestBitReproducibility():
         nml.write(exp_2x1day.accessom2_config, force=True)
 
         # Don't use Redsea fix - this breaks reproducibility
-        # https://github.com/OceansAus/access-om2/issues/124
+        # https://github.com/COSIMA/access-om2/issues/124
         with open(exp_2x1day.ocean_config) as f:
             nml = f90nml.read(f)
 
@@ -137,7 +137,7 @@ class TestBitReproducibility():
         nml.write(exp_2day.accessom2_config, force=True)
 
         # Don't use Redsea fix - this breaks reproducibility
-        # https://github.com/OceansAus/access-om2/issues/124
+        # https://github.com/COSIMA/access-om2/issues/124
         with open(exp_2day.ocean_config) as f:
             nml = f90nml.read(f)
 
