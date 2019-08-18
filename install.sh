@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# Compile ACCESS-OM2 at 1, 1/4 and 1/10 degree resolution wth JRA-55 forcing
+# Compile ACCESS-OM2 at 1, 1/4 and 1/10 degree resolution with JRA-55-do forcing
 # Andrew Kiss https://github.com/aekiss
 
 set -e
@@ -30,17 +30,8 @@ do
 done
 
 echo "Compiling YATM file-based atmosphere and libaccessom2... "
-
-mkdir -p ${LIBACCESSOM2_ROOT}/build
-cd ${LIBACCESSOM2_ROOT}/build
-
-module purge
-module load cmake/3.6.2
-module load netcdf/4.4.1.1
-module load intel-fc/17.0.1.132
-module load openmpi/1.10.2
-cmake ../
-make
+cd ${LIBACCESSOM2_ROOT}
+source build_on_raijin.sh
 
 echo "Compiling MOM5.1..."
 cd ${ACCESS_OM_DIR}/src/mom/exp
