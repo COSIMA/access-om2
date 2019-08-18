@@ -32,7 +32,7 @@ do
     for p in "${exepaths[@]}"
     do
         echo "      $p: "
-        ldd $p | grep $l
+        ldd $p | grep $l || true
     done
 done
 
