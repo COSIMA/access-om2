@@ -17,6 +17,8 @@ The JRA55-do model configurations and performance are described in [Kiss et al. 
 
 Model output can be accessed by [NCI](http://nci.org.au) users via the [COSIMA Cookbook](https://github.com/COSIMA/cosima-cookbook).
 
-For information on downloading and running the model, see the [ACCESS-OM2 wiki](https://github.com/COSIMA/access-om2/wiki).
+For information on downloading and running the model, see the [ACCESS-OM2 wiki](https://github.com/COSIMA/access-om2/wiki). 
+
+**NOTE:** All ACCESS-OM2 model components and configurations are undergoing continual improvement. We strongly recommend that you "watch" this repo (see button at top of screen; ask to be notified of all conversations) and also watch all the [component models](https://github.com/COSIMA/access-om2/tree/master/src) and whichever [configuration(s)](https://github.com/COSIMA/access-om2/tree/master/control) you are using, to be kept informed of updates, problems and bug fixes as they arise.
 
 Requests for help and other issues associated with the model, tools or configurations can be registered as [ACCESS-OM2 issues](https://github.com/COSIMA/access-om2/issues).
