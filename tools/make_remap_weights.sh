@@ -1,7 +1,7 @@
 #!/bin/bash
 #PBS -P x77
 #PBS -q normal
-#PBS -l ncpus=256,mem=512,walltime=05:00:00,jobfs=100GB
+#PBS -l ncpus=256,mem=512GB,walltime=05:00:00,jobfs=100GB
 #PBS -l wd
 
 module load esmf/7.1.0r-intel
