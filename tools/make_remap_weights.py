@@ -158,14 +158,14 @@ def main():
                         Ocean grid to regrid to, can be one of:
                         MOM1, MOM01, MOM025""")
     parser.add_argument('--method', default=None, help="""
-                        The interpolation method to use, can be patch or conserve2nd""")
+                        The interpolation method to use, can be patch, conserve or conserve2nd""")
     parser.add_argument('--npes', default=None, help="""
                         The number of PEs to use.""")
 
     args = parser.parse_args()
     atm_options = ['JRA55', 'JRA55_runoff', 'CORE2', 'Daitren_runoff']
     ocean_options = ['MOM1', 'MOM025', 'MOM01']
-    method_options = ['patch', 'conserve2nd']
+    method_options = ['patch', 'conserve', 'conserve2nd']
 
     if args.atm is None:
         args.atm = atm_options
