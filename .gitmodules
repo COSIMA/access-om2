@@ -1,6 +1,6 @@
 [submodule "src/mom"]
 	path = src/mom
-    url = https://github.com/mom-ocean/MOM5.git
+    url = https://github.com/penguian/MOM5.git
 [submodule "src/cice5"]
 	path = src/cice5
 	url = https://github.com/COSIMA/cice5.git
