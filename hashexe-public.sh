@@ -13,7 +13,7 @@ if [[ -z "${ACCESS_OM_DIR}" ]]; then
 fi
 
 if [[ -z "${public}" ]]; then
-    public=/short/public/access-om2/bin  # if not called from update-commit-push.sh
+    public=/g/data4/ik11/inputs/access-om2/bin  # if not called from update-commit-push.sh
 fi
 
 if [ -w $public ]; then

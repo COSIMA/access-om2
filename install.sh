@@ -31,7 +31,7 @@ done
 
 echo "Compiling YATM file-based atmosphere and libaccessom2... "
 cd ${LIBACCESSOM2_ROOT}
-source ./build_on_raijin.sh
+source ./build_on_gadi.sh
 
 echo "Compiling MOM5.1..."
 cd ${ACCESS_OM_DIR}/src/mom/exp

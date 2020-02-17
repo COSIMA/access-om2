@@ -92,7 +92,7 @@ def set_input_perms_recursively(path):
 
 def update_input_data():
 
-    input_template = '/short/public/access-om2/input_{}'
+    input_template = '/g/data4/ik11/inputs/access-om2/input_{}'
     input_rc = input_template.format('rc')
 
     checksum = calc_checksum(input_rc)
@@ -119,7 +119,7 @@ def do_raijin_release(update_input_data=False):
     for exp_name in EXP_NAMES:
 
         # Build new exes.
-        exp = ExpTestHelper(exp_name, bin_path='/short/public/access-om2/bin/')
+        exp = ExpTestHelper(exp_name, bin_path='/g/data4/ik11/inputs/access-om2/bin/')
         (yatm_exe, cice_exe, mom_exe), ret = exp.build()
         if ret != 0:
             print('Build failed for exp {}'.format(exp_name), file=sys.stderr)
