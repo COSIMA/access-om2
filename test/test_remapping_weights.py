@@ -160,7 +160,7 @@ class TestCreateWeights():
             self.test_build_esmf()
 
         cmd = os.path.join(os.getcwd(), 'tools', 'make_remap_weights.py')
-        jra55_dir = '/g/data1/ua8/JRA55-do/RYF/v1-3/'
+        jra55_dir = '/g/data/ua8/JRA55-do/RYF/v1-3/'
         core_dir = os.path.join(helper.input_path, 'yatm_1deg')
 
         # Change to contrib bin dir to use ESMF_RegridWeightGen
