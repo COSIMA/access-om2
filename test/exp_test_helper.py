@@ -164,7 +164,7 @@ class ExpTestHelper(object):
             os.remove(dest)
 
         shutil.copy(exe, dest)
-        shutil.chown(dest, group='v45')
+        shutil.chown(dest, group='ik11')
         perms = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH  | stat.S_IXUSR \
                  | stat.S_IXGRP | stat.S_IXOTH
         os.chmod(dest, perms)
@@ -177,7 +177,7 @@ class ExpTestHelper(object):
         Note: the 'clean' arg does nothing. 
         """
 
-        r1 = sp.call([os.path.join(self.libaccessom2_src, 'build_on_raijin.sh')])
+        r1 = sp.call([os.path.join(self.libaccessom2_src, 'build_on_gadi.sh')])
         exename, r2 = self.copy_to_bin(self.libaccessom2_src,
                                        self.libaccessom2_src + '/build/bin/yatm.exe')
         return exename, r1 + r2

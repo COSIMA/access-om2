@@ -16,9 +16,8 @@ sys.path.append(os.path.join(my_path, '../', 'test'))
 from exp_test_helper import ExpTestHelper
 
 EXP_NAMES = ['01deg_jra55_ryf', '01deg_jra55_iaf',
-             'minimal_01deg_jra55_ryf', 'minimal_01deg_jra55_iaf',
-             '1deg_jra55_ryf', '1deg_jra55_iaf', '1deg_core_nyf',
-             '025deg_jra55_ryf', '025deg_jra55_iaf', '025deg_core2_nyf']
+             '1deg_jra55_ryf', '1deg_jra55_iaf',
+             '025deg_jra55_ryf', '025deg_jra55_iaf']
 
 def update_payu_config(exp_name, res, payu_config, yatm_exe, cice_exe, mom_exe, input_dir=None):
     """
@@ -34,6 +33,9 @@ def update_payu_config(exp_name, res, payu_config, yatm_exe, cice_exe, mom_exe, 
             if m:
                 cur_model = m.group(1)
 
+            if re.search('collate', line):
+                cur_model = 'collate'
+
             m_exe = re.search('^\s*exe:\s+\S+', line)
             if input_dir:
                 m_input = re.search('^\s*input:\s+\S+', line)
@@ -46,8 +48,10 @@ def update_payu_config(exp_name, res, payu_config, yatm_exe, cice_exe, mom_exe, 
                     print('      exe: {}'.format(yatm_exe), file=fd)
                 elif cur_model == 'ocean':
                     print('      exe: {}'.format(mom_exe), file=fd)
-                else:
+                elif cur_model == 'ice':
                     print('      exe: {}'.format(cice_exe), file=fd)
+                else:
+                    print(line, file=fd, end='')
             elif m_input:
                 assert cur_model
                 if cur_model == 'common':
@@ -62,9 +66,11 @@ def update_payu_config(exp_name, res, payu_config, yatm_exe, cice_exe, mom_exe, 
                 elif cur_model == 'ocean':
                     mom_input = os.path.join(input_dir, 'mom_{}'.format(res))
                     print('      input: {}'.format(mom_input), file=fd)
-                else:
+                elif cur_model == 'ice':
                     cice_input = os.path.join(input_dir, 'cice_{}'.format(res))
                     print('      input: {}'.format(cice_input), file=fd)
+                else:
+                    print(line, file=fd, end='')
             else:
                 print(line, file=fd, end='')
 
@@ -81,11 +87,11 @@ def set_input_perms_recursively(path):
     for root, dirs, files in os.walk(path):
         for d in dirs:
             dirname = os.path.join(root, d)
-            shutil.chown(dirname, group='v45')
+            shutil.chown(dirname, group='ik11')
             os.chmod(dirname, dirperms)
         for f in files:
             fname = os.path.join(root, f)
-            shutil.chown(fname, group='v45')
+            shutil.chown(fname, group='ik11')
             perms = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH
             os.chmod(fname, perms)
 
@@ -109,7 +115,7 @@ def update_input_data():
     return input_chksum
 
 
-def do_raijin_release(update_input_data=False):
+def do_release(update_input_data=False):
 
     if update_input_data:
         input_dir = update_input_data()
@@ -135,7 +141,7 @@ def main():
 
     args = parser.parse_args()
 
-    do_raijin_release(update_input_data=args.update_input)
+    do_release(update_input_data=args.update_input)
 
 
 if __name__ == '__main__':
