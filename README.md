@@ -5,7 +5,7 @@
 
 # ACCESS-OM2
 
-ACCESS-OM2 is a global coupled ocean - sea ice model being developed by [COSIMA](http://www.cosima.org.au). Version 1.0 of the model is described in [Kiss et al. (2019)](https://doi.org/10.5194/gmd-2019-106). 
+ACCESS-OM2 is a global coupled ocean - sea ice model being developed by [COSIMA](http://www.cosima.org.au). Version 1.0 of the model is described in [Kiss et al. (2020)](https://doi.org/10.5194/gmd-13-401-2020). 
 
 ACCESS-OM2 consists of the [MOM 5.1](https://mom-ocean.github.io) ocean model, [CICE 5.1.2](https://github.com/CICE-Consortium/CICE-svn-trunk/tree/cice-5.1.2) sea ice model, and a file-based atmosphere called [YATM](https://github.com/COSIMA/libaccessom2) coupled together using the [OASIS3-MCT v2.0](https://portal.enes.org/oasis) coupler. Regridding is done using [ESMF](https://www.earthsystemcog.org/projects/esmf/) and [KDTREE2](https://github.com/jmhodges/kdtree2). ACCESS-OM2 builds on the ACCESS-OM ([Bi et al., 2013](http://www.bom.gov.au/jshess/docs/2013/bi2_hres.pdf)) and AusCOM ([Roberts et al., 2007](https://50years.acs.org.au/content/dam/acs/50-years/journals/jrpit/JRPIT39.2.137.pdf); [Bi and Marsland, 2010](https://www.cawcr.gov.au/technical-reports/CTR_027.pdf)) models originally developed at [CSIRO](http://www.csiro.au).
 
@@ -15,7 +15,7 @@ ACCESS-OM2 is being used for a growing number of research projects. A partial li
 
 # Where to find information
 
-The v1.0 model configurations and performance are described in [Kiss et al. (2019)](https://doi.org/10.5194/gmd-2019-106), with further details in the [ACCESS-OM2 technical report](https://github.com/COSIMA/ACCESS-OM2-1-025-010deg-report).
+The v1.0 model configurations and performance are described in [Kiss et al. (2020)](https://doi.org/10.5194/gmd-13-401-2020), with further details in the [ACCESS-OM2 technical report](https://github.com/COSIMA/ACCESS-OM2-1-025-010deg-report).
 
 Model output can be accessed by [NCI](http://nci.org.au) users via the [COSIMA Cookbook](https://github.com/COSIMA/cosima-cookbook).
 
