@@ -13,9 +13,6 @@
 [submodule "control/025deg_jra55_ryf"]
 	path = control/025deg_jra55_ryf
 	url = https://github.com/COSIMA/025deg_jra55_ryf.git
-[submodule "control/1deg_core_nyf"]
-	path = control/1deg_core_nyf
-	url = https://github.com/COSIMA/1deg_core_nyf.git
 [submodule "tools/esmgrids"]
 	path = tools/esmgrids
 	url = https://github.com/DoublePrecision/esmgrids.git
@@ -31,12 +28,3 @@
 [submodule "control/025deg_jra55_iaf"]
 	path = control/025deg_jra55_iaf
 	url = https://github.com/COSIMA/025deg_jra55_iaf.git
-[submodule "control/minimal_01deg_jra55_ryf"]
-	path = control/minimal_01deg_jra55_ryf
-	url = https://github.com/COSIMA/minimal_01deg_jra55_ryf.git
-[submodule "control/minimal_01deg_jra55_iaf"]
-	path = control/minimal_01deg_jra55_iaf
-	url = https://github.com/COSIMA/minimal_01deg_jra55_iaf.git
-[submodule "control/025deg_core2_nyf"]
-	path = control/025deg_core2_nyf
-	url = https://github.com/COSIMA/025deg_core2_nyf.git
