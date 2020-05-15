@@ -5,6 +5,14 @@
 
 set -e
 
+#Type of MOM installation
+
+#export mom_type=ACCESS-OM
+export mom_type=ACCESS-OM-BGC
+
+echo "MOM5 build is of type mom_type=${mom_type}"
+sleep 1
+
 # Disable user gitconfig
 export GIT_CONFIG_NOGLOBAL=yes
 
@@ -14,7 +22,7 @@ if [[ -z "${ACCESS_OM_DIR}" ]]; then
 fi
 export LIBACCESSOM2_ROOT=$ACCESS_OM_DIR/src/libaccessom2
 
-declare -a exepaths=(${ACCESS_OM_DIR}/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x ${LIBACCESSOM2_ROOT}/build/bin/yatm.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_722p/cice_auscom_3600x2700_722p.exe ${ACCESS_OM_DIR}/src/mom/bin/mppnccombine.nci)
+declare -a exepaths=(${ACCESS_OM_DIR}/src/mom/exec/nci/${mom_type}/fms_${mom_type}.x ${LIBACCESSOM2_ROOT}/build/bin/yatm.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_722p/cice_auscom_3600x2700_722p.exe ${ACCESS_OM_DIR}/src/mom/bin/mppnccombine.nci)
 # ${ACCESS_OM_DIR}/src/matm/build_nt62/matm_nt62.exe
 # ${ACCESS_OM_DIR}/src/matm/build_jra55/matm_jra55.exe
 
@@ -31,11 +39,11 @@ done
 
 echo "Compiling YATM file-based atmosphere and libaccessom2... "
 cd ${LIBACCESSOM2_ROOT}
-source ./build_on_raijin.sh
+source ./build_on_gadi.sh
 
 echo "Compiling MOM5.1..."
 cd ${ACCESS_OM_DIR}/src/mom/exp
-./MOM_compile.csh --type ACCESS-OM --platform nci
+./MOM_compile.csh --type $mom_type --platform nci
 
 cd ${ACCESS_OM_DIR}/src/cice5
 echo "Compiling CICE5.1 at 1 degree..."

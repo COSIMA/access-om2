@@ -9,9 +9,12 @@ set -e
 if [[ -z "${ACCESS_OM_DIR}" ]]; then
     export ACCESS_OM_DIR=$(pwd)
 fi
+if [[ -z "${mom_type}" ]]; then
+    export mom_type=ACCESS-OM
+fi
 
 yatmpath=${ACCESS_OM_DIR}/src/libaccessom2/build/bin/yatm.exe
-fmspath=${ACCESS_OM_DIR}/src/mom/exec/nci/ACCESS-OM/fms_ACCESS-OM.x
+fmspath=${ACCESS_OM_DIR}/src/mom/exec/nci/${mom_type}/fms_${mom_type}.x
 cice1path=${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe
 cice025path=${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe
 cice010path=${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_722p/cice_auscom_3600x2700_722p.exe
