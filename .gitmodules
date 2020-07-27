@@ -28,3 +28,6 @@
 [submodule "control/025deg_jra55_iaf"]
 	path = control/025deg_jra55_iaf
 	url = https://github.com/COSIMA/025deg_jra55_iaf.git
+[submodule "tools/initial_conditions_access-om2"]
+	path = tools/initial_conditions_access-om2
+	url = https://github.com/COSIMA/initial_conditions_access-om2.git
