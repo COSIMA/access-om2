@@ -1,4 +1,5 @@
 
+
 | Build | Fast Run | Full Run | Repro | Tools | Release | PEP8 |
 |:-------:|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|
 | [![Build Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/build)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/build/) | [![Fast Run Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/fast_run)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/fast_run/) | [![Full Run Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/full_run)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/full_run/) | [![Repro Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/reproducibility)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/reproducibility/) | [![Tools Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/tools)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/tools/) | [![Release Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/release)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/release/) | [![PEP8](https://travis-ci.org/a-parkinson/access-om2.svg?branch=master)](https://travis-ci.org/a-parkinson/access-om2) |
@@ -24,3 +25,11 @@ For information on downloading and running the model, see the [ACCESS-OM2 wiki](
 **NOTE:** All ACCESS-OM2 model components and configurations are undergoing continual improvement. We strongly recommend that you "watch" this repo (see button at top of screen; ask to be notified of all conversations) and also watch all the [component models](https://github.com/COSIMA/access-om2/tree/master/src), whichever [configuration(s)](https://github.com/COSIMA/access-om2/tree/master/control) you are using, and  [payu](https://github.com/payu-org/payu) to be kept informed of updates, problems and bug fixes as they arise.
 
 Requests for help and other issues associated with the model, tools or configurations can be registered as [ACCESS-OM2 issues](https://github.com/COSIMA/access-om2/issues).
+
+## Conditions of use
+
+We request that users of this or other ACCESS-OM2 model code:
+1. consider citing Kiss et al. (2020) ([http://doi.org/10.5194/gmd-13-401-2020](http://doi.org/10.5194/gmd-13-401-2020))
+2. include an acknowledgement such as the following:
+*The authors thank the Consortium for Ocean-Sea Ice Modelling in Australia (COSIMA; [http://www.cosima.org.au](http://www.cosima.org.au)) for making the ACCESS-OM2 suite of models available at [https://github.com/COSIMA/access-om2](https://github.com/COSIMA/access-om2).*
+3. let us know of any publications which use these models or data so we can add them to [our list](https://scholar.google.com/citations?hl=en&user=inVqu_4AAAAJ).
