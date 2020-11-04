@@ -14,13 +14,30 @@ ACCESS-OM2 comes with a number of standard configurations in the [control](https
 
 ACCESS-OM2 is being used for a growing number of research projects. A partial list of publications using the model is given [here](https://scholar.google.com/citations?hl=en&view_op=list_works&gmla=AJsN-F5gp3-wpXzF8odo9cFy-9ajlgIeqwrOq_7DvPS1rkETzqmPk1Sfx-gAmIs9kFfRflOR3HqNV_85pJ2j4LljHks1wQtONqiuOVgii-UICb9q2fmTp_w&user=inVqu_4AAAAJ).
 
+# Downloading
+
+This respository contains many submodules, so you will need to clone it with the `--recursive` flag:
+```
+git clone --recursive https://github.com/COSIMA/access-om2.git
+```
+
+To update a previous clone of this repository to the latest version, you will need to do 
+```
+git pull
+```
+followed by
+```
+git submodule update --init --recursive
+```
+to update all the submodules.
+
 # Where to find information
 
 The v1.0 model configurations and performance are described in [Kiss et al. (2020)](https://doi.org/10.5194/gmd-13-401-2020), with further details in the [ACCESS-OM2 technical report](https://github.com/COSIMA/ACCESS-OM2-1-025-010deg-report). Be aware that the latest configurations differ from v1.0 in a number of ways - consult their git histories for details.
 
 Model output can be accessed by [NCI](http://nci.org.au) users via the [COSIMA Cookbook](https://github.com/COSIMA/cosima-cookbook).
 
-For information on downloading and running the model, see the [ACCESS-OM2 wiki](https://github.com/COSIMA/access-om2/wiki). 
+For information on downloading, building and running the model, see the [ACCESS-OM2 wiki](https://github.com/COSIMA/access-om2/wiki). 
 
 **NOTE:** All ACCESS-OM2 model components and configurations are undergoing continual improvement. We strongly recommend that you "watch" this repo (see button at top of screen; ask to be notified of all conversations) and also watch all the [component models](https://github.com/COSIMA/access-om2/tree/master/src), whichever [configuration(s)](https://github.com/COSIMA/access-om2/tree/master/control) you are using, and  [payu](https://github.com/payu-org/payu) to be kept informed of updates, problems and bug fixes as they arise.
 
