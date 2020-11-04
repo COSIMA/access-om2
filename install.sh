@@ -7,8 +7,8 @@ set -e
 
 #Type of MOM installation
 
-export mom_type=ACCESS-OM
-#export mom_type=ACCESS-OM-BGC
+#export mom_type=ACCESS-OM
+export mom_type=ACCESS-OM-BGC
 
 echo "MOM5 build is of type mom_type=${mom_type}"
 sleep 1
