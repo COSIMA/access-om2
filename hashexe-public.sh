@@ -24,7 +24,7 @@ else
 fi
 
 if [[ -z "${mom_type}" ]]; then
-    export mom_type=ACCESS-OM
+    export mom_type=ACCESS-OM-BGC
 fi
 
 yatmpath=${ACCESS_OM_DIR}/src/libaccessom2/build/bin/yatm.exe
@@ -138,12 +138,10 @@ mv ${config010iafpath}-tmp3 ${config010iafpath}
 rm ${config010iafpath}-tmp*
 
 # TODO: fix sed script to handle changes of mom_type
-if [[ ${mom_type} != ACCESS-OM ]]; then
-   echo
-   echo "WARNING: mom_type is not ACCESS-OM, so MOM exe not updated in any config.yaml file"
-   echo
-   sleep 1
-fi
+echo
+echo "WARNING: if your previous exe mom_type was not ${mom_type} it will need to be manually updated in the config.yaml file"
+echo
+sleep 1
 
 echo "$(basename $BASH_SOURCE) completed."
 
