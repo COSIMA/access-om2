@@ -11,7 +11,7 @@ if [[ -z "${LIBACCESSOM2_ROOT}" ]]; then
     export LIBACCESSOM2_ROOT=$ACCESS_OM_DIR/src/libaccessom2
 fi
 if [[ -z "${mom_type}" ]]; then
-    export mom_type=ACCESS-OM
+    export mom_type=ACCESS-OM-BGC
 fi
 
 declare -a libs=(openmpi netcdf)
