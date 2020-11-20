@@ -16,9 +16,9 @@ fi
 
 declare -a libs=(openmpi netcdf)
 
-declare -a paths=(${ACCESS_OM_DIR}/src/mom/bin/environs.nci ${ACCESS_OM_DIR}/src/cice5/bld/config.nci.auscom.360x300 ${ACCESS_OM_DIR}/src/cice5/bld/config.nci.auscom.1440x1080 ${ACCESS_OM_DIR}/src/cice5/bld/config.nci.auscom.3600x2700 ${LIBACCESSOM2_ROOT}/build_on_gadi.sh ${LIBACCESSOM2_ROOT}/oasis3-mct/util/make_dir/config.gadi)
+declare -a paths=(${ACCESS_OM_DIR}/src/mom/bin/environs.nci ${ACCESS_OM_DIR}/src/cice5/bld/config.nci.auscom.360x300 ${ACCESS_OM_DIR}/src/cice5/bld/config.nci.auscom.1440x1080 ${ACCESS_OM_DIR}/src/cice5/bld/config.nci.auscom.3600x2700 ${ACCESS_OM_DIR}/src/cice5/bld/config.nci.auscom.18x15.3600x2700 ${LIBACCESSOM2_ROOT}/build_on_gadi.sh ${LIBACCESSOM2_ROOT}/oasis3-mct/util/make_dir/config.gadi)
 
-declare -a exepaths=(${ACCESS_OM_DIR}/src/mom/exec/nci/${mom_type}/fms_${mom_type}.x ${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_722p/cice_auscom_3600x2700_722p.exe ${LIBACCESSOM2_ROOT}/build/bin/yatm.exe ${ACCESS_OM_DIR}/src/mom/bin/mppnccombine.nci)
+declare -a exepaths=(${ACCESS_OM_DIR}/src/mom/exec/nci/${mom_type}/fms_${mom_type}.x ${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_722p/cice_auscom_3600x2700_722p.exe ${ACCESS_OM_DIR}/src/cice5/build_auscom_18x15.3600x2700_1682p/cice_auscom_18x15.3600x2700_1682p.exe ${LIBACCESSOM2_ROOT}/build/bin/yatm.exe ${ACCESS_OM_DIR}/src/mom/bin/mppnccombine.nci)
 
 for l in "${libs[@]}"
 do

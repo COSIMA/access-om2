@@ -32,6 +32,7 @@ fmspath=${ACCESS_OM_DIR}/src/mom/exec/nci/${mom_type}/fms_${mom_type}.x
 cice1path=${ACCESS_OM_DIR}/src/cice5/build_auscom_360x300_24p/cice_auscom_360x300_24p.exe
 cice025path=${ACCESS_OM_DIR}/src/cice5/build_auscom_1440x1080_480p/cice_auscom_1440x1080_480p.exe
 cice010path=${ACCESS_OM_DIR}/src/cice5/build_auscom_3600x2700_722p/cice_auscom_3600x2700_722p.exe
+cice010path_18x15=${ACCESS_OM_DIR}/src/cice5/build_auscom_18x15.3600x2700_1682p/cice_auscom_18x15.3600x2700_1682p.exe
 mppnccombinepath=${ACCESS_OM_DIR}/src/mom/bin/mppnccombine.nci
 
 config1ryfpath=${ACCESS_OM_DIR}/control/1deg_jra55_ryf/config.yaml
@@ -60,34 +61,47 @@ yatmhashexe="${yatmbn%.*}"_${yatmhash}."${yatmpath##*.}"
 echo "  cp -n ${yatmpath} ${bindir}/${yatmhashexe}"
         cp -n ${yatmpath} ${bindir}/${yatmhashexe}
         chmod o+x         ${bindir}/${yatmhashexe} || true
+        chgrp ik11        ${bindir}/${yatmhashexe} || true
 
 fmsbn=$(basename "${fmspath}")
 fmshashexe="${fmsbn%.*}"_${fmshash}."${fmspath##*.}"
 echo "  cp -n ${fmspath} ${bindir}/${fmshashexe}"
         cp -n ${fmspath} ${bindir}/${fmshashexe}
         chmod o+x        ${bindir}/${fmshashexe} || true
+        chgrp ik11       ${bindir}/${fmshashexe} || true
 
 cice1bn=$(basename "${cice1path}")
 cice1hashexe="${cice1bn%.*}"_${cicehash}."${cice1path##*.}"
 echo "  cp -n ${cice1path} ${bindir}/${cice1hashexe}"
         cp -n ${cice1path} ${bindir}/${cice1hashexe}
         chmod o+x          ${bindir}/${cice1hashexe} || true
+        chgrp ik11         ${bindir}/${cice1hashexe} || true
 
 cice025bn=$(basename "${cice025path}")
 cice025hashexe="${cice025bn%.*}"_${cicehash}."${cice025path##*.}"
 echo "  cp -n ${cice025path} ${bindir}/${cice025hashexe}"
         cp -n ${cice025path} ${bindir}/${cice025hashexe}
         chmod o+x            ${bindir}/${cice025hashexe} || true
+        chgrp ik11           ${bindir}/${cice025hashexe} || true
 
 cice010bn=$(basename "${cice010path}")
 cice010hashexe="${cice010bn%.*}"_${cicehash}."${cice010path##*.}"
 echo "  cp -n ${cice010path} ${bindir}/${cice010hashexe}"
         cp -n ${cice010path} ${bindir}/${cice010hashexe}
         chmod o+x            ${bindir}/${cice010hashexe} || true
+        chgrp ik11           ${bindir}/${cice010hashexe} || true
+
+cice010bn_18x15=$(basename "${cice010path_18x15}")
+cice010hashexe_18x15="${cice010bn_18x15%.*}"_${cicehash}."${cice010path_18x15##*.}"
+echo "  cp -n ${cice010path_18x15} ${bindir}/${cice010hashexe_18x15}"
+        cp -n ${cice010path_18x15} ${bindir}/${cice010hashexe_18x15}
+        chmod o+x                  ${bindir}/${cice010hashexe_18x15} || true
+        chgrp ik11                 ${bindir}/${cice010hashexe_18x15} || true
 
 echo "  cp -n ${mppnccombinepath} ${bindir}/mppnccombine"
         cp -n ${mppnccombinepath} ${bindir}/mppnccombine # no hash for mppnccombine
         chmod o+x                 ${bindir}/mppnccombine || true # no hash for mppnccombine
+        chgrp ik11                ${bindir}/mppnccombine || true # no hash for mppnccombine
 
 echo "Fixing exe in "${config1ryfpath}" to match executable names..."
 sed "s|exe:.*${yatmbn%.*}_.*|exe: ${bindir}/${yatmhashexe}|g" < ${config1ryfpath} > ${config1ryfpath}-tmp
