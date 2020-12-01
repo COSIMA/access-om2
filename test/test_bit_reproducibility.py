@@ -86,7 +86,7 @@ class TestBitReproducibility():
         produced = self.checksums_to_list(exp_bit_repo.accessom2_out_000)
 
         # Compare expected to produced.
-        test_stdout = os.path.join(exp_bit_repo.exp_path, 'test', 'access-om2.out')
+        test_stdout = os.path.join('checksums', '1deg_jra55_iaf-access-om2.out')
         assert os.path.exists(test_stdout)
         expected = self.checksums_to_list(test_stdout)
 
