@@ -86,18 +86,21 @@ class TestBitReproducibility():
         produced = self.checksums_to_list(exp_bit_repo.accessom2_out_000)
 
         # Compare expected to produced.
-        test_stdout = os.path.join(exp_bit_repo.exp_path, 'test', 'access-om2.out')
+        test_stdout = os.path.join('checksums', '1deg_jra55_iaf-access-om2.out')
         assert os.path.exists(test_stdout)
         expected = self.checksums_to_list(test_stdout)
 
+        wrong = 0
         assert len(produced) > 0
         for line in produced:
             if line not in expected:
+                wrong = wrong + 1
                 with open('checksums-produced-test_bit_repo.txt', 'w') as f:
                     f.write('\n'.join(produced))
                 with open('checksums-expected-test_bit_repo.txt', 'w') as f:
                     f.write('\n'.join(expected))
 
+        assert wrong == 0
 
     @pytest.mark.fast
     def test_restart_repro(self):
