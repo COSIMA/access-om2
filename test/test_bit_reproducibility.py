@@ -90,14 +90,17 @@ class TestBitReproducibility():
         assert os.path.exists(test_stdout)
         expected = self.checksums_to_list(test_stdout)
 
+        wrong = 0
         assert len(produced) > 0
         for line in produced:
             if line not in expected:
+                wrong = wrong + 1
                 with open('checksums-produced-test_bit_repo.txt', 'w') as f:
                     f.write('\n'.join(produced))
                 with open('checksums-expected-test_bit_repo.txt', 'w') as f:
                     f.write('\n'.join(expected))
 
+        assert wrong == 0
 
     @pytest.mark.fast
     def test_restart_repro(self):
