@@ -28,7 +28,7 @@ This script makes all of the remapping weights for ACCESS-OM2.
 Run example:
 
 ./make_remap_weights.py /short/x77/nah599/access-om2/input/ \
-/g/data1/ua8/JRA55-do/RYF/v1-3/
+/g/data/ua8/JRA55-do/RYF/v1-3/
 """
 
 def convert_to_scrip_output(weights):
