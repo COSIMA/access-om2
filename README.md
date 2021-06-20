@@ -1,3 +1,5 @@
+<img src="https://github.com/COSIMA/logo/blob/master/png/logo_word.png" width="800"/>
+<br/> <br/>
 
 
 | Build | Fast Run | Full Run | Repro | Tools | Release | PEP8 |
@@ -35,11 +37,11 @@ to update all the submodules.
 
 The v1.0 model configurations and performance are described in [Kiss et al. (2020)](https://doi.org/10.5194/gmd-13-401-2020), with further details in the [ACCESS-OM2 technical report](https://github.com/COSIMA/ACCESS-OM2-1-025-010deg-report). Be aware that the latest configurations differ from v1.0 in a number of ways - consult their git histories for details.
 
-Model output can be accessed by [NCI](http://nci.org.au) users via the [COSIMA Cookbook](https://github.com/COSIMA/cosima-cookbook).
+Model output can be accessed by [NCI](http://nci.org.au) users via the [`cosima-cookbook`](https://github.com/COSIMA/cosima-cookbook).
 
 For information on downloading, building and running the model, see the [ACCESS-OM2 wiki](https://github.com/COSIMA/access-om2/wiki). 
 
-**NOTE:** All ACCESS-OM2 model components and configurations are undergoing continual improvement. We strongly recommend that you "watch" this repo (see button at top of screen; ask to be notified of all conversations) and also watch all the [component models](https://github.com/COSIMA/access-om2/tree/master/src), whichever [configuration(s)](https://github.com/COSIMA/access-om2/tree/master/control) you are using, and  [payu](https://github.com/payu-org/payu) to be kept informed of updates, problems and bug fixes as they arise.
+**NOTE:** All ACCESS-OM2 model components and configurations are undergoing continual improvement. We strongly recommend that you "watch" this repo (see button at top of screen; ask to be notified of all conversations) and also watch all the [component models](https://github.com/COSIMA/access-om2/tree/master/src), whichever [configuration(s)](https://github.com/COSIMA/access-om2/tree/master/control) you are using, and [`payu`](https://github.com/payu-org/payu) to be kept informed of updates, problems and bug fixes as they arise.
 
 Requests for help and other issues associated with the model, tools or configurations can be registered as [ACCESS-OM2 issues](https://github.com/COSIMA/access-om2/issues).
 
@@ -48,5 +50,6 @@ Requests for help and other issues associated with the model, tools or configura
 We request that users of this or other ACCESS-OM2 model code:
 1. consider citing Kiss et al. (2020) ([http://doi.org/10.5194/gmd-13-401-2020](http://doi.org/10.5194/gmd-13-401-2020))
 2. include an acknowledgement such as the following:
-*The authors thank the Consortium for Ocean-Sea Ice Modelling in Australia (COSIMA; [http://www.cosima.org.au](http://www.cosima.org.au)) for making the ACCESS-OM2 suite of models available at [https://github.com/COSIMA/access-om2](https://github.com/COSIMA/access-om2).*
+
+   *The authors thank the Consortium for Ocean-Sea Ice Modelling in Australia (COSIMA; [http://www.cosima.org.au](http://www.cosima.org.au)) for making the ACCESS-OM2 suite of models available at [https://github.com/COSIMA/access-om2](https://github.com/COSIMA/access-om2).*
 3. let us know of any publications which use these models or data so we can add them to [our list](https://scholar.google.com/citations?hl=en&user=inVqu_4AAAAJ).
