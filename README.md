@@ -37,7 +37,7 @@ to update all the submodules.
 
 The v1.0 model configurations and performance are described in [Kiss et al. (2020)](https://doi.org/10.5194/gmd-13-401-2020), with further details in the [ACCESS-OM2 technical report](https://github.com/COSIMA/ACCESS-OM2-1-025-010deg-report). Be aware that the latest configurations differ from v1.0 in a number of ways - consult their git histories for details.
 
-Model output can be accessed by [NCI](http://nci.org.au) users via the [`cosima-cookbook`](https://github.com/COSIMA/cosima-cookbook).
+Model output can be accessed by [NCI](http://nci.org.au) users via the [COSIMA Cookbook](https://github.com/COSIMA/cosima-cookbook).
 
 For information on downloading, building and running the model, see the [ACCESS-OM2 wiki](https://github.com/COSIMA/access-om2/wiki). 
 
