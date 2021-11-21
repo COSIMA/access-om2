@@ -37,12 +37,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r test/requirements_test.txt
 
-      - name: Install payu
-        run: pip install .
-
-      - name: Check payu installed correctly
-        run: payu list
-
       - name: Lint
         working-directory: ./test
         run: pylint pylint --disable=W,R,C *.py
