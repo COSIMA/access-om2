@@ -103,7 +103,7 @@ class ExpTestHelper(object):
         yatm_exe, cice_exe, mom_exe = exes
 
         with open(self.payu_config) as f:
-            doc = yaml.load(f)
+            doc = yaml.safe_load(f)
 
         doc['submodels'][0]['exe'] = yatm_exe
         doc['submodels'][1]['exe'] = mom_exe
