@@ -115,7 +115,7 @@ class ExpTestHelper(object):
 
     def do_basic_access_run(self, exp, model='cm'):
         paths = self.make_paths(exp)
-        ret, qso, qse, qsub_files = self.run(paths['exp'], self.lab_path)
+        ret, qso, qse, qsub_files = self.run()
         if ret != 0:
             self.print_output([qso, qse,
                                paths['stdout_runtime'],
