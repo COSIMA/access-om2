@@ -39,5 +39,5 @@ jobs:
 
       - name: Lint
         working-directory: ./test
-        run: pylint pylint --disable=W,R,C *.py
+        run: pylint --disable=W,R,C *.py
 
