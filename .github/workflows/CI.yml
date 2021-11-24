@@ -43,5 +43,5 @@ jobs:
 
       - name: Lint tools
         working-directory: ./tools
-        run: pylint --extension-pkg-whitelist=netCDF4  --errors-only --rcfile=.pylintrc *.py
+        run: pylint --extension-pkg-whitelist=netCDF4  -v --errors-only --init-hook='import sys; sys.path.extend(["esmgrids","../test"])' --rcfile=.pylintrc *.py
 
