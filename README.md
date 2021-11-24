@@ -2,9 +2,9 @@
 <br/> <br/>
 
 
-| Build | Fast Run | Full Run | Repro | Tools | Release | PEP8 |
-|:-------:|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|
-| [![Build Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/build)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/build/) | [![Fast Run Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/fast_run)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/fast_run/) | [![Full Run Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/full_run)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/full_run/) | [![Repro Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/reproducibility)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/reproducibility/) | [![Tools Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/tools)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/tools/) | [![Release Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/release)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/release/) | [![PEP8](https://travis-ci.org/a-parkinson/access-om2.svg?branch=master)](https://travis-ci.org/a-parkinson/access-om2) |
+| Build | Fast Run | Full Run | Repro | Tools | Release | 
+|:-------:|:--------:|:--------:|:--------:|:--------:|:--------:|
+| [![Build Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/build)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/build/) | [![Fast Run Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/fast_run)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/fast_run/) | [![Full Run Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/full_run)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/full_run/) | [![Repro Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/reproducibility)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/reproducibility/) | [![Tools Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/tools)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/tools/) | [![Release Status](https://accessdev.nci.org.au/jenkins/buildStatus/icon?job=ACCESS-OM2/release)](https://accessdev.nci.org.au/jenkins/job/ACCESS-OM2/job/release/) | 
 
 # ACCESS-OM2
 
