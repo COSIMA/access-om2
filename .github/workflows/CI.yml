@@ -28,6 +28,8 @@ jobs:
       # Checks-out repository code
       - name: Checkout code 
         uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
@@ -43,5 +45,5 @@ jobs:
 
       - name: Lint tools
         working-directory: ./tools
-        run: pylint --extension-pkg-whitelist=netCDF4  -v --errors-only --init-hook='import sys; sys.path.extend(["esmgrids","../test"])' --rcfile=.pylintrc *.py
+        run: pylint --extension-pkg-whitelist=netCDF4  -v --errors-only --rcfile=.pylintrc *.py
 
