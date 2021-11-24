@@ -8,3 +8,4 @@ numba
 numpy
 pyyaml
 GitPython
+scipy
