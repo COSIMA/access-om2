@@ -1,9 +1,10 @@
-pytest>=4.6; python_version>"3.6"
+pytest
 pylint
-numpy>=1.16.0
+numpy
 f90nml
 netCDF4
 nose
 numba
 numpy
 pyyaml
+git
