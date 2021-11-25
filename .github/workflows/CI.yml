@@ -1,0 +1,49 @@
+# Run CI tests
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Run the job for different versions of python
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      # Checks-out repository code
+      - name: Checkout code 
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: pip install -r test/requirements_test.txt
+
+      - name: Lint test
+        working-directory: ./test
+        run: pylint --extension-pkg-whitelist=netCDF4  --errors-only --ignore=test_coupling_fields.py,test_grids_match.py,test_valgrind.py *.py
+
+      - name: Lint tools
+        working-directory: ./tools
+        run: pylint --extension-pkg-whitelist=netCDF4  -v --errors-only --rcfile=.pylintrc *.py
+

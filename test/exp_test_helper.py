@@ -103,7 +103,7 @@ class ExpTestHelper(object):
         yatm_exe, cice_exe, mom_exe = exes
 
         with open(self.payu_config) as f:
-            doc = yaml.load(f)
+            doc = yaml.safe_load(f)
 
         doc['submodels'][0]['exe'] = yatm_exe
         doc['submodels'][1]['exe'] = mom_exe
@@ -115,7 +115,7 @@ class ExpTestHelper(object):
 
     def do_basic_access_run(self, exp, model='cm'):
         paths = self.make_paths(exp)
-        ret, qso, qse, qsub_files = self.run(paths['exp'], self.lab_path)
+        ret, qso, qse, qsub_files = self.run()
         if ret != 0:
             self.print_output([qso, qse,
                                paths['stdout_runtime'],

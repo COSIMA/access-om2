@@ -1,0 +1,11 @@
+pytest
+pylint
+numpy
+f90nml
+netCDF4
+nose
+numba
+numpy
+pyyaml
+GitPython
+scipy
