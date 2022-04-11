@@ -26,10 +26,8 @@ from esmgrids.daitren_runoff_grid import DaitrenRunoffGrid  # noqa
 """
 This script makes all of the remapping weights for ACCESS-OM2.
 
-Run example:
+See make_remap_weights.sh for run examples
 
-./make_remap_weights.py /short/x77/nah599/access-om2/input/ \
-/g/data/ua8/JRA55-do/RYF/v1-3/
 """
 
 def convert_to_scrip_output(weights):
@@ -98,11 +96,14 @@ def create_weights(src_grid, dest_grid, npes, method,
         ignore_unmapped = []
 
     try:
-        cmd = ['mpirun', '-np', str(npes), 'ESMF_RegridWeightGen'] + \
-              ['--netcdf4',
+        cmd = ['mpirun', '-np', str(npes),
+               '/g/data/ik11/inputs/access-om2/bin/ESMF_RegridWeightGen_f536c3e12d',
+               '--netcdf4',
                '-s', src_grid_scrip,
-               '-d', dest_grid_scrip, '-m', method,
-               '-w', regrid_weights] + ignore_unmapped
+               '-d', dest_grid_scrip,
+               '-m', method,
+               '-w', regrid_weights] \
+               + ignore_unmapped
         print(cmd)
         sp.check_output(cmd)
     except sp.CalledProcessError as e:
