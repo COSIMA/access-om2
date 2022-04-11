@@ -149,9 +149,9 @@ def main():
                         CORE2, JRA55, JRA55_runoff, Daitren_runoff, ERA5""")
     parser.add_argument('--ocean', default=None, help="""
                         Ocean grid to regrid to, can be one of:
-                        MOM1, MOM01, MOM025""")
+                        MOM1, MOM01, MOM025; default is all three""")
     parser.add_argument('--method', default=None, help="""
-                        The interpolation method to use, can be patch, conserve or conserve2nd""")
+                        The interpolation method to use, can be patch, conserve or conserve2nd; default is all three""")
     parser.add_argument('--npes', default=None, help="""
                         The number of PEs to use.""")
     parser.add_argument('--unmask_dest',
