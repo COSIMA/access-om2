@@ -14,13 +14,13 @@ module unload openmpi
 module load openmpi/4.0.2
 
 # Make all 1 deg weights.
-time ./make_remap_weights.py /g/data/ik11/inputs/access-om2/input_20201102 /g/data/ua8/JRA55-do/RYF/v1-3/ /g/data/ik11/inputs/access-om2/input_20201102/yatm_1deg/ --ocean MOM1 --npes 288 --atm JRA55
-time ./make_remap_weights.py /g/data/ik11/inputs/access-om2/input_20201102 /g/data/ua8/JRA55-do/RYF/v1-3/ /g/data/ik11/inputs/access-om2/input_20201102/yatm_1deg/ --ocean MOM1 --npes 288 --atm ERA5
+time ./make_remap_weights.py --accessom2_input_dir /g/data/ik11/inputs/access-om2/input_20201102 --atm_forcing_file /g/data/ua8/JRA55-do/RYF/v1-3/RYF.t_10.1990_1991.nc --ocean MOM1 --npes 288 --atm JRA55
+time ./make_remap_weights.py --accessom2_input_dir /g/data/ik11/inputs/access-om2/input_20201102 --atm_forcing_file /g/data/rt52/era5/single-levels/reanalysis/2t/1980/2t_era5_oper_sfc_19800101-19800131.nc --ocean MOM1 --npes 288 --atm ERA5
 
 # Make all 0.25 deg weights.
-time ./make_remap_weights.py /g/data/ik11/inputs/access-om2/input_20201102 /g/data/ua8/JRA55-do/RYF/v1-3/ /g/data/ik11/inputs/access-om2/input_20201102/yatm_025deg/ --ocean MOM025 --npes 288 --atm JRA55
-time ./make_remap_weights.py /g/data/ik11/inputs/access-om2/input_20201102 /g/data/ua8/JRA55-do/RYF/v1-3/ /g/data/ik11/inputs/access-om2/input_20201102/yatm_025deg/ --ocean MOM025 --npes 288 --atm ERA5
+time ./make_remap_weights.py --accessom2_input_dir /g/data/ik11/inputs/access-om2/input_20201102 --atm_forcing_file /g/data/ua8/JRA55-do/RYF/v1-3/RYF.t_10.1990_1991.nc --ocean MOM025 --npes 288 --atm JRA55
+time ./make_remap_weights.py --accessom2_input_dir /g/data/ik11/inputs/access-om2/input_20201102 --atm_forcing_file /g/data/rt52/era5/single-levels/reanalysis/2t/1980/2t_era5_oper_sfc_19800101-19800131.nc --ocean MOM025 --npes 288 --atm ERA5
 
 # Make all 0.1 deg weights.
-time ./make_remap_weights.py /g/data/ik11/inputs/access-om2/input_20201102 /g/data/ua8/JRA55-do/RYF/v1-3/ /g/data/ik11/inputs/access-om2/input_20201102/yatm_01deg/ --ocean MOM01 --npes 288 --atm JRA55
-time ./make_remap_weights.py /g/data/ik11/inputs/access-om2/input_20201102 /g/data/ua8/JRA55-do/RYF/v1-3/ /g/data/ik11/inputs/access-om2/input_20201102/yatm_01deg/ --ocean MOM01 --npes 288 --atm ERA5
+time ./make_remap_weights.py --accessom2_input_dir /g/data/ik11/inputs/access-om2/input_20201102 --atm_forcing_file /g/data/ua8/JRA55-do/RYF/v1-3/RYF.t_10.1990_1991.nc --ocean MOM01 --npes 288 --atm JRA55
+time ./make_remap_weights.py --accessom2_input_dir /g/data/ik11/inputs/access-om2/input_20201102 --atm_forcing_file /g/data/rt52/era5/single-levels/reanalysis/2t/1980/2t_era5_oper_sfc_19800101-19800131.nc --ocean MOM01 --npes 288 --atm ERA5
