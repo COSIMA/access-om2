@@ -204,7 +204,7 @@ def main():
         elif args.atm == 'ERA5':
             src_grid = Era5Grid(args.atm_forcing_file)
         else:
-            print('Unrecognised atmosphere grid: {}'.format(atm))
+            print('Unrecognised atmosphere grid: {}'.format(args.atm))
             return 1
 
         for method in args.method:
