@@ -152,7 +152,7 @@ def main():
                         Ocean grid to regrid to, can be one of:
                         MOM1, MOM01, MOM025; default is all three""")
     parser.add_argument('--method', default=None, help="""
-                        The interpolation method to use, can be patch, conserve or conserve2nd; default is all three""")
+                        The interpolation method to use, can be patch or conserve; default is both""")
     parser.add_argument('--npes', default=None, help="""
                         The number of PEs to use.""")
     parser.add_argument('--unmask_dest',
@@ -162,7 +162,8 @@ def main():
     args = parser.parse_args()
     atm_options = ['JRA55', 'JRA55_runoff', 'CORE2', 'Daitren_runoff', 'ERA5']
     ocean_options = ['MOM1', 'MOM025', 'MOM01']
-    method_options = ['patch', 'conserve', 'conserve2nd']
+#    method_options = ['patch', 'conserve', 'conserve2nd']
+    method_options = ['patch', 'conserve']
 
     if args.atm not in atm_options:
         print("Error: bad atm grid.", file=sys.stderr)
