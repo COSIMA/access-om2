@@ -3,7 +3,7 @@
 #PBS -q normal
 #PBS -l ncpus=288,mem=512GB,walltime=05:00:00,jobfs=100GB
 #PBS -l wd
-#PBS -lstorage=scratch/v45+gdata/hh5+gdata/ik11+gdata/ua8
+#PBS -lstorage=scratch/v45+gdata/hh5+gdata/ik11+gdata/ua8+gdata/rt52
 
 module purge
 module load python3-as-python
