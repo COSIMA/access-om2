@@ -11,7 +11,13 @@ if [[ -z "${ACCESS_OM_DIR}" ]]; then
 fi
 
 if [[ -z "${mom_type}" ]]; then
-    export mom_type=ACCESS-OM-BGC
+    echo "FATAL ERROR: mom_type not set. Need to do whichever of these is appropriate"
+    echo "  export mom_type=ACCESS-OM"
+    echo "or"
+    echo "  export mom_type=ACCESS-OM-BGC"
+    echo "taking into account the branches the control dirs are on:"
+    for d in control/*; do cd $d; echo $d; git status | grep "On branch"; cd -; done
+    exit 1
 fi
 
 yatmpath=${ACCESS_OM_DIR}/src/libaccessom2/build/bin/yatm.exe
