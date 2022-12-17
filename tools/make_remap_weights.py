@@ -19,16 +19,15 @@ sys.path.append(os.path.join(my_dir, './esmgrids'))
 from esmgrids.mom_grid import MomGrid  # noqa
 from esmgrids.core2_grid import Core2Grid  # noqa
 from esmgrids.jra55_grid import Jra55Grid  # noqa
+from esmgrids.era5_grid import Era5Grid  # noqa
 from esmgrids.jra55_river_grid import Jra55RiverGrid  # noqa
 from esmgrids.daitren_runoff_grid import DaitrenRunoffGrid  # noqa
 
 """
 This script makes all of the remapping weights for ACCESS-OM2.
 
-Run example:
+See make_remap_weights.sh for run examples
 
-./make_remap_weights.py /short/x77/nah599/access-om2/input/ \
-/g/data/ua8/JRA55-do/RYF/v1-3/
 """
 
 def convert_to_scrip_output(weights):
@@ -97,11 +96,14 @@ def create_weights(src_grid, dest_grid, npes, method,
         ignore_unmapped = []
 
     try:
-        cmd = ['mpirun', '-np', str(npes), 'ESMF_RegridWeightGen'] + \
-              ['--netcdf4',
+        cmd = ['mpirun', '-np', str(npes),
+               '/g/data/ik11/inputs/access-om2/bin/ESMF_RegridWeightGen_f536c3e12d',
+               '--netcdf4',
                '-s', src_grid_scrip,
-               '-d', dest_grid_scrip, '-m', method,
-               '-w', regrid_weights] + ignore_unmapped
+               '-d', dest_grid_scrip,
+               '-m', method,
+               '-w', regrid_weights] \
+               + ignore_unmapped
         print(cmd)
         sp.check_output(cmd)
     except sp.CalledProcessError as e:
@@ -121,9 +123,9 @@ def create_weights(src_grid, dest_grid, npes, method,
     return regrid_weights
 
 
-def find_grid_defs(input_dir, jra55_input, core_input):
+def find_ocean_grid_defs(input_dir):
     """
-    Return a dictionary containing the grid definition files.
+    Return a dictionary containing ocean grid definition files.
     """
 
     d = {}
@@ -133,51 +135,40 @@ def find_grid_defs(input_dir, jra55_input, core_input):
                    os.path.join(input_dir, 'mom_025deg', 'ocean_mask.nc'))
     d['MOM01'] = (os.path.join(input_dir, 'mom_01deg', 'ocean_hgrid.nc'),
                   os.path.join(input_dir, 'mom_01deg', 'ocean_mask.nc'))
-    d['CORE2'] = os.path.join(core_input, 't_10.0001.nc')
-    d['JRA55'] = os.path.join(jra55_input, 'RYF.t_10.1990_1991.nc')
-    d['JRA55_runoff'] = os.path.join(jra55_input,
-                                     'RYF.runoff_all.1990_1991.nc')
-    d['Daitren_runoff'] = os.path.join(core_input, 'runoff.daitren.clim.10FEB2011.nc')
-
     return d
 
 
 def main():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('input_dir', help="""
+    parser.add_argument('--accessom2_input_dir', required=True, help="""
                         The ACCESS-OM2 input directory.""")
-    parser.add_argument('jra55_input', help="""
-                        The JRA55 input directory.""")
-    parser.add_argument('core_input', help="""
-                        The CORE input directory.""")
-    parser.add_argument('--atm', default=None, help="""
+    parser.add_argument('--atm_forcing_file', required=True, help="""
+                        An atmospheric or runoff forcing field.""")
+    parser.add_argument('--atm', required=True, default=None, help="""
                         Atmosphere grid to regrid from, can be one of:
-                        CORE2, JRA55, JRA55_runoff, Daitren_runoff""")
+                        CORE2, JRA55, JRA55_runoff, Daitren_runoff, ERA5""")
     parser.add_argument('--ocean', default=None, help="""
                         Ocean grid to regrid to, can be one of:
-                        MOM1, MOM01, MOM025""")
+                        MOM1, MOM01, MOM025; default is all three""")
     parser.add_argument('--method', default=None, help="""
-                        The interpolation method to use, can be patch, conserve or conserve2nd""")
+                        The interpolation method to use, can be patch or conserve; default is both""")
     parser.add_argument('--npes', default=None, help="""
                         The number of PEs to use.""")
-    parser.add_argument('--unmask_dest', 
+    parser.add_argument('--unmask_dest',
                         action='store_true',
                         help='Ignore destination grid mask')
 
     args = parser.parse_args()
-    atm_options = ['JRA55', 'JRA55_runoff', 'CORE2', 'Daitren_runoff']
+    atm_options = ['JRA55', 'JRA55_runoff', 'CORE2', 'Daitren_runoff', 'ERA5']
     ocean_options = ['MOM1', 'MOM025', 'MOM01']
-    method_options = ['patch', 'conserve', 'conserve2nd']
+#    method_options = ['patch', 'conserve', 'conserve2nd']
+    method_options = ['patch', 'conserve']
 
-    if args.atm is None:
-        args.atm = atm_options
-    else:
-        if args.atm not in atm_options:
-            print("Error: bad atm grid.", file=sys.stderr)
-            parser.print_help()
-            return 1
-        args.atm = [args.atm]
+    if args.atm not in atm_options:
+        print("Error: bad atm grid.", file=sys.stderr)
+        parser.print_help()
+        return 1
 
     if args.ocean is None:
         args.ocean = ocean_options
@@ -197,37 +188,38 @@ def main():
         import multiprocessing as mp
         args.npes = mp.cpu_count() // 2
 
-    grid_file_dict = find_grid_defs(args.input_dir, args.jra55_input, args.core_input)
+    ocean_grid_file_dict = find_ocean_grid_defs(args.accessom2_input_dir)
 
     for ocean in args.ocean:
-        umask_file = grid_file_dict[ocean][1]
-        dest_grid = MomGrid.fromfile(grid_file_dict[ocean][0],
+        umask_file = ocean_grid_file_dict[ocean][1]
+        dest_grid = MomGrid.fromfile(ocean_grid_file_dict[ocean][0],
                                      mask_file=umask_file)
-        for atm in args.atm:
 
-            if atm == 'CORE2':
-                src_grid = Core2Grid(grid_file_dict[atm])
-            elif atm == 'Daitren_runoff':
-                src_grid = DaitrenRunoffGrid(grid_file_dict[atm])
-            elif atm == 'JRA55':
-                src_grid = Jra55Grid(grid_file_dict[atm])
-            elif atm == 'JRA55_runoff':
-                src_grid = Jra55RiverGrid(grid_file_dict[atm], calc_areas=False)
-            else:
-                print('Unrecognised atmosphere grid: {}'.format(atm))
+        if args.atm == 'CORE2':
+            src_grid = Core2Grid(args.atm_forcing_file)
+        elif args.atm == 'Daitren_runoff':
+            src_grid = DaitrenRunoffGrid(args.atm_forcing_file)
+        elif args.atm == 'JRA55':
+            src_grid = Jra55Grid(args.atm_forcing_file)
+        elif args.atm == 'JRA55_runoff':
+            src_grid = Jra55RiverGrid(args.atm_forcing_file, calc_areas=False)
+        elif args.atm == 'ERA5':
+            src_grid = Era5Grid(args.atm_forcing_file)
+        else:
+            print('Unrecognised atmosphere grid: {}'.format(args.atm))
+            return 1
+
+        for method in args.method:
+
+            weights = create_weights(src_grid, dest_grid, args.npes,
+                                     method, unmasked_dest=args.unmask_dest)
+            if not weights:
+                return 1
+            weights = convert_to_scrip_output(weights)
+            if not weights:
                 return 1
 
-            for method in args.method:
-
-                weights = create_weights(src_grid, dest_grid, args.npes,
-                                         method, unmasked_dest=args.unmask_dest)
-                if not weights:
-                    return 1
-                weights = convert_to_scrip_output(weights)
-                if not weights:
-                    return 1
-
-                shutil.move(weights, '{}_{}_{}.nc'.format(atm, ocean, method))
+            shutil.move(weights, '{}_{}_{}.nc'.format(args.atm, ocean, method))
 
     return 0
 
