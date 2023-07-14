@@ -2,12 +2,13 @@
 #PBS -P x77
 #PBS -q normal
 #PBS -l ncpus=256,mem=512GB,walltime=05:00:00,jobfs=100GB
+#PBS -l storage=gdata/hh5+gdata/ik11
 #PBS -l wd
 
 module purge
 module load openmpi
 module load nco
-module load esmf/7.1.0r-intel
+module load esmf/8.1.0
 module use /g/data/hh5/public/modules
 module load conda/analysis3
 

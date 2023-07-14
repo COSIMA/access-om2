@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from __future__ import print_function
 
@@ -134,7 +134,7 @@ def find_grid_defs(input_dir, jra55_input, core_input):
     d['MOM01'] = (os.path.join(input_dir, 'mom_01deg', 'ocean_hgrid.nc'),
                   os.path.join(input_dir, 'mom_01deg', 'ocean_mask.nc'))
     d['CORE2'] = os.path.join(core_input, 't_10.0001.nc')
-    d['JRA55'] = os.path.join(jra55_input, 'RYF.t_10.1990_1991.nc')
+    d['JRA55'] = os.path.join(jra55_input, 'RYF.tas.1990_1991.nc')
     d['JRA55_runoff'] = os.path.join(jra55_input,
                                      'RYF.runoff_all.1990_1991.nc')
     d['Daitren_runoff'] = os.path.join(core_input, 'runoff.daitren.clim.10FEB2011.nc')
