@@ -35,7 +35,7 @@ to update all the submodules.
 
 # Where to find information
 
-The v1.0 model configurations and performance are described in [Kiss et al. (2020)](https://doi.org/10.5194/gmd-13-401-2020), with further details in the draft [ACCESS-OM2 technical report](https://github.com/COSIMA/ACCESS-OM2-1-025-010deg-report). The current configurations differ from v1.0 in a number of ways, as described by [Solodoch et al. (2022)](https://doi.org/10.1029/2021GL097211), [Hayashida et al. (2023)](https://dx.doi.org/10.1029/2023JC019697), [Menviel et al. (2023)](https://doi.org/10.5194/egusphere-2023-390) and [Wang et al. (2023)](https://doi.org/10.5194/gmd-2023-123).
+The v1.0 model code, configurations and performance were described in [Kiss et al. (2020)](https://doi.org/10.5194/gmd-13-401-2020), with further details in the draft [ACCESS-OM2 technical report](https://github.com/COSIMA/ACCESS-OM2-1-025-010deg-report). The current code and configurations differ from v1.0 in a number of ways (biogeochemistry, updated forcing, improvements and bug fixes), as described by [Solodoch et al. (2022)](https://doi.org/10.1029/2021GL097211), [Hayashida et al. (2023)](https://dx.doi.org/10.1029/2023JC019697), [Menviel et al. (2023)](https://doi.org/10.5194/egusphere-2023-390) and [Wang et al. (2023)](https://doi.org/10.5194/gmd-2023-123).
  
 Model output can be accessed by [NCI](http://nci.org.au) users via the [COSIMA Cookbook](https://github.com/COSIMA/cosima-cookbook).
 
