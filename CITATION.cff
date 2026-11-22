@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "access-om2"
+abstract: "ACCESS-OM2 ocean model configuration for global 1/10 degree simulations"
+type: software
+version: v1.4.0
+license: BSD-3-Clause
+authors:
+  - family-names: "Kiss"
+    given-names: "Andrew"
+repository-code: "https://github.com/COSIMA/access-om2"
